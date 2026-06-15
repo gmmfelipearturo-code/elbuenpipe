@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo Mendoza - Saxofonista Profesional | GrowthLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H38BNTJ53L');
+</script>
+    <style>
+/* ─── THEME ─────────────────────────────────────────── */
+:root[data-theme="dark"]{
+  --bg-0:#08071a;--bg-1:#0d0a26;--bg-2:#160c33;
+  --glow-1:rgba(133,78,255,.45);--glow-2:rgba(78,38,168,.35);
+  --glow-3:rgba(255,120,200,.20);--glow-4:rgba(80,180,255,.18);
+  --surface:rgba(28,18,58,.55);--surface-2:rgba(40,26,80,.55);
+  --border:rgba(255,255,255,.08);--border-strong:rgba(180,120,255,.35);
+  --text:#f4f2fb;--text-soft:#cfc7e6;--text-muted:#9b94b8;
+  --accent:#b478ff;--accent-2:#7c4dff;--accent-3:#ff8fd1;
+  --accent-glow:rgba(180,120,255,.5);
+  --pill-bg:rgba(20,14,46,.6);
+  --shadow-card:0 30px 80px -30px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.04) inset;
+  /* content sections */
+  --cs-bg:#f5f1ff;--cs-bg-alt:#ece4ff;
+  --cs-text:#190d3a;--cs-text-soft:#3b2d63;--cs-text-muted:#6b5e8c;
+  --cs-border:#ddd6f0;--cs-card:#ffffff;--cs-card-border:#e2d5ff;
+  --cs-accent:#7c4dff;--cs-accent-dark:#5a30d0;
+}
+:root[data-theme="light"]{
+  --bg-0:#f5f1ff;--bg-1:#ece4ff;--bg-2:#e2d5ff;
+  --glow-1:rgba(133,78,255,.25);--glow-2:rgba(212,184,255,.35);
+  --glow-3:rgba(255,160,220,.22);--glow-4:rgba(160,210,255,.25);
+  --surface:rgba(255,255,255,.7);--surface-2:rgba(255,255,255,.55);
+  --border:rgba(20,12,55,.10);--border-strong:rgba(124,77,255,.45);
+  --text:#190d3a;--text-soft:#3b2d63;--text-muted:#6b5e8c;
+  --accent:#7c4dff;--accent-2:#a16eff;--accent-3:#e45cb5;
+  --accent-glow:rgba(124,77,255,.4);
+  --pill-bg:rgba(255,255,255,.75);
+  --shadow-card:0 30px 80px -30px rgba(80,40,160,.25),0 1px 0 rgba(255,255,255,.6) inset;
+  --cs-bg:#f5f1ff;--cs-bg-alt:#ece4ff;
+  --cs-text:#190d3a;--cs-text-soft:#3b2d63;--cs-text-muted:#6b5e8c;
+  --cs-border:#ddd6f0;--cs-card:#ffffff;--cs-card-border:#e2d5ff;
+  --cs-accent:#7c4dff;--cs-accent-dark:#5a30d0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Inter Tight',system-ui,sans-serif;color:var(--cs-text);background:var(--cs-bg);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* BG — only for hero */
+.bg-layers{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg-base{position:absolute;inset:-20%;background:radial-gradient(60% 55% at 50% 0%,var(--glow-1) 0%,transparent 60%),radial-gradient(40% 40% at 85% 30%,var(--glow-2) 0%,transparent 60%),radial-gradient(45% 45% at 15% 65%,var(--glow-2) 0%,transparent 65%),linear-gradient(180deg,var(--bg-1) 0%,var(--bg-0) 60%,var(--bg-2) 100%);filter:saturate(1.1);}
+.bg-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;opacity:.35;mix-blend-mode:overlay;}
+.scan-line{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(180,120,255,.04) 50%,transparent 100%);background-size:100% 40vh;animation:sm 12s ease-in-out infinite;mix-blend-mode:screen;}
+@keyframes sm{0%{background-position:0 -50vh}100%{background-position:0 150vh}}
+
+/* HEADER */
+.header-wrap{position:fixed;top:18px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 18px;pointer-events:none;}
+.header{pointer-events:auto;width:100%;max-width:1180px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--pill-bg);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid var(--border);border-radius:999px;box-shadow:var(--shadow-card);}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 4px 4px;flex-shrink:0}
+.brand-logo{width:38px;height:38px;border-radius:12px;object-fit:contain;padding:3px;box-shadow:0 0 24px rgba(180,120,255,.3);}
+.brand-name{font-family:'Inter Tight';font-weight:600;font-size:15px;white-space:nowrap;color:var(--text)}
+.brand-name em{font-style:normal;color:var(--accent)}
+.header-ctrls{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:auto}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:999px;background:none;border:1px solid var(--border);color:var(--text-soft);transition:.2s;}
+.icon-btn:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-1px)}
+.icon-btn svg{width:17px;height:17px}
+.back-pill{display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;font-weight:600;font-size:13px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);transition:.2s;white-space:nowrap;}
+.back-pill:hover{border-color:var(--border-strong);color:var(--accent)}
+
+/* PROFILE HERO */
+.profile-hero{background:var(--bg-0);padding:calc(80px + 60px) 0 60px;position:relative;overflow:hidden;min-height:420px}
+.container{max-width:1100px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+.profile-header{display:grid;grid-template-columns:250px 1fr;gap:3rem;align-items:start}
+.profile-photo{width:250px;height:250px;border-radius:20px;object-fit:cover;border:3px solid var(--accent);box-shadow:0 20px 60px var(--accent-glow);}
+.profile-info{color:var(--text)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;margin-bottom:16px;font-size:.9rem;font-weight:500;transition:all .3s ease;}
+.back-link:hover{transform:translateX(-5px);}
+.profile-name{font-family:'Inter Tight';font-size:3.5rem;font-weight:700;margin-bottom:.5rem;line-height:1.1;letter-spacing:-.03em;color:var(--text)}
+.profile-title{font-size:1.4rem;color:var(--accent);font-weight:600;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
+.profile-tagline{font-size:1.05rem;color:var(--text-soft);margin-bottom:2rem;line-height:1.7;}
+.profile-stats{display:flex;gap:3rem;margin-bottom:2rem}
+.stat-box{text-align:center}
+.stat-number{font-family:'Inter Tight';font-size:2.4rem;font-weight:700;color:var(--accent);display:block;line-height:1}
+.stat-label{font-size:.85rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.profile-cta{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.btn-primary{padding:14px 28px;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;font-weight:600;font-size:.95rem;border-radius:999px;transition:all .3s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 24px var(--accent-glow);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px var(--accent-glow)}
+.btn-secondary{padding:14px 28px;background:transparent;color:var(--text);font-weight:600;font-size:.95rem;border-radius:999px;border:1.5px solid var(--border-strong);transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
+.btn-secondary:hover{background:var(--surface);border-color:var(--accent)}
+
+/* CONTENT SECTIONS — keep original light/alt-light scheme */
+.content-section{padding:80px 0;background:var(--cs-bg)}
+.content-section:nth-child(even){background:var(--cs-bg-alt)}
+.section-title{font-family:'Inter Tight';font-size:2.2rem;font-weight:700;color:var(--cs-text);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;letter-spacing:-.02em}
+.section-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--cs-accent-dark),var(--cs-accent));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.section-content{font-size:1.05rem;line-height:1.8;color:var(--cs-text-soft)}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:2rem}
+.service-card{background:var(--cs-card);padding:2rem;border-radius:16px;border:2px solid var(--cs-card-border);transition:all .3s}
+.service-card:hover{border-color:var(--cs-accent);transform:translateY(-5px);box-shadow:0 10px 30px rgba(124,77,255,.15)}
+.service-card h3{font-family:'Inter Tight';font-size:1.4rem;color:var(--cs-text);margin-bottom:.5rem;font-weight:600}
+.service-price{color:var(--cs-accent-dark);font-family:'Space Grotesk',monospace;font-weight:700;font-size:1.2rem;margin-bottom:1rem;display:block}
+.service-card p{color:var(--cs-text-muted);line-height:1.6;font-size:.9rem}
+
+.timeline{position:relative;padding-left:3rem;margin-top:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cs-accent),var(--cs-accent-dark))}
+.timeline-item{position:relative;margin-bottom:2.5rem;padding-left:2rem}
+.timeline-item::before{content:'';position:absolute;left:-3.5rem;top:0;width:15px;height:15px;border-radius:50%;background:var(--cs-accent);border:3px solid var(--cs-bg);box-shadow:0 0 0 3px var(--cs-accent)}
+.timeline-year{font-family:'Space Grotesk',monospace;font-size:1rem;font-weight:700;color:var(--cs-accent);margin-bottom:.5rem}
+.timeline-title{font-family:'Inter Tight';font-size:1.25rem;font-weight:600;color:var(--cs-text);margin-bottom:.5rem}
+.timeline-description{color:var(--cs-text-muted);line-height:1.6;font-size:.9rem}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;margin-top:2rem}
+.skill-item{background:var(--cs-card);padding:1.5rem;border-radius:12px;text-align:center;border:2px solid var(--cs-card-border);transition:all .3s}
+.skill-item:hover{border-color:var(--cs-accent);transform:translateY(-3px);box-shadow:0 6px 20px rgba(124,77,255,.1)}
+.skill-icon{font-size:2rem;margin-bottom:.5rem}
+.skill-name{font-weight:600;color:var(--cs-text);font-size:.9rem}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+.gallery-item{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:all .3s}
+.gallery-item:hover{transform:scale(1.03);box-shadow:0 15px 40px rgba(124,77,255,.2)}
+.gallery-item img{width:100%;height:250px;object-fit:cover;display:block}
+
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+.testimonial-card{background:var(--cs-card);padding:2rem;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);border-left:4px solid var(--cs-accent)}
+.testimonial-quote{font-size:1rem;color:var(--cs-text-soft);line-height:1.7;margin-bottom:1.5rem;font-style:italic}
+.testimonial-author{font-weight:700;color:var(--cs-text)}
+.testimonial-role{color:var(--cs-text-muted);font-size:.88rem}
+
+/* CTA SECTION */
+.cta-section{background:var(--bg-0);padding:80px 0;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(133,78,255,.3) 0%,transparent 55%),radial-gradient(ellipse at 70% 50%,rgba(255,120,200,.2) 0%,transparent 55%);filter:blur(80px);}
+.cta-content{position:relative;z-index:1}
+.cta-section h2{font-family:'Inter Tight';font-size:2.6rem;font-weight:700;color:var(--text);margin-bottom:1rem;letter-spacing:-.02em}
+.cta-section p{font-size:1.05rem;color:var(--text-soft);margin-bottom:2rem}
+
+/* FOOTER */
+footer{padding:64px 0 32px;border-top:1px solid var(--border);background:var(--bg-0)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px}
+.foot-grid h5{font-family:'Inter Tight';font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:1.6px;color:var(--text);margin:0 0 16px}
+.foot-grid a{display:block;color:var(--text-muted);font-size:13.5px;padding:5px 0;transition:color .15s}
+.foot-grid a:hover{color:var(--accent)}
+.foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.foot-brand img{width:44px;height:44px;border-radius:12px;padding:4px}
+.foot-brand .t{font-family:'Inter Tight';font-size:18px;font-weight:500;color:var(--text)}
+.foot-note{font-size:13px;color:var(--text-muted);line-height:1.65;max-width:300px}
+.foot-bar{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--text-muted);font-size:12px}
+.foot-bar a{color:var(--text-muted);transition:color .2s}
+.foot-bar a:hover{color:var(--accent)}
+
+/* RESPONSIVE */
+@media(max-width:968px){.profile-header{grid-template-columns:1fr;text-align:center}.profile-photo{margin:0 auto 2rem}.profile-name{font-size:2.5rem}.profile-stats{justify-content:center}.profile-cta{justify-content:center}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.profile-photo{width:200px;height:200px}.profile-name{font-size:2rem}.profile-stats{flex-direction:column;gap:1.5rem}.profile-cta{flex-direction:column}.section-title{font-size:1.8rem;flex-direction:column}.foot-grid{grid-template-columns:1fr;gap:2rem}.back-pill span{display:none}}
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <header class="header">
+    <a class="brand" href="https://www.elbuenpipe.com">
+      <img class="brand-logo" src="https://i.ibb.co/1f1L99mW/lgo-003.png" alt="Elbuenpipe"/>
+      <span class="brand-name"><em>El</em>buenpipe</span>
+    </a>
+    <div class="header-ctrls">
+      <button class="icon-btn" id="themeBtn" title="Tema" aria-label="Cambiar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a class="back-pill" href="https://www.elbuenpipe.com/TalentGrowth">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span>Ver Profesionales</span>
+      </a>
+    </div>
+  </header>
+</div>
+
+<!-- PROFILE HERO -->
+<section class="profile-hero">
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-base"></div>
+    <div class="scan-line"></div>
+    <div class="bg-grid"></div>
+  </div>
+  <div class="container">
+    <div class="profile-header">
+      <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=800&h=800&fit=crop" alt="Ricardo Mendoza" class="profile-photo">
+      <div class="profile-info">
+        <a href="https://www.elbuenpipe.com/TalentGrowth" class="back-link">← Volver a Profesionales</a>
+        <h1 class="profile-name">Ricardo Mendoza</h1>
+        <p class="profile-title">🎷 Saxofonista Profesional</p>
+        <p class="profile-tagline">Música en vivo que transforma ambientes. Especializado en jazz, bossa nova y música contemporánea para eventos de alto nivel.</p>
+        <div class="profile-stats">
+          <div class="stat-box"><span class="stat-number">500+</span><span class="stat-label">Eventos</span></div>
+          <div class="stat-box"><span class="stat-number">10</span><span class="stat-label">Años Exp.</span></div>
+          <div class="stat-box"><span class="stat-number">98%</span><span class="stat-label">Satisfacción</span></div>
+        </div>
+        <div class="profile-cta">
+          <a href="https://wa.me/5215523867156?text=Hola,%20me%20interesa%20contratar%20a%20Ricardo%20Mendoza" class="btn-primary">Reservar Ahora</a>
+          <a href="#PaquetesRM" class="btn-secondary" onclick="event.preventDefault();document.getElementById('PaquetesRM').scrollIntoView({behavior:'smooth'})">Ver paquetes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="content-section">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">👋</span>Sobre Mí</h2>
+    <div class="section-content">
+      <p>Soy músico profesional con más de 10 años de experiencia creando atmósferas inolvidables en eventos de alto perfil. Mi pasión es conectar con las emociones de cada momento a través del saxofón.</p>
+      <p style="margin-top:1rem">He tenido el privilegio de tocar en más de 500 bodas, eventos corporativos, fiestas privadas y galas, siempre con el compromiso de superar las expectativas de mis clientes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section class="content-section" id="PaquetesRM">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">💼</span>Servicios &amp; Paquetes</h2>
+    <div class="services-grid">
+      <div class="service-card"><h3>Paquete Cocktail</h3><span class="service-price">$3,500 MXN</span><p>1 hora de música en vivo durante cocktail o recepción. Perfecto para crear el ambiente mientras llegan los invitados.</p></div>
+      <div class="service-card"><h3>Paquete Ceremonia + Cocktail</h3><span class="service-price">$5,500 MXN</span><p>2 horas de música: ceremonia completa + cocktail. Incluye repertorio personalizado según preferencias.</p></div>
+      <div class="service-card"><h3>Paquete Completo</h3><span class="service-price">$8,000 MXN</span><p>3 horas de música en vivo: ceremonia, cocktail y sets durante la fiesta. La experiencia completa.</p></div>
+      <div class="service-card"><h3>Evento Corporativo</h3><span class="service-price">Desde $4,500 MXN</span><p>Música de ambiente para eventos empresariales, conferencias, cenas de gala y presentaciones.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="content-section">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">🎓</span>Experiencia &amp; Formación</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-year">2015 - Presente</div><div class="timeline-title">Saxofonista Freelance</div><p class="timeline-description">Más de 500 eventos realizados incluyendo bodas de alto perfil, eventos corporativos de empresas Fortune 500, y galas benéficas.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2018 - 2022</div><div class="timeline-title">Banda Jazz Ensemble "Blue Notes"</div><p class="timeline-description">Saxofonista principal en banda especializada en jazz y bossa nova para eventos premium.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2012 - 2015</div><div class="timeline-title">Conservatorio Nacional de Música</div><p class="timeline-description">Licenciatura en Música con especialización en saxofón y teoría del jazz contemporáneo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section class="content-section">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">⭐</span>Especialidades</h2>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-icon">🎵</div><div class="skill-name">Jazz Clásico</div></div>
+      <div class="skill-item"><div class="skill-icon">🎶</div><div class="skill-name">Bossa Nova</div></div>
+      <div class="skill-item"><div class="skill-icon">🎼</div><div class="skill-name">Smooth Jazz</div></div>
+      <div class="skill-item"><div class="skill-icon">🎸</div><div class="skill-name">Pop Instrumental</div></div>
+      <div class="skill-item"><div class="skill-icon">🎹</div><div class="skill-name">Música Clásica</div></div>
+      <div class="skill-item"><div class="skill-icon">🌟</div><div class="skill-name">Improvisación</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAFOLIO -->
+<section class="content-section">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">📸</span>Portafolio</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=600&h=400&fit=crop" alt="Evento 1"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&h=400&fit=crop" alt="Evento 2"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop" alt="Evento 3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="content-section">
+  <div class="container">
+    <h2 class="section-title"><span class="section-icon">💬</span>Lo Que Dicen Mis Clientes</h2>
+    <div class="testimonials">
+      <div class="testimonial-card"><p class="testimonial-quote">"Ricardo fue el toque perfecto para nuestra boda. Su música durante el cocktail creó exactamente la atmósfera elegante que queríamos. ¡Todos los invitados nos preguntaron por él!"</p><div class="testimonial-author">María &amp; Carlos González</div><div class="testimonial-role">Boda - Hacienda Los Cedros</div></div>
+      <div class="testimonial-card"><p class="testimonial-quote">"Contratamos a Ricardo para nuestro evento corporativo y fue increíble. Profesional, puntual y su música elevó completamente el nivel del evento. Definitivamente lo volveremos a contratar."</p><div class="testimonial-author">Laura Martínez</div><div class="testimonial-role">Directora de Marketing - TechCorp</div></div>
+      <div class="testimonial-card"><p class="testimonial-quote">"Un verdadero artista. Ricardo no solo toca hermoso, sino que también sabe leer el ambiente y adaptar su repertorio. Hizo de nuestra celebración algo verdaderamente especial."</p><div class="testimonial-author">Roberto Sánchez</div><div class="testimonial-role">Aniversario de Bodas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>¿Listo para elevar tu evento?</h2>
+      <p>Contáctame para discutir cómo puedo hacer de tu evento una experiencia musical inolvidable.</p>
+      <a href="https://wa.me/5215523867156?text=Hola%20Ricardo,%20me%20interesa%20contratar%20tus%20servicios%20para%20mi%20evento" class="btn-primary">Reservar Ahora por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="https://i.ibb.co/1f1L99mW/lgo-003.png" alt="GrowthTalent"/><span class="t">GrowthTalent</span></div>
+        <p class="foot-note">Talento profesional para eventos extraordinarios. Parte de la red GrowthsLab y JD Producción.</p>
+      </div>
+      <div>
+        <h5>Talento</h5>
+        <a href="https://www.elbuenpipe.com/talentgrowth">Ver todos los socios</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth">Músicos</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth">Fotógrafos</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth">Filmmakers</a>
+      </div>
+      <div>
+        <h5>Negocios</h5>
+        <a href="https://www.elbuenpipe.com/growhtlab/diagnostic-pro">Diagnóstico Digital</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/sales-system">Sistema de Ventas</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/escala-pro">Escalamiento</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/pro-visual">Producción Visual</a>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <a href="https://wa.me/5215523867156?text=Hola%20Felipe,%20me%20interesa%20contratar%20a%20Ricardo%20Mendoza">Reservar a Ricardo</a>
+        <a href="https://wa.me/5215523867156">WhatsApp</a>
+        <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Email</a>
+        <a href="https://www.instagram.com/elbuenpipe/">Instagram</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <div>© <span id="year"></span> Elbuenpipe | GrowthsLab | <a href="https://www.elbuenpipe.com/ceo">JD Producción Felipe Arturo</a></div>
+      <div>Todos los derechos reservados · <a href="https://www.elbuenpipe.com/growhtlab/arco">Aviso de Privacidad</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const root=document.documentElement,themeBtn=document.getElementById('themeBtn'),themeIcon=document.getElementById('themeIcon');
+function setTheme(t){root.setAttribute('data-theme',t);themeIcon.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';try{localStorage.setItem('elp-theme',t)}catch(e){}}
+setTheme(localStorage.getItem('elp-theme')||'dark');
+themeBtn.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark'));
+</script>
+</body>
+</html>

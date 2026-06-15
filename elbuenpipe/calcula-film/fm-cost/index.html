@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GrowthsLab · Filmmaker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H38BNTJ53L');
+</script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+  input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+  input[type=number]{-moz-appearance:textfield}
+  @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes orb1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-40px) scale(1.12)}66%{transform:translate(-30px,30px) scale(0.93)}}
+  @keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-70px,40px) scale(1.08)}66%{transform:translate(40px,-50px) scale(1.15)}}
+  @keyframes orb3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-60px) scale(1.2)}}
+  @keyframes titleFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(236,72,153,.4)}50%{box-shadow:0 0 0 8px rgba(236,72,153,0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── PUERTA DE ACCESO ── */
+  @keyframes gateIn{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  @keyframes codeGlow{0%,100%{box-shadow:0 0 0 0 rgba(236,72,153,.3)}50%{box-shadow:0 0 0 6px rgba(236,72,153,0)}}
+  @keyframes spinnerRot{to{transform:rotate(360deg)}}
+  @keyframes dotPulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+
+  #gate{
+    position:fixed;inset:0;z-index:9999;
+    background:linear-gradient(135deg,#0b0d1a,#14103a,#1a0b2e,#0d1b3e,#0b0d1a);
+    background-size:400% 400%;animation:bgShift 14s ease infinite;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:20px;overflow:hidden;
+  }
+  #gate .orb{position:absolute;border-radius:50%;pointer-events:none}
+  #gate .g-orb1{top:-10%;left:-8%;width:min(55vw,460px);height:min(55vw,460px);background:radial-gradient(circle,rgba(236,72,153,.28) 0%,rgba(168,85,247,.12) 45%,transparent 70%);animation:orb1 13s ease-in-out infinite}
+  #gate .g-orb2{bottom:-12%;right:-8%;width:min(60vw,520px);height:min(60vw,520px);background:radial-gradient(circle,rgba(99,102,241,.25) 0%,rgba(139,92,246,.12) 45%,transparent 70%);animation:orb2 16s ease-in-out infinite}
+
+  .gate-card{
+    background:rgba(255,255,255,.97);
+    border-radius:24px;
+    box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+    max-width:420px;width:100%;overflow:hidden;
+    animation:gateIn .5s cubic-bezier(.22,1,.36,1) both;
+  }
+  .gate-head{
+    background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 55%,#9333EA 100%);
+    padding:26px 24px 20px;text-align:center;
+  }
+  .gate-head .lock-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;margin:0 auto 14px;
+    animation:codeGlow 2.5s ease-in-out infinite;
+  }
+  .gate-head h2{color:#fff;font-size:19px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+  .gate-head p{color:rgba(199,191,255,.85);font-size:13px;line-height:1.5}
+  .gate-body{padding:22px 22px 18px}
+  .gate-field{margin-bottom:14px}
+  .gate-field label{display:block;font-size:12px;font-weight:700;color:#374151;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+  .gate-input-wrap{display:flex;align-items:center;border:1.5px solid #D1D5DB;border-radius:10px;overflow:hidden;transition:all .2s}
+  .gate-input-wrap:focus-within{border-color:#818CF8;box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+  .gate-input-wrap.error{border-color:#EF4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.12)!important;animation:shake .35s ease}
+  .gate-input-wrap .g-pre{padding:9px 13px;background:#F3F4F6;color:#6B7280;font-size:13px;border-right:1.5px solid #D1D5DB;white-space:nowrap;flex-shrink:0}
+  .gate-input-wrap input{flex:1;padding:9px 13px;font-size:14px;outline:none;border:none;background:#fff;min-width:0}
+  .gate-input-wrap input.code-input{font-size:18px;font-weight:800;letter-spacing:.18em;text-align:center;color:#4338CA}
+  .gate-err{font-size:11px;color:#EF4444;margin-top:4px;min-height:16px;transition:opacity .2s}
+  .gate-notice{font-size:12px;border-radius:8px;padding:9px 12px;margin-bottom:14px;line-height:1.5;color:#5B21B6;background:#F5F3FF;border:1px solid #DDD6FE}
+
+  .btn-gate{
+    width:100%;padding:13px 0;border-radius:12px;border:none;
+    background:linear-gradient(135deg,#4F46E5,#7C3AED);
+    color:#fff;font-weight:800;font-size:14px;letter-spacing:.04em;
+    cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;
+    margin-top:4px;
+  }
+  .btn-gate:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 8px 24px rgba(99,102,241,.45)}
+  .btn-gate:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-gate .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spinnerRot .7s linear infinite;display:none}
+  .btn-gate.loading .spinner{display:block}
+  .btn-gate.loading .btn-text{opacity:.6}
+
+  .gate-divider{display:flex;align-items:center;gap:10px;margin:14px 0}
+  .gate-divider span{flex:1;height:1px;background:#E5E7EB}
+  .gate-divider p{font-size:11px;color:#9CA3AF;white-space:nowrap}
+
+  .gate-footer{padding:0 22px 18px;text-align:center}
+  .gate-footer a{font-size:12px;color:#6366F1;text-decoration:none;font-weight:600}
+  .gate-footer a:hover{text-decoration:underline}
+
+  .access-dots{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0 0}
+  .access-dots span{width:7px;height:7px;border-radius:50%;background:#A5B4FC}
+  .access-dots span:nth-child(2){animation:dotPulse 1.4s ease .2s infinite}
+  .access-dots span:nth-child(3){animation:dotPulse 1.4s ease .4s infinite}
+  .access-dots span:nth-child(1){animation:dotPulse 1.4s ease 0s infinite}
+
+  /* ── fade out puerta ── */
+  @keyframes gateOut{to{opacity:0;transform:scale(1.04)}}
+  #gate.closing{animation:gateOut .4s ease forwards;pointer-events:none}
+
+  /* ── APP (oculta hasta que pasa la puerta) ── */
+  #app{min-height:100vh;background:linear-gradient(135deg,#0b0d1a,#14103a,#1a0b2e,#0d1b3e,#0b0d1a);background-size:400% 400%;animation:bgShift 14s ease infinite;position:relative;overflow:hidden;padding:36px 16px 60px;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none;transition:opacity .4s ease .1s}
+  #app.visible{opacity:1;pointer-events:auto}
+
+  .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+  .orb1{top:-8%;left:-6%;width:min(55vw,480px);height:min(55vw,480px);background:radial-gradient(circle,rgba(236,72,153,.32) 0%,rgba(168,85,247,.16) 45%,transparent 70%);animation:orb1 13s ease-in-out infinite}
+  .orb2{bottom:-12%;right:-8%;width:min(65vw,560px);height:min(65vw,560px);background:radial-gradient(circle,rgba(99,102,241,.3) 0%,rgba(139,92,246,.15) 45%,transparent 70%);animation:orb2 16s ease-in-out infinite}
+  .orb3{top:38%;left:42%;width:min(40vw,360px);height:min(40vw,360px);background:radial-gradient(circle,rgba(6,182,212,.18) 0%,rgba(59,130,246,.08) 50%,transparent 70%);animation:orb3 20s ease-in-out infinite}
+  .orb4{top:8%;right:8%;width:min(30vw,280px);height:min(30vw,280px);background:radial-gradient(circle,rgba(251,146,60,.2) 0%,rgba(234,88,12,.08) 50%,transparent 70%);animation:orb1 22s ease-in-out infinite reverse}
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .hero{position:relative;z-index:2;text-align:center;max-width:560px;width:100%;margin-bottom:28px;animation:fadeUp .5s ease both}
+  .badge{display:inline-flex;align-items:center;gap:6px;border:1.5px solid rgba(236,72,153,.5);border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.08em;color:#f9a8d4;background:rgba(236,72,153,.08);margin-bottom:20px;animation:badgePulse 2.5s ease-in-out infinite}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:#ec4899;display:inline-block}
+  .hero-title{font-size:clamp(28px,6vw,52px);font-weight:900;line-height:1.1;color:#fff;letter-spacing:-1px;margin-bottom:14px}
+  .hero-title .accent{background:linear-gradient(90deg,#f472b6,#ec4899,#c084fc,#818cf8,#f472b6);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleFlow 3.5s ease infinite}
+  .hero-sub{font-size:clamp(12px,2vw,15px);color:rgba(199,210,254,.65);max-width:440px;margin:0 auto 16px;line-height:1.6}
+  .brand-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px}
+  .brand-chip{font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 12px;border-radius:99px}
+  .chip-gl{background:rgba(129,140,248,.15);color:#a5b4fc;border:1px solid rgba(129,140,248,.3)}
+  .chip-ep{background:rgba(236,72,153,.12);color:#f9a8d4;border:1px solid rgba(236,72,153,.3);text-decoration:none;cursor:pointer;transition:all .2s}
+  .chip-ep:hover{background:rgba(236,72,153,.28);border-color:rgba(236,72,153,.7);transform:translateY(-1px);box-shadow:0 4px 14px rgba(236,72,153,.3)}
+  .sep{color:rgba(255,255,255,.2);font-size:14px}
+  .site-footer{position:relative;z-index:2;text-align:center;margin-top:32px;padding:16px 20px;color:rgba(199,210,254,.32);font-size:11px;line-height:2;letter-spacing:.02em}
+  .site-footer strong{color:rgba(199,210,254,.52);font-weight:600}
+  .guide-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:9px 22px;border-radius:99px;border:1.5px solid rgba(129,140,248,.45);background:rgba(99,102,241,.12);color:#a5b4fc;font-size:12px;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:all .25s;backdrop-filter:blur(4px)}
+  .guide-btn:hover{background:rgba(99,102,241,.25);border-color:rgba(129,140,248,.7);color:#c7d2fe;transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.3)}
+  .progress{display:flex;gap:6px;max-width:560px;width:100%;margin-bottom:20px;position:relative;z-index:2}
+  .prog-bar{flex:1;height:4px;border-radius:99px;transition:all .3s;background:rgba(255,255,255,.12)}
+  .prog-bar.done{background:linear-gradient(90deg,#ec4899,#818cf8)}
+  .card{background:rgba(255,255,255,.97);border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);overflow:hidden;max-width:560px;width:100%;position:relative;z-index:2;animation:fadeUp .4s ease both .1s}
+  .card-head{background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 55%,#9333EA 100%);padding:18px 24px}
+  .card-head h2{color:#fff;font-size:17px;font-weight:700;margin-bottom:2px}
+  .card-head p{color:rgba(199,191,255,.85);font-size:13px}
+  .card-body{padding:20px;max-height:58vh;overflow-y:auto}
+  .card-foot{padding:14px 20px;border-top:1px solid #F3F4F6;display:flex;gap:10px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+  .field label span{font-weight:400;color:#9CA3AF;font-size:11px;margin-left:4px}
+  .field-wrap{display:flex;align-items:center;border:1px solid #D1D5DB;border-radius:8px;overflow:hidden;transition:box-shadow .2s}
+  .field-wrap:focus-within{box-shadow:0 0 0 3px rgba(99,102,241,.15);border-color:#818CF8}
+  .field-wrap.error{border-color:#EF4444 !important;box-shadow:0 0 0 3px rgba(239,68,68,.12) !important}
+  .field-pre{padding:8px 12px;background:#F3F4F6;color:#6B7280;font-size:13px;border-right:1px solid #D1D5DB;white-space:nowrap;flex-shrink:0}
+  .field-wrap input{flex:1;padding:8px 12px;font-size:13px;outline:none;border:none;background:#fff;min-width:0}
+  .field-error{font-size:11px;color:#EF4444;margin-top:3px;display:none}
+  .field-error.show{display:block}
+  .notice{font-size:12px;border-radius:8px;padding:10px 12px;margin-bottom:14px;line-height:1.5}
+  .notice.amber{color:#92400E;background:#FFFBEB;border:1px solid #FDE68A}
+  .notice.blue{color:#1E40AF;background:#EFF6FF;border:1px solid #BFDBFE}
+  .notice.purple{color:#5B21B6;background:#F5F3FF;border:1px solid #DDD6FE}
+  .info-box{padding:10px 12px;background:#F9FAFB;border-radius:8px;border:1px solid #E5E7EB;font-size:13px;margin:6px 0 14px}
+  .info-box span:first-child{color:#6B7280}
+  .info-box span.val{font-weight:700;color:#4F46E5}
+  .sec-label{margin:16px 0 8px;font-weight:600;color:#374151;font-size:13px}
+  .pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .pos-btn{padding:10px 6px;border-radius:8px;border:2px solid #E5E7EB;background:#fff;cursor:pointer;text-align:center;transition:all .2s;width:100%}
+  .pos-btn.active{border-color:#6366F1;background:#EEF2FF;color:#4338CA}
+  .pos-btn b{display:block;font-size:13px;font-weight:700}
+  .pos-btn small{font-size:10px;opacity:.7}
+  .resumen{background:#F9FAFB;border-radius:12px;padding:14px;margin-bottom:18px;border:1px solid #E5E7EB}
+  .resumen h4{font-size:13px;font-weight:700;color:#374151;margin-bottom:10px}
+  .r-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px}
+  .r-row{display:flex;justify-content:space-between;gap:4px}
+  .r-row span:first-child{color:#6B7280}
+  .r-row.full{grid-column:1/-1;border-top:1px solid #E5E7EB;padding-top:6px;margin-top:2px}
+  .r-row.full span:last-child{font-weight:900;color:#4338CA}
+  .pkg{border-radius:12px;border:2px solid #D1D5DB;padding:14px;margin-bottom:14px}
+  .pkg.indigo{border-color:#A5B4FC}
+  .pkg.gold{border-color:#FBBF24}
+  .pkg-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+  .pkg-name{font-weight:700;font-size:14px}
+  .pkg-desc{font-size:11px;color:#6B7280;margin-top:2px}
+  .pkg-price{text-align:right;flex-shrink:0}
+  .pkg-price .amount{font-size:17px;font-weight:900;color:#4338CA}
+  .pkg-price small{font-size:11px;color:#9CA3AF;display:block}
+  .pkg-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .pkg-stat{background:#F9FAFB;border-radius:8px;padding:7px 10px;border:1px solid #E5E7EB;font-size:12px}
+  .pkg-stat span{display:block;color:#9CA3AF}
+  .pkg-stat b{font-weight:700;color:#374151}
+  .pkg-stat.green b{color:#059669}
+  .pkg-includes{font-size:12px}
+  .pkg-includes b{display:block;font-weight:600;color:#4B5563;margin-bottom:4px}
+  .pkg-includes li{list-style:none;color:#4B5563;display:flex;align-items:center;gap:4px;margin-bottom:2px}
+  .pkg-includes li::before{content:"✓";color:#10B981;font-weight:700}
+  .foraneo{background:#FFFBEB;border:1px solid #FCD34D;border-radius:12px;padding:14px;margin-top:2px}
+  .foraneo h4{font-weight:700;font-size:13px;color:#92400E;margin-bottom:4px}
+  .foraneo p{font-size:12px;color:#B45309;margin-bottom:6px}
+  .foraneo .amount{font-size:22px;font-weight:900;color:#B45309}
+  .foraneo small{font-size:11px;color:#D97706;display:block;margin-top:4px}
+  .tabla{margin-top:18px;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;font-size:12px}
+  .tabla-head{background:#1F2937;color:#fff;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:8px 12px;font-weight:700}
+  .tabla-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:8px 12px;border-top:1px solid #E5E7EB}
+  .tabla-row span{display:block}
+  .tc{text-align:center}.t-gray{color:#6B7280}.t-indigo{color:#4338CA;font-weight:700}.t-green{color:#059669;font-weight:700}.t-bold{font-weight:600}
+  .save-box{margin-top:20px;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden}
+  .save-head{background:#F9FAFB;padding:12px 14px;border-bottom:1px solid #E5E7EB}
+  .save-head h4{font-size:13px;font-weight:700;color:#374151}
+  .save-body{padding:12px 14px}
+  .alert{font-size:12px;border-radius:8px;padding:8px 10px;margin-bottom:10px}
+  .alert.ok{color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0}
+  .alert.err{color:#991B1B;background:#FEF2F2;border:1px solid #FECACA}
+  .alert.pdf-ok{color:#3730A3;background:#EEF2FF;border:1px solid #A5B4FC}
+  .btn{flex:1;padding:10px 0;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+  .btn-back{background:#fff;color:#4B5563;border:1px solid #D1D5DB !important}
+  .btn-next{background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;font-weight:700}
+  .btn-edit{background:#EEF2FF;color:#4338CA;border:1px solid #A5B4FC !important}
+  .btn-pdf{width:100%;padding:12px 0;border-radius:12px;border:none;background:linear-gradient(135deg,#ec4899,#8b5cf6,#6366f1);color:#fff;font-weight:800;font-size:14px;cursor:pointer;transition:all .25s;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn-pdf:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,92,246,.45)}
+  .btn-pdf:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .save-hint{font-size:11px;color:#9CA3AF;text-align:center;margin-top:6px}
+  .auto-note{font-size:11px;color:#9CA3AF;text-align:center;padding:8px 0 4px}
+  @media(max-width:480px){.r-grid{grid-template-columns:1fr}.pkg-stats{grid-template-columns:1fr 1fr}.tabla-head,.tabla-row{font-size:10px;padding:6px 8px}.card-body{max-height:62vh}}
+  @media(max-width:360px){.pos-grid{grid-template-columns:1fr}.pkg-stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     PUERTA DE ACCESO — se muestra primero, luego desaparece
+     ══════════════════════════════════════════════════ -->
+<div id="gate">
+  <div class="orb g-orb1"></div>
+  <div class="orb g-orb2"></div>
+
+  <div class="gate-card">
+    <div class="gate-head">
+      <div class="lock-icon">🔐</div>
+      <h2>Acceso exclusivo</h2>
+      <p>Ingresa tu código de acceso y tus datos para usar la calculadora de precios.</p>
+    </div>
+    <div class="gate-body">
+      <div class="gate-notice">
+        ¿Aún no tienes código? Obtén el tuyo en
+        <a href="https://www.elbuenpipe.com" target="_blank" style="color:#6366F1;font-weight:700;text-decoration:none">elbuenpipe.com</a>
+      </div>
+
+      <!-- Código de acceso -->
+      <div class="gate-field">
+        <label>Código de acceso</label>
+        <div class="gate-input-wrap" id="gate-wrap-codigo">
+          <span class="g-pre">🎟️</span>
+          <input class="code-input" type="text" id="gate-codigo" placeholder="Ej. 17120" maxlength="10" autocomplete="off" inputmode="numeric"/>
+        </div>
+        <div class="gate-err" id="gate-err-codigo"></div>
+      </div>
+
+      <!-- Nombre -->
+      <div class="gate-field">
+        <label>Nombre completo</label>
+        <div class="gate-input-wrap" id="gate-wrap-nombre">
+          <span class="g-pre">👤</span>
+          <input type="text" id="gate-nombre" placeholder="Ej. Juan Pérez" autocomplete="off"/>
+        </div>
+        <div class="gate-err" id="gate-err-nombre"></div>
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="gate-field">
+        <label>WhatsApp <span style="font-weight:400;color:#9CA3AF;font-size:11px;text-transform:none">10 dígitos</span></label>
+        <div class="gate-input-wrap" id="gate-wrap-wa">
+          <span class="g-pre">📱</span>
+          <input type="tel" id="gate-wa" placeholder="Ej. 5512345678" maxlength="10" inputmode="numeric" autocomplete="off"/>
+        </div>
+        <div class="gate-err" id="gate-err-wa"></div>
+      </div>
+
+      <button class="btn-gate" id="btn-gate-enter">
+        <div class="spinner"></div>
+        <span class="btn-text">Ingresar a la calculadora →</span>
+      </button>
+
+      <div class="gate-divider"><span></span><p>Acceso seguro · Datos protegidos</p><span></span></div>
+    </div>
+    <div class="gate-footer">
+      <a href="https://www.elbuenpipe.com/Guia-FilMaker" target="_blank">¿Cómo obtener mi código? →</a>
+      <div class="access-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     APP PRINCIPAL — sin ninguna modificación
+     ══════════════════════════════════════════════════ -->
+<div id="app">
+  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div><div class="orb orb4"></div>
+  <canvas class="stars" id="stars"></canvas>
+  <div class="hero">
+    <div class="badge"><span class="badge-dot"></span>🎬 TALENTO PROFESIONAL</div>
+    <h1 class="hero-title">Tu calculadora de<br><span class="accent">precios perfectos</span><br>para cada evento</h1>
+    <p class="hero-sub">Estandariza costos, define paquetes y conoce tu margen real. Cada producción, rentable desde el inicio.</p>
+    <div class="brand-row">
+      <span class="brand-chip chip-gl">⚡ GROWTHS LAB</span><span class="sep">·</span><a href="https://www.elbuenpipe.com" target="_blank" class="brand-chip chip-ep">ELBUENPIPE</a>
+    </div>
+    <a href="https://www.elbuenpipe.com/calcula-film/guia-filmaker" target="_blank" class="guide-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      ¿Cómo usar esta calculadora?
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="progress" id="progress"></div>
+  <div class="card">
+    <div class="card-head"><h2 id="step-title"></h2><p id="step-sub"></p></div>
+    <div class="card-body" id="card-body"></div>
+    <div class="card-foot" id="card-foot"></div>
+  </div>
+  <footer class="site-footer">
+    <div>© 2025 <strong>Elbuenpipe</strong> &nbsp;|&nbsp; <strong>GrowthsLab</strong> &nbsp;|&nbsp; <strong>JD Producción</strong></div>
+    <div>Felipe Arturo &nbsp;·&nbsp; Todos los derechos reservados</div>
+  </footer>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIGURACIÓN — edita solo aquí
+   ══════════════════════════════════════════════════════════════ */
+
+// Tu Google Apps Script URL (la misma que ya tenías)
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5dfJoPWl4kqnlYcF-nkOgpKVXjvHw91UZMjmYq2txkB0MYZIrQ7Ys6Dk7o5RhRT9Ung/exec";
+
+// ── CÓDIGOS VÁLIDOS ─────────────────────────────────────────
+// Agrega o quita códigos aquí. Son case-insensitive.
+// Para mayor seguridad, valídalos desde tu Google Script
+// cambiando VALIDAR_EN_SERVIDOR a true (ver instrucciones abajo).
+const CODIGOS_VALIDOS = [
+  "17120",
+  "88341",
+  "55201",
+  "GL2025",
+  "PIPE10"
+  // Añade los tuyos aquí ↑
+];
+
+// Si quieres validar el código desde tu Google Script en lugar
+// de la lista de arriba, pon esto en true.
+// Requiere que tu script acepte el campo "codigo" y responda
+// { valido: true } o { valido: false }
+const VALIDAR_EN_SERVIDOR = false;
+
+/* ══════════════════════════════════════════════════════════════
+   LÓGICA DE LA PUERTA
+   ══════════════════════════════════════════════════════════════ */
+(function initGate(){
+  const btn    = document.getElementById('btn-gate-enter');
+  const inCode = document.getElementById('gate-codigo');
+  const inName = document.getElementById('gate-nombre');
+  const inWA   = document.getElementById('gate-wa');
+
+  // Solo números en WA
+  inWA.addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,10);
+  });
+
+  function setErr(field, msg){
+    document.getElementById('gate-wrap-'+field).classList.add('error');
+    document.getElementById('gate-err-'+field).textContent = msg;
+  }
+  function clearErr(field){
+    document.getElementById('gate-wrap-'+field).classList.remove('error');
+    document.getElementById('gate-err-'+field).textContent = '';
+  }
+
+  function validate(){
+    let ok = true;
+    clearErr('codigo'); clearErr('nombre'); clearErr('wa');
+    if(!inCode.value.trim()){setErr('codigo','El código es obligatorio');ok=false;}
+    if(!inName.value.trim()){setErr('nombre','Tu nombre es obligatorio');ok=false;}
+    if(inWA.value.replace(/\D/g,'').length !== 10){setErr('wa','Ingresa 10 dígitos sin espacios');ok=false;}
+    return ok;
+  }
+
+  async function registrarAccesoSheets(codigo, nombre, whatsapp){
+    try{
+      const fd = new FormData();
+      fd.append('data', JSON.stringify({
+        tipo        : 'acceso_codigo',
+        fecha       : new Date().toLocaleDateString('es-MX'),
+        hora        : new Date().toLocaleTimeString('es-MX'),
+        codigo      : codigo,
+        nombre      : nombre,
+        whatsapp    : whatsapp
+      }));
+      await fetch(GOOGLE_SCRIPT_URL, {method:'POST', mode:'no-cors', body:fd});
+    }catch(e){ /* silencioso — no bloquea el acceso */ }
+  }
+
+  async function validarCodigo(codigo){
+    if(VALIDAR_EN_SERVIDOR){
+      // Validación remota via tu Google Script
+      try{
+        const fd = new FormData();
+        fd.append('data', JSON.stringify({tipo:'validar_codigo', codigo}));
+        const r = await fetch(GOOGLE_SCRIPT_URL, {method:'POST', body:fd});
+        const d = await r.json();
+        return !!d.valido;
+      }catch(e){ return false; }
+    }else{
+      // Validación local contra la lista de arriba
+      return CODIGOS_VALIDOS.map(c=>c.toUpperCase()).includes(codigo.toUpperCase());
+    }
+  }
+
+  async function handleEnter(){
+    if(!validate()) return;
+
+    // Estado cargando
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    const codigo = inCode.value.trim();
+    const nombre = inName.value.trim();
+    const wa     = inWA.value.trim();
+
+    const esValido = await validarCodigo(codigo);
+
+    if(!esValido){
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      setErr('codigo', 'Código inválido. Verifica e intenta de nuevo.');
+      document.getElementById('gate-wrap-codigo').classList.add('error');
+      return;
+    }
+
+    // Código correcto: registrar en Sheets y abrir calculadora
+    await registrarAccesoSheets(codigo, nombre, wa);
+
+    // Pre-cargar nombre y WA en el formulario de la calculadora
+    // para que el usuario no los vuelva a escribir en el paso 1
+    form.nombre    = nombre;
+    form.whatsapp  = wa;
+
+    // Transición suave
+    const gate = document.getElementById('gate');
+    gate.classList.add('closing');
+    setTimeout(()=>{
+      gate.style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      render(); // arranca la calculadora
+    }, 420);
+  }
+
+  btn.addEventListener('click', handleEnter);
+  [inCode, inName, inWA].forEach(el => {
+    el.addEventListener('keydown', e => { if(e.key==='Enter') handleEnter(); });
+  });
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   CALCULADORA — sin ninguna modificación desde tu original
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  const stars=Array.from({length:120},()=>({x:Math.random()*100,y:Math.random()*100,r:Math.random()*.9+.2}));
+  function draw(){ctx.clearRect(0,0,c.width,c.height);stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x/100*c.width,s.y/100*c.height,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${Math.random()*.4+.1})`;ctx.fill();});}
+  draw();setInterval(draw,2000);
+})();
+
+let step=0,pdfStatus=null;
+const form={nombre:'',marca:'',whatsapp:'',link:'',honorarioDia:'',honorarioEdicion:'',asistente:'',equipoRenta:'',transporte:'',software:'',impuestos:'',diasFacturables:'',metaMensual:'',horasEdicionBasico:'',horasEdicionProfesional:'',horasEdicionPremium:'',margenIntermediario:'',posicionamiento:'medio',trasladoAvion:'',hospedaje:'',viaticos:''};
+const num=k=>parseFloat(form[k])||0;
+const mxn=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n||0);
+
+function calc(){
+  const cod=num('honorarioDia')+num('asistente')+num('equipoRenta')+num('transporte')+num('software')/20+num('impuestos');
+  const tmr=(num('metaMensual')>0&&num('diasFacturables')>0)?num('metaMensual')/num('diasFacturables'):cod;
+  const base=Math.max(cod,tmr);
+  const p1c=base+num('honorarioEdicion')*num('horasEdicionBasico');
+  const p2c=base*1.2+num('honorarioEdicion')*num('horasEdicionProfesional')+num('asistente');
+  const p3c=base*1.5+num('honorarioEdicion')*num('horasEdicionPremium')+num('asistente')*2+500;
+  const mg=1+num('margenIntermediario')/100;
+  const m=({economico:1.1,medio:1.3,premium:1.6})[form.posicionamiento]||1.3;
+  return{cod,tmr,base,p1c,p2c,p3c,pr1:p1c*mg*m,pr2:p2c*mg*m,pr3:p3c*mg*m,ef:(num('trasladoAvion')+num('hospedaje')*2+num('viaticos')*2+base)*mg};
+}
+
+function validateStep0(){
+  let v=true;
+  function chk(id,ok){const w=document.getElementById('wrap-'+id),e=document.getElementById('err-'+id);if(!ok){w.classList.add('error');e.classList.add('show');v=false;}else{w.classList.remove('error');e.classList.remove('show');}}
+  chk('nombre',form.nombre.trim());chk('marca',form.marca.trim());chk('whatsapp',form.whatsapp.replace(/\D/g,'').length===10?true:'');
+  return v;
+}
+
+function field(label,key,ph,pre='$',hint=''){
+  const c=document.createElement('div');c.className='field';
+  c.innerHTML=`<label>${label}${hint?`<span>${hint}</span>`:''}</label><div class="field-wrap">${pre?`<span class="field-pre">${pre}</span>`:''}<input type="number" placeholder="${ph}" value="${form[key]||''}"/></div>`;
+  c.querySelector('input').addEventListener('input',e=>{form[key]=e.target.value;const el=document.getElementById('tarifa-minima');if(el)el.textContent=mxn(calc().tmr);});
+  return c;
+}
+function textField(label,key,ph,icon,hint='',type='text',id=''){
+  const c=document.createElement('div');c.className='field';
+  const em=key==='nombre'?'El nombre es obligatorio':key==='marca'?'El nombre de marca es obligatorio':key==='whatsapp'?'Ingresa 10 dígitos sin espacios ni guiones':'';
+  c.innerHTML=`<label>${label}${hint?`<span>${hint}</span>`:''}</label><div class="field-wrap"${id?` id="wrap-${id}"`:''}><span class="field-pre">${icon}</span><input type="${type}" placeholder="${ph}" value="${form[key]||''}" autocomplete="off" style="flex:1;padding:8px 12px;font-size:13px;outline:none;border:none;background:#fff;min-width:0"${key==='whatsapp'?' maxlength="10" inputmode="numeric"':''}/></div>${em?`<div class="field-error"${id?` id="err-${id}"`:''}>${em}</div>`:''}`;
+  const inp=c.querySelector('input');
+  if(key==='whatsapp')inp.addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,10);form[key]=e.target.value;});
+  else inp.addEventListener('input',e=>{form[key]=e.target.value;});
+  return c;
+}
+
+const steps=[{title:'👤 Información del Filmmaker',sub:'Datos de contacto y marca personal'},{title:'💰 Costos Base del Filmmaker',sub:'¿Cuánto cuesta operar un día?'},{title:'📅 Modelo Operativo',sub:'¿Cuánto debe ganar y cuánto trabaja?'},{title:'🎯 Margen y Posicionamiento',sub:'Tu ganancia como intermediario y nivel de mercado'},{title:'📊 Precios Estandarizados',sub:'Resultados automáticos por paquete'}];
+
+function buildStep0(){
+  const d=document.createDocumentFragment();
+  const n=document.createElement('p');n.className='notice purple';n.textContent='Esta información se guardará junto con tu cotización para identificar cada registro en Google Sheets.';d.appendChild(n);
+  d.appendChild(textField('Nombre completo del filmmaker','nombre','Ej. Juan Pérez','👤','obligatorio','text','nombre'));
+  d.appendChild(textField('Nombre de tu marca o negocio','marca','Ej. JuanFilms','🎬','obligatorio','text','marca'));
+  d.appendChild(textField('Número de WhatsApp','whatsapp','Ej. 5512345678','📱','10 dígitos, obligatorio','tel','whatsapp'));
+  d.appendChild(textField('Página web, Instagram u otro link','link','Ej. instagram.com/usuario','🔗','opcional'));
+  return d;
+}
+function buildStep1(){
+  const d=document.createDocumentFragment();
+  const n=document.createElement('p');n.className='notice amber';n.textContent='Estos son los costos reales que tiene el filmmaker por cada día de trabajo. Sé lo más preciso posible.';d.appendChild(n);
+  d.appendChild(field('Honorario personal por día de grabación','honorarioDia','1500','$','lo que el filmmaker cobra por estar presente'));
+  d.appendChild(field('Honorario por hora de edición','honorarioEdicion','150','$','costo por cada hora editando'));
+  d.appendChild(field('Asistente / segundo operador (por día)','asistente','800','$','0 si trabaja solo'));
+  d.appendChild(field('Renta o depreciación de equipo por día','equipoRenta','400','$','si el equipo es propio, amortiza $400–800/día'));
+  d.appendChild(field('Transporte local (por evento)','transporte','200','$','gasolina, Uber, etc.'));
+  d.appendChild(field('Software mensual (Adobe, etc.)','software','600','$','se divide entre días facturables'));
+  d.appendChild(field('Impuestos / ISR estimado por evento','impuestos','300','$','15–20% aprox. del ingreso bruto'));
+  return d;
+}
+function buildStep2(){
+  const{tmr}=calc(),d=document.createDocumentFragment();
+  const n=document.createElement('p');n.className='notice blue';n.textContent='Esto define la tarifa mínima rentable. Si la meta mensual es mayor al costo operativo, usaremos esa como base.';d.appendChild(n);
+  d.appendChild(field('Meta de ingreso mensual del filmmaker','metaMensual','25000','$','¿cuánto necesita facturar para vivir bien?'));
+  d.appendChild(field('Días facturables reales al mes','diasFacturables','12','días','promedio real: 10–15 días'));
+  const ib=document.createElement('div');ib.className='info-box';ib.innerHTML=`<span>Tarifa mínima diaria: </span><span class="val" id="tarifa-minima">${mxn(tmr)}</span>`;d.appendChild(ib);
+  const sl=document.createElement('div');sl.className='sec-label';sl.textContent='⏱ Horas de edición por paquete';d.appendChild(sl);
+  d.appendChild(field('Paquete Básico – horas de edición','horasEdicionBasico','4','hrs'));
+  d.appendChild(field('Paquete Profesional – horas de edición','horasEdicionProfesional','8','hrs'));
+  d.appendChild(field('Paquete Premium – horas de edición','horasEdicionPremium','16','hrs'));
+  return d;
+}
+function buildStep3(){
+  const d=document.createDocumentFragment();
+  d.appendChild(field('Tu margen como intermediario (%)','margenIntermediario','30','%','20–40% es lo estándar'));
+  const lbl=document.createElement('div');lbl.className='field';
+  const ll=document.createElement('label');ll.textContent='Posicionamiento de marca';
+  const pg=document.createElement('div');pg.className='pos-grid';
+  [['economico','Económico','+10% sobre costo'],['medio','Medio','+30% sobre costo'],['premium','Premium','+60% sobre costo']].forEach(([v,l,desc])=>{
+    const b=document.createElement('button');b.className='pos-btn'+(form.posicionamiento===v?' active':'');b.innerHTML=`<b>${l}</b><small>${desc}</small>`;b.onclick=()=>{form.posicionamiento=v;render();};pg.appendChild(b);
+  });
+  lbl.appendChild(ll);lbl.appendChild(pg);d.appendChild(lbl);
+  const sl=document.createElement('div');sl.className='sec-label';sl.textContent='✈️ Costos para eventos foráneos';d.appendChild(sl);
+  d.appendChild(field('Boleto de avión o costo de traslado','trasladoAvion','2500','$'));
+  d.appendChild(field('Hospedaje por noche','hospedaje','900','$','se cuentan 2 noches promedio'));
+  d.appendChild(field('Viáticos por día (comida, etc.)','viaticos','400','$','se cuentan 2 días'));
+  return d;
+}
+function buildStep4(){
+  const{cod,tmr,base,p1c,p2c,p3c,pr1,pr2,pr3,ef}=calc();
+  const g1=pr1-p1c,g2=pr2-p2c,g3=pr3-p3c;
+  const hrs1=num('horasEdicionBasico')||4,hrs2=num('horasEdicionProfesional')||8,hrs3=num('horasEdicionPremium')||16;
+  const marg=(p,c)=>p>0?Math.round(((p-c)/p)*100):0;
+  const d=document.createDocumentFragment();
+  const res=document.createElement('div');res.className='resumen';
+  res.innerHTML=`<h4>📋 Costo operativo calculado</h4><div class="r-grid"><div class="r-row"><span>Costo/día base:</span><span><b>${mxn(cod)}</b></span></div><div class="r-row"><span>Tarifa mín. rentable:</span><span style="font-weight:700;color:#4F46E5">${mxn(tmr)}</span></div><div class="r-row full"><span>Base de cálculo:</span><span>${mxn(base)}</span></div></div>`;
+  d.appendChild(res);
+  function pkg(cls,emoji,name,desc,inc,costo,precio,gan){
+    const p=document.createElement('div');p.className='pkg'+cls;
+    p.innerHTML=`<div class="pkg-top"><div><div class="pkg-name">${emoji} ${name}</div><div class="pkg-desc">${desc}</div></div><div class="pkg-price"><div class="amount">${mxn(precio)}</div><small>precio cliente</small></div></div><div class="pkg-stats"><div class="pkg-stat"><span>Costo real</span><b>${mxn(costo)}</b></div><div class="pkg-stat green"><span>Tu ganancia</span><b>${mxn(gan)}</b></div></div><div class="pkg-includes"><b>Incluye:</b><ul>${inc.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+    return p;
+  }
+  d.appendChild(pkg(' ','🥉','Paquete Esencial','Eventos pequeños · 4–6 hrs · 1 cámara',['1 filmmaker · 1 cámara','1 micrófono básico',`Video resumen 1–2 min (${hrs1}h edición)`,'Entrega digital'],p1c,pr1,g1));
+  d.appendChild(pkg(' indigo','🥈','Paquete Profesional','Eventos medianos · 6–8 hrs · 2 cámaras',['1 filmmaker + asistente','2 cámaras · Audio dedicado',`Highlight 2–4 min (${hrs2}h edición)`,'2–3 reels verticales para redes','Corrección básica de color'],p2c,pr2,g2));
+  d.appendChild(pkg(' gold','🥇','Paquete Premium','Eventos grandes · Cobertura total',['2–3 operadores · Drone · Gimbal','Audio profesional',`Video 4–6 min (${hrs3}h edición)`,'5–8 reels para redes','Entrega rápida 24–72h','Corrección avanzada de color'],p3c,pr3,g3));
+  const fo=document.createElement('div');fo.className='foraneo';
+  fo.innerHTML=`<h4>✈️ Adicional por evento foráneo</h4><p>Se suma a cualquier paquete cuando el evento es fuera de ciudad.</p><div class="amount">${mxn(ef)}</div><small>Incluye: traslado · 2 noches hospedaje · 2 días viáticos · día bloqueado</small>`;
+  d.appendChild(fo);
+  const rows=[{n:'Esencial',c:p1c,p:pr1},{n:'Profesional',c:p2c,p:pr2},{n:'Premium',c:p3c,p:pr3}];
+  const tbl=document.createElement('div');tbl.className='tabla';
+  tbl.innerHTML=`<div class="tabla-head"><span>Paquete</span><span class="tc">Costo</span><span class="tc">Precio</span><span class="tc">Margen</span></div>`+rows.map(r=>`<div class="tabla-row"><span class="t-bold">${r.n}</span><span class="tc t-gray">${mxn(r.c)}</span><span class="tc t-indigo">${mxn(r.p)}</span><span class="tc t-green">${marg(r.p,r.c)}%</span></div>`).join('');
+  d.appendChild(tbl);
+  const sb=document.createElement('div');sb.className='save-box';
+  sb.innerHTML=`<div class="save-head"><h4>📄 Tu cotización en PDF</h4></div>
+    <div class="save-body">
+      ${pdfStatus==='ok'?`<div class="alert pdf-ok">✅ ¡PDF descargado! Revisa tu carpeta de descargas.</div>`:''}
+      ${pdfStatus==='error'?`<div class="alert err">❌ Error al generar el PDF. Intenta de nuevo.</div>`:''}
+      <button class="btn-pdf" id="btn-pdf-main">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 15 12 18 15 15"/></svg>
+        Descargar PDF
+      </button>
+      <p class="save-hint">Incluye nombre · marca · paquetes · precios · ganancias · márgenes</p>
+      <a href="https://www.elbuenpipe.com/Tip" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;margin-top:10px;padding:11px 0;border-radius:10px;border:1.5px solid #16a34a;background:transparent;color:#16a34a;font-weight:600;font-size:13px;text-decoration:none;letter-spacing:.03em;transition:all .2s;" onmouseover="this.style.background='rgba(22,163,74,.08)'" onmouseout="this.style.background='transparent'">
+        Donativo
+      </a>
+    </div>`;
+  sb.querySelector('#btn-pdf-main').addEventListener('click',handleDownloadPDF);
+  d.appendChild(sb);
+  const an=document.createElement('div');an.className='auto-note';an.textContent='Los precios se actualizan automáticamente al cambiar cualquier dato.';d.appendChild(an);
+  return d;
+}
+
+// ── GENERAR Y DESCARGAR PDF — sin modificación ───────────────
+async function handleDownloadPDF(){
+  let logoData=null;
+  try{
+    logoData=await new Promise(res=>{
+      const img=new Image();img.crossOrigin='anonymous';
+      img.onload=()=>{const cv=document.createElement('canvas');cv.width=img.width;cv.height=img.height;cv.getContext('2d').drawImage(img,0,0);res(cv.toDataURL('image/png'));};
+      img.onerror=()=>res(null);
+      img.src='https://i.ibb.co/1f1L99mW/lgo-003.png';
+    });
+  }catch(e){logoData=null;}
+
+  try{
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const{cod,tmr,base,p1c,p2c,p3c,pr1,pr2,pr3,ef}=calc();
+    const mg=(p,c)=>p>0?Math.round(((p-c)/p)*100):0;
+    const W=210, M=13, PGH=297;
+    const DARK=[8,28,36], GOLD=[204,133,1], LIGHT=[249,249,249], MID=[155,185,200], PALE=[220,235,242];
+
+    function drawFooter(){
+      doc.setFillColor(...DARK); doc.rect(0,PGH-10,W,10,'F');
+      doc.setFillColor(...GOLD); doc.rect(0,PGH-10,5,10,'F');
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(...MID);
+      doc.text('Calculadora de Precios  |  Filmmaker',M,PGH-4);
+      doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
+      doc.text('www.elbuenpipe.com',W-M,PGH-4,{align:'right'});
+      doc.link(W-M-46,PGH-9.5,46,7,{url:'https://www.elbuenpipe.com/FM-Calculator'});
+    }
+
+    const hH=58;
+    doc.setFillColor(...DARK); doc.rect(0,0,W,hH,'F');
+    doc.setFillColor(...GOLD); doc.rect(0,0,5,hH,'F');
+    doc.setFillColor(10,36,50); doc.roundedRect(7,4,W-14,hH-8,4,4,'F');
+    doc.setFillColor(...GOLD); doc.rect(0,hH-2,W,2,'F');
+
+    if(logoData) doc.addImage(logoData,'PNG',W-M-30,7,26,26);
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(21); doc.setTextColor(...LIGHT);
+    doc.text('GrowthsLab',M+4,17);
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(...GOLD);
+    doc.text('CALCULADORA DE PRECIOS  |  FILMMAKER',M+4,23.5);
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.line(M+4,27,W-M-4,27);
+    doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(...LIGHT);
+    doc.text(form.nombre||'Sin nombre',M+4,36);
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...PALE);
+    const negWA=[form.marca,form.whatsapp?'WA: '+form.whatsapp:''].filter(Boolean).join('   |   ');
+    if(negWA) doc.text(negWA,M+4,43.5);
+    doc.setFontSize(7.5); doc.setTextColor(...GOLD);
+    doc.text(new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'}),M+4,50.5);
+    doc.setTextColor(...MID); doc.text('WWW.ELBUENPIPE.COM',W-M-4,50.5,{align:'right'});
+    doc.link(W-M-53,45,53,7,{url:'https://www.elbuenpipe.com/FM-Calculator'});
+
+    let y=hH+8;
+
+    const rH=23;
+    doc.setFillColor(10,36,50); doc.roundedRect(M,y,W-M*2,rH,3,3,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.roundedRect(M,y,W-M*2,rH,3,3,'S');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(...GOLD);
+    doc.text('RESUMEN OPERATIVO',M+5,y+7);
+    [
+      [M+5,   'Costo / día base',     mxn(cod), MID, LIGHT],
+      [M+72,  'Tarifa mín. rentable', mxn(tmr), MID, GOLD ],
+      [M+139, 'Base de cálculo',      mxn(base),MID, LIGHT],
+    ].forEach(([x,lbl,val,lc,vc])=>{
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(...lc);
+      doc.text(lbl,x,y+14);
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...vc);
+      doc.text(val,x,y+21);
+    });
+    y+=rH+7;
+
+    const pkgH=54;
+    const pkgs=[
+      { name:'Paquete Esencial',    tag:'BÁSICO',      bg:[240,246,255], brd:[165,180,252], tc:[49,46,129],
+        costo:p1c, precio:pr1,
+        L:['1 Filmmaker · 1 Cámara','1 Micrófono básico'],
+        R:[`Vídeo resumen 1-2 min (${num('horasEdicionBasico')||4}h ed.)`, 'Entrega digital'] },
+      { name:'Paquete Profesional', tag:'MÁS POPULAR', bg:[246,244,255], brd:[139,92,246], tc:[76,29,149],
+        costo:p2c, precio:pr2,
+        L:['1 Filmmaker + Asistente','2 Cámaras · Audio dedicado'],
+        R:[`Highlight 2-4 min (${num('horasEdicionProfesional')||8}h ed.)`, '2-3 Reels para redes'] },
+      { name:'Paquete Premium',     tag:'COMPLETO',    bg:[255,252,237], brd:[245,158,11], tc:[120,53,15],
+        costo:p3c, precio:pr3,
+        L:['2-3 Operadores · Drone · Gimbal','Audio profesional'],
+        R:[`Vídeo 4-6 min (${num('horasEdicionPremium')||16}h ed.)`, '5-8 Reels · Color avanzado'] },
+    ];
+
+    pkgs.forEach(pk=>{
+      doc.setFillColor(...pk.bg); doc.roundedRect(M,y,W-M*2,pkgH,3,3,'F');
+      doc.setDrawColor(...pk.brd); doc.setLineWidth(0.8); doc.roundedRect(M,y,W-M*2,pkgH,3,3,'S');
+      doc.setFillColor(...pk.brd); doc.roundedRect(M,y,4,pkgH,2,2,'F');
+      doc.setFillColor(...pk.brd); doc.roundedRect(M+9,y+6,32,6.5,2,2,'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor(255,255,255);
+      doc.text(pk.tag,M+25,y+10.8,{align:'center'});
+      doc.setFont('helvetica','bold'); doc.setFontSize(12.5); doc.setTextColor(...pk.tc);
+      doc.text(pk.name,M+9,y+22);
+      doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(55,48,163);
+      doc.text(mxn(pk.precio),W-M-5,y+22,{align:'right'});
+      doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(156,163,175);
+      doc.text('precio al cliente',W-M-5,y+28,{align:'right'});
+      doc.setDrawColor(...pk.brd); doc.setLineWidth(0.4); doc.line(M+9,y+25,W-M-5,y+25);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(100,116,139);
+      doc.text('Costo:',M+9,y+33);
+      doc.setFont('helvetica','bold'); doc.setTextColor(55,65,81);
+      doc.text(mxn(pk.costo),M+28,y+33);
+      doc.setFont('helvetica','normal'); doc.setTextColor(100,116,139);
+      doc.text('Ganancia:',M+82,y+33);
+      doc.setFont('helvetica','bold'); doc.setTextColor(5,150,105);
+      doc.text(mxn(pk.precio-pk.costo)+' ('+mg(pk.precio,pk.costo)+'%)',M+105,y+33);
+      doc.setFontSize(8); doc.setFont('helvetica','normal');
+      pk.L.forEach((it,i)=>{
+        doc.setFont('helvetica','bold'); doc.setTextColor(...pk.brd); doc.text('+',M+9,y+42+(i*7.5));
+        doc.setFont('helvetica','normal'); doc.setTextColor(71,85,105); doc.text(it,M+14,y+42+(i*7.5));
+      });
+      pk.R.forEach((it,i)=>{
+        doc.setFont('helvetica','bold'); doc.setTextColor(...pk.brd); doc.text('+',M+100,y+42+(i*7.5));
+        doc.setFont('helvetica','normal'); doc.setTextColor(71,85,105); doc.text(it,M+105,y+42+(i*7.5));
+      });
+      y+=pkgH+5;
+    });
+
+    doc.addPage();
+    y=15;
+
+    const foH=30;
+    doc.setFillColor(10,36,50); doc.roundedRect(M,y,W-M*2,foH,3,3,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.roundedRect(M,y,W-M*2,foH,3,3,'S');
+    doc.setFillColor(...GOLD); doc.roundedRect(M,y,4,foH,2,2,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...GOLD);
+    doc.text('Adicional por Evento Foráneo',M+9,y+9.5);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...MID);
+    doc.text('Se suma a cualquier paquete cuando el evento es fuera de la ciudad.',M+9,y+16);
+    doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.setTextColor(...LIGHT);
+    doc.text(mxn(ef),M+9,y+26);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...MID);
+    doc.text('Traslado · 2 noches hospedaje · 2 días viáticos · día bloqueado',M+52,y+26);
+    y+=foH+9;
+
+    doc.autoTable({
+      startY:y,
+      margin:{left:M,right:M},
+      head:[['Paquete','Costo real','Precio cliente','Ganancia','Margen']],
+      body:[
+        ['Esencial',   mxn(p1c),mxn(pr1),mxn(pr1-p1c),mg(pr1,p1c)+'%'],
+        ['Profesional',mxn(p2c),mxn(pr2),mxn(pr2-p2c),mg(pr2,p2c)+'%'],
+        ['Premium',    mxn(p3c),mxn(pr3),mxn(pr3-p3c),mg(pr3,p3c)+'%'],
+      ],
+      headStyles:{fillColor:[8,28,36],textColor:[204,133,1],fontStyle:'bold',fontSize:9,cellPadding:5},
+      bodyStyles:{fontSize:9,textColor:[55,65,81],cellPadding:5},
+      columnStyles:{
+        0:{fontStyle:'bold',textColor:[30,30,60]},
+        1:{halign:'center',textColor:[100,116,139]},
+        2:{halign:'center',textColor:[55,48,163],fontStyle:'bold'},
+        3:{halign:'center',textColor:[5,150,105],fontStyle:'bold'},
+        4:{halign:'center',textColor:[5,150,105]},
+      },
+      alternateRowStyles:{fillColor:[245,248,252]},
+      tableLineColor:[204,133,1],tableLineWidth:0.3,
+    });
+
+    doc.setPage(2);
+    const tableEnd = doc.autoTable.previous.finalY;
+    const ctaY = tableEnd + 14;
+    const ctaW = W - M * 2;
+    const ctaH = 52;
+
+    doc.setFillColor(8, 20, 32);
+    doc.roundedRect(M, ctaY, ctaW, ctaH, 4, 4, 'F');
+    doc.setDrawColor(...GOLD);
+    doc.setLineWidth(0.4);
+    doc.roundedRect(M, ctaY, ctaW, ctaH, 4, 4, 'S');
+    doc.setFillColor(...GOLD);
+    doc.rect(M, ctaY, 3.5, ctaH, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(...GOLD);
+    doc.text('Te ha servido el contenido de elbuenpipe?', W / 2, ctaY + 11, { align: 'center' });
+    doc.setDrawColor(204, 133, 1);
+    doc.setLineWidth(0.25);
+    doc.line(M + 16, ctaY + 15, W - M - 16, ctaY + 15);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(210, 220, 230);
+    doc.text('Puedes apoyar el proyecto con una donacion desde $1 USD.', W / 2, ctaY + 22, { align: 'center' });
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(7.5);
+    doc.setTextColor(130, 155, 175);
+    doc.text('Cada contribucion nos permite seguir creando herramientas y recursos gratuitos para la comunidad.', W / 2, ctaY + 30, { align: 'center', maxWidth: ctaW - 24 });
+    const btnW = 70, btnH = 11;
+    const btnX = W / 2 - btnW / 2;
+    const btnY = ctaY + 36;
+    doc.setFillColor(248, 252, 248);
+    doc.roundedRect(btnX, btnY, btnW, btnH, 3, 3, 'F');
+    doc.setDrawColor(22, 163, 74);
+    doc.setLineWidth(0.6);
+    doc.roundedRect(btnX, btnY, btnW, btnH, 3, 3, 'S');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(22, 163, 74);
+    doc.text('Donativo', W / 2, btnY + 7.5, { align: 'center' });
+    doc.link(btnX, btnY, btnW, btnH, { url: 'https://www.elbuenpipe.com/Tip' });
+
+    const totalPgs=doc.getNumberOfPages();
+    for(let i=1;i<=totalPgs;i++){doc.setPage(i);drawFooter();}
+
+    const slug=(form.nombre||'filmmaker').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+    doc.save('precios-'+slug+'-'+new Date().toISOString().slice(0,10)+'.pdf');
+    pdfStatus='ok';
+  }catch(e){console.error(e);pdfStatus='error';}
+  render();
+}
+
+// ── AUTO-SAVE GOOGLE SHEETS — sin modificación ──
+async function autoSaveSheets(){
+  const{base,pr1,pr2,pr3,ef,p1c,p2c,p3c}=calc();
+  const payload={fecha:new Date().toLocaleDateString('es-MX'),nombre:form.nombre,marca:form.marca,whatsapp:form.whatsapp,link:form.link,posicionamiento:form.posicionamiento,margenIntermediario:num('margenIntermediario'),costoBase:Math.round(base),precioEsencial:Math.round(pr1),precioProfesional:Math.round(pr2),precioPremium:Math.round(pr3),extraForaneo:Math.round(ef),gananciaEsencial:Math.round(pr1-p1c),gananciaProfesional:Math.round(pr2-p2c),gananciaPremium:Math.round(pr3-p3c)};
+  try{const fd=new FormData();fd.append('data',JSON.stringify(payload));await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',body:fd});}catch(e){}
+}
+
+// ── RENDER — sin modificación ──
+function render(){
+  const pg=document.getElementById('progress');pg.innerHTML='';
+  steps.forEach((_,i)=>{const b=document.createElement('div');b.className='prog-bar'+(i<=step?' done':'');pg.appendChild(b);});
+  document.getElementById('step-title').textContent=steps[step].title;
+  document.getElementById('step-sub').textContent=steps[step].sub;
+  const body=document.getElementById('card-body');body.innerHTML='';
+  const builders=[buildStep0,buildStep1,buildStep2,buildStep3,buildStep4];
+  body.appendChild(builders[step]());
+  const foot=document.getElementById('card-foot');foot.innerHTML='';
+  if(step>0){const b=document.createElement('button');b.className='btn btn-back';b.textContent='← Atrás';b.onclick=()=>{step--;render();};foot.appendChild(b);}
+  if(step<steps.length-1){
+    const b=document.createElement('button');b.className='btn btn-next';b.textContent='Continuar →';
+    b.onclick=async()=>{if(step===0&&!validateStep0())return;step++;render();if(step===4)autoSaveSheets();};
+    foot.appendChild(b);
+  }
+  if(step===steps.length-1){const b=document.createElement('button');b.className='btn btn-edit';b.textContent='✏️ Editar datos';b.onclick=()=>{step=0;render();};foot.appendChild(b);}
+}
+// Nota: render() ya NO se llama aquí al cargar.
+// Lo llama la puerta de acceso al validar correctamente.
+</script>
+</body>
+</html>

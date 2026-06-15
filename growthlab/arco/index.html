@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aviso de Privacidad ARCO | Elbuenpipe · GrowthsLab</title>
+<meta name="description" content="Aviso de Privacidad y derechos ARCO de Elbuenpipe / GrowthsLab / JD Producción. Conforme a la LFPDPPP de México." />
+<meta name="robots" content="index,follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H38BNTJ53L');
+</script>
+<style>
+:root[data-theme="dark"]{
+  --bg-0:#08071a;--bg-1:#0d0a26;--bg-2:#160c33;
+  --glow-1:rgba(133,78,255,.45);--glow-2:rgba(78,38,168,.35);
+  --glow-3:rgba(255,120,200,.20);--glow-4:rgba(80,180,255,.18);
+  --surface:rgba(28,18,58,.55);--surface-2:rgba(40,26,80,.55);
+  --surface-strong:rgba(20,14,46,.92);
+  --border:rgba(255,255,255,.08);--border-strong:rgba(180,120,255,.35);
+  --text:#f4f2fb;--text-soft:#cfc7e6;--text-muted:#9b94b8;
+  --accent:#b478ff;--accent-2:#7c4dff;--accent-3:#ff8fd1;
+  --accent-glow:rgba(180,120,255,.5);
+  --pill-bg:rgba(20,14,46,.6);
+  --glass-bg:rgba(28,18,58,.32);
+  --glass-border:rgba(180,120,255,.22);
+  --glass-highlight:rgba(255,255,255,.14);
+  --glass-shadow:0 30px 80px -22px rgba(0,0,0,.65),0 1px 0 rgba(255,255,255,.08) inset,0 -1px 0 rgba(180,120,255,.08) inset;
+  --quote-bg:rgba(180,120,255,.08);
+}
+:root[data-theme="light"]{
+  --bg-0:#f5f1ff;--bg-1:#ece4ff;--bg-2:#e2d5ff;
+  --glow-1:rgba(133,78,255,.25);--glow-2:rgba(212,184,255,.35);
+  --glow-3:rgba(255,160,220,.22);--glow-4:rgba(160,210,255,.25);
+  --surface:rgba(255,255,255,.7);--surface-2:rgba(255,255,255,.55);
+  --surface-strong:rgba(255,255,255,.95);
+  --border:rgba(20,12,55,.10);--border-strong:rgba(124,77,255,.45);
+  --text:#190d3a;--text-soft:#3b2d63;--text-muted:#6b5e8c;
+  --accent:#7c4dff;--accent-2:#a16eff;--accent-3:#e45cb5;
+  --accent-glow:rgba(124,77,255,.4);
+  --pill-bg:rgba(255,255,255,.75);
+  --glass-bg:rgba(255,255,255,.55);
+  --glass-border:rgba(124,77,255,.2);
+  --glass-highlight:rgba(255,255,255,.85);
+  --glass-shadow:0 24px 64px -20px rgba(80,40,160,.22),0 1px 0 rgba(255,255,255,.9) inset,0 -1px 0 rgba(124,77,255,.06) inset;
+  --quote-bg:rgba(124,77,255,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
+body{font-family:'Inter','Inter Tight',system-ui,sans-serif;color:var(--text);background:var(--bg-0);overflow-x:hidden;max-width:100%;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;}
+a{color:var(--accent);text-decoration:none;transition:.2s}
+a:hover{color:var(--accent-3)}
+button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ── BG ── */
+.bg-layers{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-base{position:absolute;inset:-20%;background:radial-gradient(60% 55% at 50% 0%,var(--glow-1) 0%,transparent 60%),radial-gradient(40% 40% at 85% 30%,var(--glow-2) 0%,transparent 60%),radial-gradient(45% 45% at 15% 65%,var(--glow-2) 0%,transparent 65%),linear-gradient(180deg,var(--bg-1) 0%,var(--bg-0) 60%,var(--bg-2) 100%);filter:saturate(1.1);animation:bgBreathe 22s ease-in-out infinite alternate;}
+@keyframes bgBreathe{0%{filter:saturate(1.05) brightness(.97);transform:scale(1)}100%{filter:saturate(1.25) brightness(1.05);transform:scale(1.02)}}
+.bg-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;opacity:.35;mix-blend-mode:overlay;}
+:root[data-theme="light"] .bg-grid{opacity:.2;mix-blend-mode:multiply;background-image:radial-gradient(rgba(80,40,160,.06) 1px,transparent 1px);}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.6;will-change:transform;}
+.orb.o1{width:55vmax;height:55vmax;left:-10vmax;top:-15vmax;background:var(--glow-1);animation:d1 28s ease-in-out infinite alternate;}
+.orb.o2{width:45vmax;height:45vmax;right:-10vmax;top:10vmax;background:var(--glow-2);animation:d2 32s ease-in-out infinite alternate;}
+.orb.o3{width:40vmax;height:40vmax;left:20vmax;bottom:-15vmax;background:var(--glow-3);animation:d3 30s ease-in-out infinite alternate;}
+@keyframes d1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(8vmax,6vmax) scale(1.1)}100%{transform:translate(-3vmax,9vmax) scale(.95)}}
+@keyframes d2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-9vmax,4vmax) scale(1.08)}100%{transform:translate(-3vmax,11vmax) scale(.92)}}
+@keyframes d3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vmax,-5vmax) scale(1.1)}100%{transform:translate(7vmax,-8vmax) scale(.95)}}
+.aurora{position:absolute;inset:-25%;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(180,120,255,.08) 50deg,transparent 110deg,rgba(255,143,209,.06) 180deg,transparent 240deg,rgba(124,77,255,.07) 300deg,transparent 360deg);mix-blend-mode:screen;opacity:.7;animation:auroraSpin 50s linear infinite;}
+:root[data-theme="light"] .aurora{opacity:.3;mix-blend-mode:multiply;}
+@keyframes auroraSpin{to{transform:rotate(360deg)}}
+
+/* ── HEADER ── */
+.header-wrap{position:fixed;top:18px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 18px;pointer-events:none;}
+.header{pointer-events:auto;width:100%;max-width:980px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--pill-bg);backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);border:1px solid var(--border);border-radius:999px;box-shadow:0 18px 48px -18px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.08) inset;position:relative;}
+.header::before{content:"";position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);}
+:root[data-theme="light"] .header::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 4px 4px;flex-shrink:0}
+.brand-logo{width:38px;height:38px;border-radius:12px;object-fit:contain;padding:3px;box-shadow:0 0 24px rgba(180,120,255,.3);}
+.brand-name{font-family:'Inter Tight';font-weight:600;font-size:15px;white-space:nowrap;color:var(--text)}
+.brand-name em{font-style:normal;color:var(--accent)}
+.header-ctrls{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:auto}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-soft);transition:.2s;}
+.icon-btn:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-1px)}
+.icon-btn svg{width:17px;height:17px}
+.back-pill{display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;font-weight:600;font-size:13px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);transition:.2s;white-space:nowrap;backdrop-filter:blur(14px);}
+.back-pill:hover{border-color:var(--border-strong);color:var(--accent)}
+
+/* ── HERO ── */
+main{padding-top:130px;padding-bottom:80px}
+.container{max-width:880px;margin:0 auto;padding:0 1.5rem}
+
+.doc-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;backdrop-filter:blur(14px);margin-bottom:20px}
+.doc-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
+
+h1{font-family:'Inter Tight';font-size:clamp(28px,5vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px;color:var(--text)}
+h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent-2),var(--accent-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.doc-lead{font-size:1.05rem;color:var(--text-soft);max-width:640px;margin-bottom:14px}
+.doc-meta{display:flex;flex-wrap:wrap;gap:18px;font-size:.85rem;color:var(--text-muted);margin-bottom:36px}
+.doc-meta strong{color:var(--text-soft);font-weight:500}
+
+/* ── TOC ── */
+.toc{
+  padding:24px 28px;border-radius:20px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  box-shadow:var(--glass-shadow);
+  margin-bottom:48px;
+  position:relative;overflow:hidden;
+}
+.toc::before{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--glass-highlight),transparent);}
+.toc-title{font-family:'Inter Tight';font-size:.78rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;font-weight:600}
+.toc ol{list-style:none;counter-reset:toc;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 22px}
+.toc li{counter-increment:toc;font-size:.92rem;line-height:1.45}
+.toc li::before{content:counter(toc) ". ";color:var(--accent);font-weight:600;margin-right:4px}
+.toc a{color:var(--text-soft)}
+.toc a:hover{color:var(--accent)}
+
+/* ── SECTIONS ── */
+section.doc-section{
+  padding:32px 32px;border-radius:22px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  box-shadow:var(--glass-shadow);
+  margin-bottom:18px;
+  position:relative;overflow:hidden;
+}
+section.doc-section::before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--glass-highlight),transparent);pointer-events:none}
+
+h2{font-family:'Inter Tight';font-size:1.5rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:14px;display:flex;align-items:flex-start;gap:14px}
+h2 .num{
+  flex-shrink:0;width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent));
+  display:grid;place-items:center;color:#fff;
+  font-size:.95rem;font-weight:700;
+  box-shadow:0 8px 18px -6px var(--accent-glow);
+  margin-top:2px;
+}
+
+h3{font-family:'Inter Tight';font-size:1.05rem;font-weight:600;color:var(--text);margin:20px 0 8px}
+
+.doc-section p{color:var(--text-soft);margin-bottom:12px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section strong{color:var(--text);font-weight:600}
+.doc-section em{color:var(--accent);font-style:normal;font-weight:500}
+
+ul.doc-list{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:8px}
+ul.doc-list li{color:var(--text-soft);padding-left:22px;position:relative;font-size:.96rem;line-height:1.6}
+ul.doc-list li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 8px var(--accent-glow)}
+
+ol.doc-list-numbered{padding-left:24px;margin:14px 0;display:flex;flex-direction:column;gap:8px}
+ol.doc-list-numbered li{color:var(--text-soft);padding-left:6px;font-size:.96rem;line-height:1.6}
+ol.doc-list-numbered li::marker{color:var(--accent);font-weight:600}
+
+.doc-callout{
+  margin:18px 0;padding:18px 22px;
+  border-left:4px solid var(--accent);
+  background:var(--quote-bg);
+  border-radius:4px 14px 14px 4px;
+  font-size:.95rem;
+  color:var(--text);
+}
+.doc-callout strong{display:block;margin-bottom:4px;color:var(--accent)}
+
+.contact-card{
+  padding:24px 26px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(124,77,255,.18),rgba(255,143,209,.10));
+  border:1px solid var(--border-strong);
+  backdrop-filter:blur(18px);
+  margin-top:18px;
+  position:relative;overflow:hidden;
+}
+.contact-card::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 80% at 30% 40%,rgba(133,78,255,.15),transparent 65%);pointer-events:none}
+.contact-card-title{font-family:'Inter Tight';font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:600;position:relative}
+.contact-card .row{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.95rem;color:var(--text);position:relative}
+.contact-card .row span{display:inline-flex;align-items:center;gap:6px}
+.contact-card .row strong{color:var(--text-soft);font-weight:500;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── FOOTER simple ── */
+footer{margin-top:60px;padding:36px 0 24px;border-top:1px solid var(--border);text-align:center;color:var(--text-muted);font-size:.82rem}
+footer a{color:var(--text-muted)}
+footer a:hover{color:var(--accent)}
+footer .row{margin-top:8px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .orb,.bg-base,.aurora{animation:none !important}
+  .toc ol{grid-template-columns:1fr}
+  section.doc-section{padding:24px 20px}
+  h2{font-size:1.25rem;gap:10px}
+  h2 .num{width:28px;height:28px;font-size:.82rem}
+  .back-pill span{display:none}
+  .doc-meta{gap:8px;flex-direction:column}
+  .contact-card .row{flex-direction:column;gap:8px}
+}
+@media (prefers-reduced-motion: reduce){
+  .orb,.bg-base,.aurora{animation:none !important}
+}
+</style>
+</head>
+<body>
+
+<!-- BG -->
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-base"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="aurora"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <header class="header">
+    <a class="brand" href="https://www.elbuenpipe.com">
+      <img class="brand-logo" src="https://i.ibb.co/1f1L99mW/lgo-003.png" alt="Elbuenpipe"/>
+      <span class="brand-name"><em>El</em>buenpipe</span>
+    </a>
+    <div class="header-ctrls">
+      <button class="icon-btn" id="themeBtn" title="Tema" aria-label="Cambiar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a class="back-pill" href="https://www.elbuenpipe.com">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span>Volver al sitio</span>
+      </a>
+    </div>
+  </header>
+</div>
+
+<main>
+  <div class="container">
+
+    <!-- HERO -->
+    <span class="doc-eyebrow"><span class="dot"></span>DOCUMENTO LEGAL</span>
+    <h1>Aviso de <span class="grad">Privacidad</span> y derechos ARCO</h1>
+    <p class="doc-lead">Este documento describe cómo Elbuenpipe / GrowthsLab / JD Producción Felipe Arturo recolecta, usa, protege y transfiere tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de los Estados Unidos Mexicanos.</p>
+    <div class="doc-meta">
+      <span><strong>Última actualización:</strong> <span id="lastUpdate"></span></span>
+      <span><strong>Aplicabilidad:</strong> elbuenpipe.com y subdominios</span>
+    </div>
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="Tabla de contenido">
+      <div class="toc-title">Tabla de contenido</div>
+      <ol>
+        <li><a href="#responsable">Identidad del Responsable</a></li>
+        <li><a href="#datos">Datos personales recolectados</a></li>
+        <li><a href="#finalidades">Finalidades del tratamiento</a></li>
+        <li><a href="#fundamento">Fundamento legal</a></li>
+        <li><a href="#transferencias">Transferencias de datos</a></li>
+        <li><a href="#derechos">Derechos ARCO</a></li>
+        <li><a href="#procedimiento">Procedimiento ARCO</a></li>
+        <li><a href="#revocacion">Revocación del consentimiento</a></li>
+        <li><a href="#cookies">Cookies y tecnologías</a></li>
+        <li><a href="#seguridad">Medidas de seguridad</a></li>
+        <li><a href="#menores">Menores de edad</a></li>
+        <li><a href="#cambios">Cambios al aviso</a></li>
+        <li><a href="#autoridad">Autoridad de control (INAI)</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="doc-section" id="responsable">
+      <h2><span class="num">1</span>Identidad y domicilio del Responsable</h2>
+      <p>El responsable del tratamiento de tus datos personales es <strong>Felipe Arturo García Mendoza</strong>, persona física que opera comercialmente bajo las marcas <strong>Elbuenpipe</strong>, <strong>GrowthsLab</strong> y <strong>JD Producción</strong> (en adelante, "el Responsable").</p>
+      <ul class="doc-list">
+        <li><strong>Domicilio para notificaciones:</strong> Ciudad de México, México (domicilio detallado disponible bajo solicitud expresa al correo de contacto ARCO).</li>
+        <li><strong>Sitio web:</strong> elbuenpipe.com</li>
+        <li><strong>Correo de contacto general:</strong> gmmfelipearturo+elbuenpipe@gmail.com</li>
+        <li><strong>WhatsApp:</strong> +52 55 2386 7156</li>
+      </ul>
+    </section>
+
+    <!-- 2 -->
+    <section class="doc-section" id="datos">
+      <h2><span class="num">2</span>Datos personales que recolectamos</h2>
+      <p>Para las finalidades descritas en este Aviso, podemos recolectar las siguientes categorías de datos:</p>
+
+      <h3>2.1 Datos de identificación y contacto</h3>
+      <ul class="doc-list">
+        <li>Nombre completo</li>
+        <li>Correo electrónico</li>
+        <li>Número telefónico (incluido WhatsApp)</li>
+        <li>Empresa o marca con la que te identificas</li>
+        <li>Cargo o puesto profesional</li>
+      </ul>
+
+      <h3>2.2 Datos comerciales y de proyecto</h3>
+      <ul class="doc-list">
+        <li>Información sobre tu negocio (giro, tamaño, presencia digital actual)</li>
+        <li>Objetivos comerciales y necesidades específicas que compartas con nosotros</li>
+        <li>Presupuesto estimado y condiciones de contratación</li>
+        <li>Historial de comunicaciones, propuestas y contratos previos</li>
+      </ul>
+
+      <h3>2.3 Datos de navegación</h3>
+      <ul class="doc-list">
+        <li>Dirección IP y datos del dispositivo</li>
+        <li>Páginas visitadas, tiempo en sitio y patrones de interacción</li>
+        <li>Información agregada de Google Analytics, Meta Pixel y herramientas similares</li>
+      </ul>
+
+      <div class="doc-callout">
+        <strong>Datos sensibles:</strong> No recolectamos datos sensibles (origen racial, salud, creencias religiosas, opiniones políticas, orientación sexual, información genética o biométrica).
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="doc-section" id="finalidades">
+      <h2><span class="num">3</span>Finalidades del tratamiento</h2>
+
+      <h3>3.1 Finalidades primarias (necesarias para la relación)</h3>
+      <ul class="doc-list">
+        <li>Atender consultas, cotizaciones y solicitudes de información</li>
+        <li>Brindarte los servicios de marketing digital, producción audiovisual o eventos contratados</li>
+        <li>Generar y emitir cotizaciones, contratos y comprobantes fiscales</li>
+        <li>Mantener comunicación operativa durante la prestación del servicio</li>
+        <li>Cumplir con obligaciones legales, fiscales y contractuales aplicables</li>
+      </ul>
+
+      <h3>3.2 Finalidades secundarias (no necesarias, requieren tu consentimiento)</h3>
+      <ul class="doc-list">
+        <li>Envío de newsletters, ofertas y contenido educativo de marketing</li>
+        <li>Invitaciones a eventos, webinars y lanzamientos</li>
+        <li>Mejora estadística de servicios mediante análisis agregado</li>
+        <li>Casos de éxito o testimoniales (solo con tu autorización expresa)</li>
+      </ul>
+
+      <p style="margin-top:14px"><strong>¿Cómo negarte a las finalidades secundarias?</strong> Si no deseas que tus datos sean tratados para finalidades secundarias, puedes manifestarlo enviando un correo a <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">gmmfelipearturo+elbuenpipe@gmail.com</a> con el asunto "Negativa finalidades secundarias". Esto no afecta los servicios que ya tengas contratados.</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="doc-section" id="fundamento">
+      <h2><span class="num">4</span>Fundamento legal</h2>
+      <p>Este Aviso de Privacidad se emite en cumplimiento de:</p>
+      <ul class="doc-list">
+        <li><strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong>, publicada en el Diario Oficial de la Federación.</li>
+        <li><strong>Reglamento de la LFPDPPP</strong></li>
+        <li><strong>Lineamientos del Aviso de Privacidad</strong> emitidos por el INAI</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="doc-section" id="transferencias">
+      <h2><span class="num">5</span>Transferencias de datos a terceros</h2>
+      <p>Tus datos podrán ser compartidos con los siguientes terceros, exclusivamente para las finalidades indicadas:</p>
+      <ul class="doc-list">
+        <li><strong>Proveedores tecnológicos:</strong> Google Workspace, Meta Platforms, Stripe, Mailgun, herramientas de CRM y automatización — para alojamiento, comunicación y operación del servicio.</li>
+        <li><strong>Plataformas publicitarias:</strong> Google Ads, Meta Ads, TikTok Ads — únicamente cuando tu proyecto contratado lo requiera y bajo configuración acordada contigo.</li>
+        <li><strong>Colaboradores externos:</strong> diseñadores, fotógrafos, productores, programadores y proveedores que participen en la entrega de tu proyecto, bajo acuerdos de confidencialidad.</li>
+        <li><strong>Autoridades competentes:</strong> cuando exista obligación legal, requerimiento judicial o solicitud de autoridad facultada.</li>
+      </ul>
+      <p>No vendemos, alquilamos ni comerciamos tus datos personales con terceros para fines de mercadotecnia ajena.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="doc-section" id="derechos">
+      <h2><span class="num">6</span>Tus derechos ARCO</h2>
+      <p>Como titular de tus datos personales tienes derecho a:</p>
+      <ul class="doc-list">
+        <li><strong>Acceso (A):</strong> conocer qué datos tuyos tenemos y para qué los usamos.</li>
+        <li><strong>Rectificación (R):</strong> corregir datos inexactos o incompletos.</li>
+        <li><strong>Cancelación (C):</strong> solicitar que eliminemos tus datos cuando consideres que no se requieren para alguna de las finalidades señaladas, o cuando dejen de ser necesarios para el cumplimiento de la finalidad.</li>
+        <li><strong>Oposición (O):</strong> oponerte al uso de tus datos para fines específicos.</li>
+      </ul>
+      <p>Adicionalmente puedes <strong>limitar el uso o divulgación</strong> de tus datos, así como <strong>revocar el consentimiento</strong> que hayas otorgado.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="doc-section" id="procedimiento">
+      <h2><span class="num">7</span>Procedimiento para ejercer tus derechos ARCO</h2>
+      <p>Para ejercer cualquiera de los derechos ARCO, envía una solicitud al correo:</p>
+      <p><a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com?subject=Solicitud%20ARCO" style="font-weight:600">gmmfelipearturo+elbuenpipe@gmail.com</a></p>
+      <p>La solicitud debe contener:</p>
+      <ol class="doc-list-numbered">
+        <li>Nombre completo del titular y un medio para recibir respuesta.</li>
+        <li>Documento que acredite tu identidad (copia de identificación oficial: INE, pasaporte u otro). En caso de representante legal, documentación que acredite su personalidad.</li>
+        <li>Descripción clara y precisa de los datos personales sobre los que ejerces el derecho.</li>
+        <li>Cualquier otro elemento que facilite la localización de tus datos.</li>
+        <li>En el caso de rectificación, debes indicar las modificaciones a realizar y aportar la documentación que sustente tu petición.</li>
+      </ol>
+      <div class="doc-callout">
+        <strong>Plazo de respuesta:</strong> El Responsable dará respuesta en un plazo no mayor a 20 días hábiles a partir de la recepción de la solicitud completa. La resolución se comunicará por la vía elegida en tu solicitud y, de proceder, se hará efectiva dentro de los 15 días hábiles siguientes.
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="doc-section" id="revocacion">
+      <h2><span class="num">8</span>Revocación del consentimiento</h2>
+      <p>Puedes revocar el consentimiento que en su momento nos otorgaste para el tratamiento de tus datos personales en cualquier momento. Para ello, envía un correo a <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">gmmfelipearturo+elbuenpipe@gmail.com</a> con el asunto "Revocación de consentimiento".</p>
+      <p>Es importante que consideres que no en todos los casos podremos atender tu solicitud o concluir el uso de forma inmediata, ya que es posible que por alguna obligación legal requiramos seguir tratando tus datos. Asimismo, deberás considerar que, para ciertos fines, la revocación de tu consentimiento implicará que no te podamos seguir prestando el servicio que nos solicitaste o la conclusión de la relación con nosotros.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="doc-section" id="cookies">
+      <h2><span class="num">9</span>Cookies y tecnologías de seguimiento</h2>
+      <p>El sitio elbuenpipe.com utiliza cookies y tecnologías similares para:</p>
+      <ul class="doc-list">
+        <li>Mejorar la experiencia de navegación (recordar tu preferencia de tema oscuro/claro, idioma, etc.)</li>
+        <li>Análisis estadístico mediante Google Analytics</li>
+        <li>Pixeles de Meta y Google Ads para medición de campañas publicitarias</li>
+        <li>Funcionalidad de servicios embebidos como YouTube, formularios y mapas</li>
+      </ul>
+      <p>Puedes deshabilitar el uso de cookies en cualquier momento desde la configuración de tu navegador. Hacerlo puede afectar la funcionalidad del sitio.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="doc-section" id="seguridad">
+      <h2><span class="num">10</span>Medidas de seguridad</h2>
+      <p>Implementamos medidas administrativas, técnicas y físicas razonables para proteger tus datos personales contra daño, pérdida, alteración, destrucción o uso, acceso o tratamiento no autorizado. Estas medidas incluyen:</p>
+      <ul class="doc-list">
+        <li>Cifrado en tránsito mediante HTTPS (TLS) en toda la operación del sitio</li>
+        <li>Acceso restringido a información sensible bajo principio de necesidad</li>
+        <li>Acuerdos de confidencialidad con colaboradores y proveedores</li>
+        <li>Respaldo periódico y planes de continuidad operativa</li>
+        <li>Revisión y actualización periódica de protocolos de seguridad</li>
+      </ul>
+      <p>No obstante lo anterior, ningún sistema es completamente invulnerable. En caso de vulneración de seguridad que afecte de forma significativa tus derechos patrimoniales o morales, te lo notificaremos sin demora.</p>
+    </section>
+
+    <!-- 11 -->
+    <section class="doc-section" id="menores">
+      <h2><span class="num">11</span>Menores de edad</h2>
+      <p>Nuestros servicios están dirigidos a personas mayores de 18 años. No recolectamos intencionadamente datos personales de menores de edad. Si descubrimos que recibimos datos de un menor sin el consentimiento verificable de su tutor, los eliminaremos a la brevedad.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="doc-section" id="cambios">
+      <h2><span class="num">12</span>Modificaciones al Aviso de Privacidad</h2>
+      <p>Nos reservamos el derecho de modificar el presente Aviso de Privacidad para adaptarlo a novedades legislativas, jurisprudenciales, así como cambios en nuestras prácticas comerciales. Los cambios serán comunicados a través de:</p>
+      <ul class="doc-list">
+        <li>Publicación de la versión actualizada en este mismo URL (elbuenpipe.com/growthlab/arco)</li>
+        <li>Actualización de la fecha de "Última actualización" al inicio del documento</li>
+        <li>Notificación por correo electrónico cuando los cambios sean sustanciales</li>
+      </ul>
+      <p>Te recomendamos revisar este Aviso periódicamente.</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="doc-section" id="autoridad">
+      <h2><span class="num">13</span>Autoridad de protección de datos</h2>
+      <p>Si consideras que tu derecho a la protección de datos personales ha sido vulnerado, puedes acudir al <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong>:</p>
+      <ul class="doc-list">
+        <li>Sitio web: <a href="https://home.inai.org.mx" target="_blank" rel="noopener">home.inai.org.mx</a></li>
+        <li>TEL-INAI: 800 835 4324</li>
+      </ul>
+    </section>
+
+    <!-- 14 -->
+    <section class="doc-section" id="contacto">
+      <h2><span class="num">14</span>Contacto del Responsable</h2>
+      <p>Para cualquier duda, ejercicio de derechos ARCO, revocación de consentimiento o solicitud relacionada con este Aviso de Privacidad:</p>
+
+      <div class="contact-card">
+        <div class="contact-card-title">Departamento de Datos Personales</div>
+        <div class="row">
+          <span><strong>Correo:</strong>&nbsp;<a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">gmmfelipearturo+elbuenpipe@gmail.com</a></span>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <span><strong>WhatsApp:</strong>&nbsp;<a href="https://wa.me/5215523867156" target="_blank" rel="noopener">+52 55 2386 7156</a></span>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <span><strong>Sitio web:</strong>&nbsp;<a href="https://www.elbuenpipe.com">elbuenpipe.com</a></span>
+        </div>
+      </div>
+
+      <p style="margin-top:18px;font-size:.88rem;color:var(--text-muted)">Al utilizar nuestro sitio web y servicios manifiestas que has leído, comprendido y aceptado los términos del presente Aviso de Privacidad.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div>© <span id="year"></span> Elbuenpipe · GrowthsLab · JD Producción Felipe Arturo</div>
+  <div class="row">
+    <a href="https://www.elbuenpipe.com">Inicio</a>
+    <span>·</span>
+    <a href="https://wa.me/5215523867156" target="_blank" rel="noopener">WhatsApp</a>
+    <span>·</span>
+    <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
+
+const root=document.documentElement,themeBtn=document.getElementById('themeBtn'),themeIcon=document.getElementById('themeIcon');
+function setTheme(t){root.setAttribute('data-theme',t);themeIcon.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';try{localStorage.setItem('elp-theme',t)}catch(e){}}
+setTheme(localStorage.getItem('elp-theme')||'dark');
+themeBtn.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark'));
+
+/* Smooth scroll para TOC */
+document.querySelectorAll('.toc a').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const href=this.getAttribute('href');
+    if(!href.startsWith('#'))return;
+    e.preventDefault();
+    const target=document.querySelector(href);
+    if(!target)return;
+    const offset=target.getBoundingClientRect().top+window.scrollY-90;
+    window.scrollTo({top:offset,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

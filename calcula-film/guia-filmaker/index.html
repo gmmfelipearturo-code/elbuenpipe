@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Guía · Calculadora Filmmaker</title>
+<link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H38BNTJ53L');
+</script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0b0d1a;min-height:100vh;padding:40px 16px 60px;display:flex;flex-direction:column;align-items:center}
+
+  @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes titleFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+  body{
+    background:linear-gradient(135deg,#0b0d1a,#14103a,#1a0b2e,#0d1b3e,#0b0d1a);
+    background-size:400% 400%;
+    animation:bgShift 14s ease infinite;
+  }
+
+  .wrap{max-width:600px;width:100%;animation:fadeUp .5s ease both}
+
+  /* HEADER */
+  .header{text-align:center;margin-bottom:36px}
+  .badge{display:inline-flex;align-items:center;gap:6px;border:1.5px solid rgba(236,72,153,.5);border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.08em;color:#f9a8d4;background:rgba(236,72,153,.08);margin-bottom:18px}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:#ec4899;display:inline-block;animation:pulse 2s ease-in-out infinite}
+  h1{font-size:clamp(24px,5vw,38px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px;letter-spacing:-.5px}
+  h1 span{background:linear-gradient(90deg,#f472b6,#ec4899,#c084fc,#818cf8,#f472b6);background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleFlow 3.5s ease infinite}
+  .sub{font-size:14px;color:rgba(199,210,254,.6);line-height:1.6}
+
+  /* CHIPS */
+  .chips{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .chip{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;letter-spacing:.05em}
+  .chip-gl{background:rgba(129,140,248,.15);color:#a5b4fc;border:1px solid rgba(129,140,248,.3)}
+  .chip-ep{background:rgba(236,72,153,.12);color:#f9a8d4;border:1px solid rgba(236,72,153,.3)}
+
+  /* STEPS */
+  .steps{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+
+  .step{background:rgba(255,255,255,.97);border-radius:16px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 8px 32px rgba(0,0,0,.35)}
+  .step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;margin-top:1px}
+  .s1 .step-num{background:#EEF2FF;color:#4338CA}
+  .s2 .step-num{background:#FFF7ED;color:#C2410C}
+  .s3 .step-num{background:#EFF6FF;color:#1D4ED8}
+  .s4 .step-num{background:#F5F3FF;color:#7C3AED}
+  .s5 .step-num{background:#ECFDF5;color:#059669}
+
+  .step-content{}
+  .step-title{font-size:14px;font-weight:800;color:#111827;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .step-emoji{font-size:16px}
+  .step-desc{font-size:13px;color:#4B5563;line-height:1.55}
+  .step-tip{margin-top:8px;font-size:11.5px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:7px 10px;color:#6B7280;line-height:1.5}
+  .step-tip b{color:#374151}
+
+  /* CONNECTOR */
+  .connector{width:2px;height:12px;background:linear-gradient(to bottom,rgba(99,102,241,.4),rgba(236,72,153,.4));margin:0 auto;border-radius:99px}
+
+  /* TIP BOX */
+  .tip-box{background:rgba(99,102,241,.12);border:1px solid rgba(129,140,248,.3);border-radius:16px;padding:18px 20px;margin-bottom:20px}
+  .tip-box h3{font-size:13px;font-weight:700;color:#a5b4fc;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .tip-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .tip-list li{font-size:13px;color:rgba(199,210,254,.8);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+  .tip-list li::before{content:"✦";color:#818cf8;font-size:10px;margin-top:3px;flex-shrink:0}
+
+  /* SHEETS BOX */
+  .sheets-box{background:rgba(16,185,129,.08);border:1px solid rgba(52,211,153,.3);border-radius:16px;padding:18px 20px}
+  .sheets-box h3{font-size:13px;font-weight:700;color:#6EE7B7;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .sheets-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .sheets-list li{font-size:13px;color:rgba(167,243,208,.8);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+  .sheets-list li::before{content:"→";color:#34D399;font-weight:700;flex-shrink:0}
+
+  /* FOOTER */
+  .footer{text-align:center;margin-top:28px;font-size:11px;color:rgba(199,210,254,.3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span>🎬 GUÍA DE USO</div>
+    <h1>Cómo usar tu<br><span>calculadora de precios</span></h1>
+    <p class="sub">Sigue estos 5 pasos y tendrás tus precios profesionales en menos de 5 minutos.</p>
+    <div class="chips">
+      <span class="chip chip-gl">⚡ GROWTHS LAB</span>
+      <span class="chip chip-ep">🎥 ELBUENPIPE</span>
+    </div>
+  </div>
+
+  <!-- PASOS -->
+  <div class="steps">
+
+    <div class="step s1">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title"><span class="step-emoji">👤</span> Tus datos de contacto</div>
+        <div class="step-desc">Escribe tu nombre, el nombre de tu marca, tu número de WhatsApp y tu link de Instagram o página web. Estos datos quedarán guardados junto a tu cotización.</div>
+        <div class="step-tip">💡 <b>Tip:</b> Usa el nombre con el que te conocen tus clientes, no tienes que poner tu nombre legal.</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="step s2">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title"><span class="step-emoji">💰</span> Tus costos reales por día</div>
+        <div class="step-desc">Ingresa cuánto cuesta operarte un día: honorario personal, equipo, transporte, asistente, software e impuestos. Si no tienes algún costo, deja el campo en 0.</div>
+        <div class="step-tip">💡 <b>Tip:</b> Si tu equipo es propio, ponle una depreciación de $400–$800/día, así cubres su mantenimiento y reemplazo futuro.</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="step s3">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title"><span class="step-emoji">📅</span> Tu meta y horas de edición</div>
+        <div class="step-desc">Define cuánto quieres ganar al mes y cuántos días realmente facturas. La calculadora usará automáticamente el número más alto entre tu costo real y tu tarifa mínima rentable. Después pon las horas de edición para cada paquete.</div>
+        <div class="step-tip">💡 <b>Tip:</b> Sé realista con los días facturables: considera días sin trabajo, vacaciones y trámites. 10–14 días al mes es lo más común.</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="step s4">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title"><span class="step-emoji">🎯</span> Margen y posicionamiento</div>
+        <div class="step-desc">Define tu margen de ganancia como intermediario (20–40%) y elige cómo está posicionada tu marca en el mercado: Económico, Medio o Premium. También agrega los costos de traslado si haces eventos fuera de tu ciudad.</div>
+        <div class="step-tip">💡 <b>Tip:</b> Si apenas empiezas, elige "Medio". Si ya tienes portafolio sólido y clientes recurrentes, ve a "Premium".</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="step s5">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title"><span class="step-emoji">📊</span> Revisa tus precios y guarda</div>
+        <div class="step-desc">Aquí verás tus 3 paquetes calculados (Esencial, Profesional y Premium) con su precio al cliente, tu costo real y tu ganancia. También verás el costo extra para eventos foráneos. Cuando estés listo, presiona <b>"📊 Guardar"</b> para registrar todo en Google Sheets.</div>
+        <div class="step-tip">💡 <b>Tip:</b> Si algo no te convence, usa el botón <b>"✏️ Editar datos"</b> para regresar y ajustar cualquier número.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONSEJOS GENERALES -->
+  <div class="tip-box">
+    <h3>⚡ Consejos para mejores resultados</h3>
+    <ul class="tip-list">
+      <li>Actualiza tus costos cada 3–6 meses conforme cambien tus gastos o metas.</li>
+      <li>Los precios calculados son un <b>punto de partida</b>, puedes redondearlos al presentarlos al cliente.</li>
+      <li>Guarda una cotización por cada tipo de proyecto para tener referencias históricas.</li>
+      <li>Si un cliente negocia el precio, reduce primero el alcance del paquete, no tu ganancia.</li>
+    </ul>
+  </div>
+
+  <!-- GOOGLE SHEETS -->
+  <div class="sheets-box">
+    <h3>📋 ¿Qué se guarda en Google Sheets?</h3>
+    <ul class="sheets-list">
+      <li>Nombre, marca, WhatsApp y link del filmmaker</li>
+      <li>Fecha del registro y posicionamiento elegido</li>
+      <li>Costo base, precios de los 3 paquetes y extra foráneo</li>
+      <li>Ganancia neta por cada paquete y margen de intermediario</li>
+    </ul>
+  </div>
+
+  <!-- BOTÓN CTA -->
+  <div style="text-align:center;margin:28px 0 20px">
+    <a href="https://www.elbuenpipe.com/calcula-film" target="_blank" style="
+      display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,#4F46E5,#7C3AED,#9333EA);
+      color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em;
+      padding:14px 32px;border-radius:99px;text-decoration:none;
+      box-shadow:0 8px 32px rgba(99,102,241,.45);
+      transition:transform .2s,box-shadow .2s;
+    "
+    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(99,102,241,.6)'"
+    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 32px rgba(99,102,241,.45)'"
+    >
+      🎬 Ir a la Calculadora
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p style="margin-top:10px;font-size:11px;color:rgba(199,210,254,.35)">elbuenpipe.com/FM-Calculator</p>
+  </div>
+
+  <div class="footer">GrowthsLab · ElBuenPipe · Calculadora Filmmaker</div>
+
+</div>
+</body>
+</html>

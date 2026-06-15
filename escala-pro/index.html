@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalamiento Continuo | Elbuenpipe · GrowthsLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H38BNTJ53L');
+</script>
+    <style>
+/* ─── THEME ─────────────────────────────────────────── */
+:root[data-theme="dark"]{
+  --bg-0:#08071a;--bg-1:#0d0a26;--bg-2:#160c33;
+  --glow-1:rgba(133,78,255,.45);--glow-2:rgba(78,38,168,.35);
+  --glow-3:rgba(255,120,200,.20);--glow-4:rgba(80,180,255,.18);
+  --surface:rgba(28,18,58,.55);--surface-2:rgba(40,26,80,.55);
+  --surface-strong:rgba(20,14,46,.92);
+  --border:rgba(255,255,255,.08);--border-strong:rgba(180,120,255,.35);
+  --text:#f4f2fb;--text-soft:#cfc7e6;--text-muted:#9b94b8;
+  --accent:#b478ff;--accent-2:#7c4dff;--accent-3:#ff8fd1;
+  --accent-glow:rgba(180,120,255,.5);
+  --pill-bg:rgba(20,14,46,.6);
+  --shadow-card:0 30px 80px -30px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.04) inset;
+}
+:root[data-theme="light"]{
+  --bg-0:#f5f1ff;--bg-1:#ece4ff;--bg-2:#e2d5ff;
+  --glow-1:rgba(133,78,255,.25);--glow-2:rgba(212,184,255,.35);
+  --glow-3:rgba(255,160,220,.22);--glow-4:rgba(160,210,255,.25);
+  --surface:rgba(255,255,255,.7);--surface-2:rgba(255,255,255,.55);
+  --surface-strong:rgba(255,255,255,.95);
+  --border:rgba(20,12,55,.10);--border-strong:rgba(124,77,255,.45);
+  --text:#190d3a;--text-soft:#3b2d63;--text-muted:#6b5e8c;
+  --accent:#7c4dff;--accent-2:#a16eff;--accent-3:#e45cb5;
+  --accent-glow:rgba(124,77,255,.4);
+  --pill-bg:rgba(255,255,255,.75);
+  --shadow-card:0 30px 80px -30px rgba(80,40,160,.25),0 1px 0 rgba(255,255,255,.6) inset;
+}
+
+/* ─── RESET ──────────────────────────────────────────── */
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Inter Tight',system-ui,sans-serif;color:var(--text);background:var(--bg-0);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ─── BACKGROUND ─────────────────────────────────────── */
+.bg-layers{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-base{position:absolute;inset:-20%;background:radial-gradient(60% 55% at 50% 0%,var(--glow-1) 0%,transparent 60%),radial-gradient(40% 40% at 85% 30%,var(--glow-2) 0%,transparent 60%),radial-gradient(45% 45% at 15% 65%,var(--glow-2) 0%,transparent 65%),linear-gradient(180deg,var(--bg-1) 0%,var(--bg-0) 60%,var(--bg-2) 100%);filter:saturate(1.1);}
+.bg-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;opacity:.35;mix-blend-mode:overlay;}
+:root[data-theme="light"] .bg-grid{opacity:.2;mix-blend-mode:multiply;background-image:radial-gradient(rgba(80,40,160,.06) 1px,transparent 1px);}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;will-change:transform;}
+.orb.o1{width:55vmax;height:55vmax;left:-10vmax;top:-15vmax;background:var(--glow-1);animation:d1 22s ease-in-out infinite alternate;}
+.orb.o2{width:45vmax;height:45vmax;right:-10vmax;top:10vmax;background:var(--glow-2);animation:d2 28s ease-in-out infinite alternate;}
+.orb.o3{width:40vmax;height:40vmax;left:20vmax;bottom:-15vmax;background:var(--glow-3);animation:d3 26s ease-in-out infinite alternate;}
+.orb.o4{width:38vmax;height:38vmax;right:15vmax;bottom:-5vmax;background:var(--glow-4);animation:d4 32s ease-in-out infinite alternate;}
+@keyframes d1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(10vmax,6vmax) scale(1.15)}100%{transform:translate(-4vmax,12vmax) scale(.95)}}
+@keyframes d2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-12vmax,4vmax) scale(1.1)}100%{transform:translate(-6vmax,14vmax) scale(.9)}}
+@keyframes d3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-8vmax,-6vmax) scale(1.12)}100%{transform:translate(8vmax,-10vmax) scale(.92)}}
+@keyframes d4{0%{transform:translate(0,0) scale(.95)}50%{transform:translate(-10vmax,-4vmax) scale(1.15)}100%{transform:translate(4vmax,-12vmax) scale(1)}}
+.particles{position:absolute;inset:0;overflow:hidden}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);opacity:.6;animation:pf 14s linear infinite;}
+@keyframes pf{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6;transform:translateY(90vh) scale(1)}90%{opacity:.6}100%{transform:translateY(-10vh) translateX(-30px) scale(.3);opacity:0}}
+.scan-line{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(180,120,255,.04) 50%,transparent 100%);background-size:100% 40vh;animation:sm 12s ease-in-out infinite;mix-blend-mode:screen;}
+@keyframes sm{0%{background-position:0 -50vh}100%{background-position:0 150vh}}
+
+/* ─── HEADER ─────────────────────────────────────────── */
+.header-wrap{position:fixed;top:18px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 18px;pointer-events:none;}
+.header{pointer-events:auto;width:100%;max-width:1180px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--pill-bg);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid var(--border);border-radius:999px;box-shadow:var(--shadow-card);}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 4px 4px;flex-shrink:0}
+.brand-logo{width:38px;height:38px;border-radius:12px;object-fit:contain;padding:3px;box-shadow:0 0 24px rgba(180,120,255,.3);}
+.brand-name{font-family:'Inter Tight';font-weight:600;font-size:15px;white-space:nowrap}
+.brand-name em{font-style:normal;color:var(--accent)}
+.header-ctrls{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:auto}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-soft);transition:.2s;}
+.icon-btn:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-1px)}
+.icon-btn svg{width:17px;height:17px}
+.back-pill{display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;font-weight:600;font-size:13px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);transition:.2s;white-space:nowrap;}
+.back-pill:hover{border-color:var(--border-strong);color:var(--accent)}
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+main{padding-top:140px;padding-bottom:120px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{margin:120px 0}
+
+/* ─── DIVIDER ────────────────────────────────────────── */
+.sec-divider{display:flex;align-items:center;justify-content:center;position:relative;margin:0;padding:0;border:none;height:0;}
+.sec-divider::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--border-strong) 30%,var(--border-strong) 70%,transparent);}
+.sec-divider-pill{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:rgba(20,14,46,.65);border:1px solid rgba(180,120,255,.28);color:var(--text-soft);font-size:11px;letter-spacing:2px;text-transform:uppercase;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);box-shadow:0 8px 32px -8px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);white-space:nowrap;}
+:root[data-theme="light"] .sec-divider-pill{background:rgba(255,255,255,.72);border-color:rgba(124,77,255,.3);color:var(--text-muted);box-shadow:0 8px 32px -8px rgba(80,40,160,.18),inset 0 1px 0 rgba(255,255,255,.9);}
+.sec-divider-pill .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+section + .sec-divider{margin-top:60px}
+.sec-divider + section{margin-top:60px}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────── */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
+h1,h2,h3,h4{font-family:'Inter Tight';font-weight:400;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(32px,4.8vw,68px);line-height:1.06}
+h2{font-size:clamp(26px,3.6vw,46px);line-height:1.1}
+h3{font-size:clamp(17px,2vw,24px);line-height:1.2}
+.grad{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 50%,var(--accent-3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+p{color:var(--text-soft);line-height:1.7;margin:0}
+.sec-head{text-align:center;max-width:780px;margin:0 auto 72px}
+.sec-head .eyebrow{margin-bottom:22px}
+.sec-head p{margin-top:16px;font-size:16px}
+.breadcrumb{font-size:.82rem;color:var(--text-muted);margin-bottom:20px}
+.breadcrumb a{color:var(--accent)}
+
+/* ─── BUTTONS ────────────────────────────────────────── */
+.btn{padding:14px 28px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.2px;display:inline-flex;align-items:center;gap:8px;transition:.25s ease;border:1px solid transparent;font-family:'Inter',sans-serif;}
+.btn.primary{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#fff;box-shadow:0 18px 40px -15px var(--accent-glow)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 24px 50px -15px var(--accent-glow)}
+.btn.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.btn.ghost:hover{border-color:var(--border-strong);background:var(--surface-2)}
+.btn.wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 18px 40px -15px rgba(37,211,102,.45)}
+.btn.wa:hover{transform:translateY(-2px);box-shadow:0 24px 50px -15px rgba(37,211,102,.6)}
+
+/* ─── REVEAL ─────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero{padding-top:40px}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.badge-gold{background:rgba(180,120,255,.12);border:1.5px solid var(--accent);color:var(--accent)}
+.badge-green{background:rgba(80,200,120,.12);border:1.5px solid #4ade80;color:#4ade80}
+.hero h1{margin-bottom:20px}
+.hero-desc{font-size:1.05rem;line-height:1.8;margin-bottom:32px;color:var(--text-soft)}
+
+/* price block */
+.price-block{background:rgba(180,120,255,.07);border:1.5px solid rgba(180,120,255,.22);border-radius:20px;padding:28px 32px;margin-bottom:32px;position:relative;overflow:hidden}
+.price-block::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-3),transparent)}
+.price-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:8px}
+.price-main{font-family:'Inter Tight';font-size:3rem;font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.03em}
+.price-mxn{font-size:.9rem;color:var(--text-muted);margin-top:6px}
+.price-note{font-size:.82rem;color:var(--text-muted);margin-top:8px;line-height:1.6}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* growth card */
+.growth-card{background:var(--surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border-strong);border-radius:28px;overflow:hidden;animation:floatCard 5s ease-in-out infinite;box-shadow:var(--shadow-card);}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.growth-card::before{content:"";display:block;height:2px;background:linear-gradient(90deg,var(--accent-2),var(--accent),var(--accent-3))}
+.growth-body{padding:30px}
+.month-row{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;margin-bottom:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);transition:.25s}
+.month-row:hover{border-color:var(--border-strong);background:rgba(180,120,255,.06)}
+.month-num{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-family:'Inter Tight';font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 6px 16px -4px var(--accent-glow)}
+.month-info{flex:1}
+.month-title{font-size:.88rem;font-weight:600;color:var(--text)}
+.month-sub{font-size:.76rem;color:var(--text-muted);margin-top:2px}
+.month-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:6px;overflow:hidden}
+.month-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent-3));animation:growBar 1.5s ease-out both}
+@keyframes growBar{from{width:0}to{width:var(--w)}}
+.growth-result{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:14px;padding:16px;text-align:center;margin-top:14px;box-shadow:0 12px 30px -8px var(--accent-glow)}
+.growth-result-icon{font-size:1.5rem;margin-bottom:4px}
+.growth-result-val{font-family:'Inter Tight';font-size:1.7rem;font-weight:700;color:#fff}
+.growth-result-label{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:2px}
+
+/* ─── METRICS ROW ────────────────────────────────────── */
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.metric-card{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;text-align:center;transition:.3s}
+.metric-card:hover{border-color:var(--border-strong);transform:translateY(-4px)}
+.metric-val{font-family:'Inter Tight';font-size:2.4rem;font-weight:700;color:var(--accent)}
+.metric-label{font-size:.82rem;color:var(--text-muted);margin-top:8px;line-height:1.5}
+
+/* ─── INCLUDES GRID ──────────────────────────────────── */
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.inc-card{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;transition:.3s ease;position:relative;overflow:hidden}
+.inc-card::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-3));transform:scaleX(0);transform-origin:left;transition:.4s}
+.inc-card:hover{transform:translateY(-5px);border-color:var(--border-strong)}
+.inc-card:hover::after{transform:scaleX(1)}
+.inc-icon{font-size:2.2rem;margin-bottom:16px;display:block}
+.inc-card h3{font-family:'Inter Tight';font-size:1.05rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.inc-card p{font-size:.88rem;color:var(--text-muted);line-height:1.7}
+
+/* ─── TIMELINE ───────────────────────────────────────── */
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.timeline-month{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:22px;padding:28px;position:relative;overflow:hidden;transition:.3s}
+.timeline-month:hover{border-color:var(--border-strong);transform:translateY(-4px)}
+.timeline-month::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-3))}
+.tm-header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.tm-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-family:'Inter Tight';font-size:1rem;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 6px 16px -4px var(--accent-glow)}
+.tm-title{font-family:'Inter Tight';font-size:1rem;font-weight:600;color:var(--text)}
+.tm-sub{font-size:.76rem;color:var(--text-muted);margin-top:2px}
+.tm-list{list-style:none;padding:0;margin:0}
+.tm-list li{font-size:.86rem;color:var(--text-muted);padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--border)}
+.tm-list li:last-child{border-bottom:none}
+.tm-list li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
+.tm-kpi{background:rgba(180,120,255,.08);border:1px solid rgba(180,120,255,.2);border-radius:10px;padding:10px 14px;margin-top:16px;font-size:.82rem;color:var(--text-muted)}
+.tm-kpi span{color:var(--accent);font-weight:600}
+
+/* ─── PHOTO ROW ──────────────────────────────────────── */
+.photo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.photo-item{border-radius:18px;overflow:hidden;position:relative;height:210px;border:1px solid var(--border)}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+.photo-item:hover img{transform:scale(1.06)}
+.photo-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(8,7,26,.85),transparent);padding:14px 16px;font-size:.82rem;color:rgba(255,255,255,.85)}
+
+/* ─── OBJECTIONS ─────────────────────────────────────── */
+.objections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.obj-card{background:var(--surface);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:20px;padding:24px;transition:.3s}
+.obj-card:hover{border-color:var(--border-strong)}
+.obj-q{font-size:.88rem;font-weight:600;color:var(--text-muted);margin-bottom:12px}
+.obj-q::before{content:'❓ '}
+.obj-a{font-size:.87rem;color:var(--text-soft);line-height:1.7}
+.obj-a::before{content:'✅ '}
+
+/* ─── FOR WHO ────────────────────────────────────────── */
+.forwho-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+
+/* ─── CTA BAND ───────────────────────────────────────── */
+.cta-band{padding:80px 56px;border-radius:32px;background:linear-gradient(135deg,rgba(124,77,255,.22),rgba(228,92,181,.12));border:1px solid var(--border-strong);text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 30%,var(--glow-1),transparent 60%),radial-gradient(50% 60% at 80% 70%,var(--glow-3),transparent 60%);opacity:.8;pointer-events:none}
+.cta-band h2{position:relative;margin-bottom:16px}
+.cta-band>p{position:relative;max-width:540px;margin:0 auto 32px}
+.cta-btns{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer{padding:64px 0 32px;border-top:1px solid var(--border);background:linear-gradient(180deg,transparent,rgba(8,7,26,.5))}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px}
+.foot-grid h5{font-family:'Inter Tight';font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:1.6px;color:var(--text);margin:0 0 16px}
+.foot-grid a{display:block;color:var(--text-muted);font-size:13.5px;padding:5px 0;transition:color .15s}
+.foot-grid a:hover{color:var(--accent)}
+.foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.foot-brand img{width:44px;height:44px;border-radius:12px;padding:4px}
+.foot-brand .t{font-family:'Inter Tight';font-size:18px;font-weight:500}
+.foot-note{font-size:13px;color:var(--text-muted);line-height:1.65;max-width:300px}
+.foot-social{margin-top:16px;display:flex;gap:8px}
+.foot-social a{width:36px;height:36px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--text-soft)}
+.foot-social a:hover{border-color:var(--border-strong);color:var(--accent)}
+.foot-bar{padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--text-muted);font-size:12px}
+.foot-bar a{color:var(--text-muted);transition:color .2s}
+.foot-bar a:hover{color:var(--accent)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:52px}
+  .includes-grid{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:1fr}
+  .metrics-row{grid-template-columns:repeat(2,1fr)}
+  .objections-grid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .hero-grid,.includes-grid,.photo-row,.forwho-grid,.objections-grid{grid-template-columns:1fr}
+  .metrics-row{grid-template-columns:repeat(2,1fr)}
+  section{margin:80px 0}
+  section + .sec-divider{margin-top:40px}
+  .sec-divider + section{margin-top:40px}
+  main{padding-top:100px}
+  .cta-band{padding:44px 24px}
+  .foot-grid{grid-template-columns:1fr}
+  .back-pill span{display:none}
+}
+:root[data-theme="light"] .growth-card{background:rgba(255,255,255,.65)}
+:root[data-theme="light"] .month-row{background:rgba(255,255,255,.5)}
+    </style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-base"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="orb o3"></div><div class="orb o4"></div>
+  <div class="particles" id="particles"></div>
+  <div class="scan-line"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <header class="header">
+    <a class="brand" href="https://www.elbuenpipe.com">
+      <img class="brand-logo" src="https://i.ibb.co/1f1L99mW/lgo-003.png" alt="Elbuenpipe"/>
+      <span class="brand-name"><em>El</em>buenpipe</span>
+    </a>
+    <div class="header-ctrls">
+      <button class="icon-btn" id="themeBtn" title="Tema" aria-label="Cambiar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a class="back-pill" href="https://www.elbuenpipe.com">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span>Volver al inicio</span>
+      </a>
+    </div>
+  </header>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="breadcrumb"><a href="https://www.elbuenpipe.com">Elbuenpipe</a> › Escalamiento Continuo</div>
+        <div class="hero-badges">
+          <span class="badge badge-gold">📈 Gestión mensual</span>
+          <span class="badge badge-green">✅ Resultados predecibles</span>
+        </div>
+        <h1>Escalamiento y <span class="grad">Posicionamiento Continuo</span></h1>
+        <p class="hero-desc">No es solo publicidad — es un sistema completo de crecimiento gestionado cada mes: Ads, SEO, contenido visual, análisis de ventas y estrategia quincenal en un solo paquete.</p>
+        <div class="price-block">
+          <div class="price-label">Inversión mensual</div>
+          <div class="price-main"><span id="px-usd">$899 USD</span><span style="font-size:1.4rem;font-weight:500;color:var(--text-muted)">/mes</span></div>
+          <div class="price-mxn" id="px-mxn">≈ $18,500 MXN / mes</div>
+          <div class="price-note">Paquete trimestral: $18,000–$25,000 MXN (3 meses) · Contrato mínimo 3 meses</div>
+        </div>
+        <div class="hero-ctas">
+          <a href="https://wa.me/5215523867156?text=Hola%20Felipe%2C%20me%20interesa%20el%20servicio%20de%20Escalamiento%20Continuo%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n..." class="btn wa" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Quiero escalar mi negocio
+          </a>
+          <a href="#que-incluye" class="btn ghost">Ver qué incluye ↓</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="growth-card">
+          <div class="growth-body">
+            <p style="font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px">Tu crecimiento por mes</p>
+            <div class="month-row">
+              <div class="month-num">M1</div>
+              <div class="month-info">
+                <div class="month-title">Diagnóstico + Estructura</div>
+                <div class="month-sub">Auditoría, configuración y baseline</div>
+                <div class="month-bar"><div class="month-bar-fill" style="--w:35%"></div></div>
+              </div>
+            </div>
+            <div class="month-row">
+              <div class="month-num">M2</div>
+              <div class="month-info">
+                <div class="month-title">Lanzamiento + Optimización</div>
+                <div class="month-sub">Campañas activas, primeros resultados</div>
+                <div class="month-bar"><div class="month-bar-fill" style="--w:62%"></div></div>
+              </div>
+            </div>
+            <div class="month-row">
+              <div class="month-num">M3</div>
+              <div class="month-info">
+                <div class="month-title">Escalamiento + Posicionamiento</div>
+                <div class="month-sub">Conversiones estables y ROI positivo</div>
+                <div class="month-bar"><div class="month-bar-fill" style="--w:90%"></div></div>
+              </div>
+            </div>
+            <div class="growth-result">
+              <div class="growth-result-icon">📈</div>
+              <div class="growth-result-val">+2.8x ROI</div>
+              <div class="growth-result-label">Promedio al cierre del trimestre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>Métricas clave</span></div>
+
+  <!-- METRICS -->
+  <section class="wrap">
+    <div class="metrics-row reveal">
+      <div class="metric-card">
+        <div class="metric-val">3</div>
+        <div class="metric-label">Meses mínimo de contrato para ver resultados reales</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">2/mes</div>
+        <div class="metric-label">Reuniones estratégicas de revisión y ajuste</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100%</div>
+        <div class="metric-label">Gestión profesional de campañas desde el día 1</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">6+</div>
+        <div class="metric-label">Áreas cubiertas: Ads, SEO, Contenido, Analítica, Social y Estrategia</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>Qué incluye</span></div>
+
+  <!-- INCLUDES -->
+  <section id="que-incluye" class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Lo que recibes cada mes</span>
+      <h2 style="margin-top:18px">Todo lo que necesitas para crecer, <span class="grad">gestionado por nosotros</span></h2>
+      <p>No contratas un freelancer, contratas un equipo completo que trabaja como si fuera tu área de marketing interno.</p>
+    </div>
+    <div class="includes-grid reveal">
+      <div class="inc-card">
+        <span class="inc-icon">💰</span>
+        <h3>Gestión de Ads (Google + Meta)</h3>
+        <p>Creación, optimización semanal y reportes de campañas pagadas. Segmentación avanzada, A/B testing de creatividades y maximización del ROAS mes a mes.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">🔍</span>
+        <h3>SEO Continuo Avanzado</h3>
+        <p>Optimización técnica, generación de contenido orgánico, linkbuilding y monitoreo de posiciones. Estrategia de palabras clave actualizada cada mes según tu industria.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">🎬</span>
+        <h3>Producción Mensual de Contenido</h3>
+        <p>Fotos de producto, reels, historias y contenido para campañas. Piezas gráficas para redes sociales, ads y landing pages. Consistencia visual garantizada.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">📊</span>
+        <h3>Análisis de Ventas y Conversiones</h3>
+        <p>Dashboard mensual con KPIs clave: CPL, ROAS, tasa de conversión, ticket promedio. Identificación de cuellos de botella en el funnel y correcciones inmediatas.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">🗓️</span>
+        <h3>Reuniones Estratégicas Quincenales</h3>
+        <p>2 sesiones al mes para revisar resultados, ajustar estrategia y coordinar acciones. No desaparecemos después de lanzar — estamos contigo en cada decisión.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">🚀</span>
+        <h3>Estrategia de Lanzamientos y Promociones</h3>
+        <p>Planificación y ejecución de campañas especiales: temporadas, lanzamientos de producto, descuentos y eventos. Siempre con anticipación y sin improvisar.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>Roadmap de resultados</span></div>
+
+  <!-- TIMELINE -->
+  <section class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>3 meses</span>
+      <h2 style="margin-top:18px">Qué pasa cada mes con <span class="grad">tu negocio</span></h2>
+      <p>Un proceso claro, medible y sin sorpresas. Sabes exactamente qué se hace y qué se espera en cada etapa.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-month">
+        <div class="tm-header">
+          <div class="tm-num">01</div>
+          <div><div class="tm-title">Diagnóstico &amp; Estructura</div><div class="tm-sub">Días 1–30</div></div>
+        </div>
+        <ul class="tm-list">
+          <li>Auditoría completa de cuentas de Ads y SEO</li>
+          <li>Análisis de competidores y benchmark del sector</li>
+          <li>Definición de KPIs y metas del trimestre</li>
+          <li>Reestructura de campañas y tracking</li>
+          <li>Producción del primer lote de contenido visual</li>
+        </ul>
+        <div class="tm-kpi">Meta: <span>Baseline documentado + primeras campañas activas</span></div>
+      </div>
+      <div class="timeline-month">
+        <div class="tm-header">
+          <div class="tm-num">02</div>
+          <div><div class="tm-title">Lanzamiento &amp; Optimización</div><div class="tm-sub">Días 31–60</div></div>
+        </div>
+        <ul class="tm-list">
+          <li>Campañas activas con primera ronda de datos</li>
+          <li>A/B testing de copys, creatividades y audiencias</li>
+          <li>Ajuste de pujas y presupuestos semanales</li>
+          <li>Publicación de contenido orgánico programado</li>
+          <li>Reporte quincenal + reunión estratégica</li>
+        </ul>
+        <div class="tm-kpi">Meta: <span>Reducción de CPL + primeras conversiones estables</span></div>
+      </div>
+      <div class="timeline-month">
+        <div class="tm-header">
+          <div class="tm-num">03</div>
+          <div><div class="tm-title">Escalamiento &amp; Posicionamiento</div><div class="tm-sub">Días 61–90</div></div>
+        </div>
+        <ul class="tm-list">
+          <li>Escala de presupuesto en campañas ganadoras</li>
+          <li>SEO con primeras posiciones en Google</li>
+          <li>Automatizaciones activas en el funnel de ventas</li>
+          <li>Plan de crecimiento para los próximos 3 meses</li>
+          <li>Reporte completo trimestral + propuesta de escalamiento</li>
+        </ul>
+        <div class="tm-kpi">Meta: <span>ROI positivo demostrable + posicionamiento sólido</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>Cómo trabajamos</span></div>
+
+  <!-- PHOTOS -->
+  <section class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>En la práctica</span>
+      <h2 style="margin-top:18px">Un equipo real detrás de <span class="grad">cada campaña</span></h2>
+      <p>Estrategia, creatividad y ejecución en un solo lugar. No tercerizamos lo crítico.</p>
+    </div>
+    <div class="photo-row reveal">
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Análisis de campañas">
+        <div class="photo-caption">📊 Análisis de campañas y métricas</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Estrategia digital">
+        <div class="photo-caption">💡 Estrategia digital personalizada</div>
+      </div>
+      <div class="photo-item">
+        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80" alt="Contenido para redes">
+        <div class="photo-caption">🎬 Producción mensual de contenido</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>¿Es para ti?</span></div>
+
+  <!-- FOR WHO -->
+  <section class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Perfil ideal</span>
+      <h2 style="margin-top:18px">Este servicio es ideal <span class="grad">si eres…</span></h2>
+    </div>
+    <div class="forwho-grid reveal">
+      <div class="inc-card">
+        <span class="inc-icon">🏪</span>
+        <h3>Negocio establecido listo para escalar</h3>
+        <p>Ya vendes, ya tienes producto o servicio validado, pero necesitas pasar de depender del boca a boca a tener un flujo constante de clientes.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">📦</span>
+        <h3>Ecommerce que quiere más ventas</h3>
+        <p>Tienes tienda en línea (Shopify, Mercado Libre, Amazon) pero los números no crecen como esperabas. Necesitas Ads + SEO + contenido actuando en conjunto.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">💼</span>
+        <h3>Servicio o consultora B2B/B2C</h3>
+        <p>Vendes servicios profesionales, consultoría, educación o cursos y quieres posicionarte como referente en tu nicho con una estrategia de contenido y Ads que convierta.</p>
+      </div>
+      <div class="inc-card">
+        <span class="inc-icon">🎯</span>
+        <h3>Marca que quiere dejar de improvisar</h3>
+        <p>Ya invertiste en Ads o contenido antes sin resultados claros. Quieres un proceso estructurado, medible y con un equipo que te rinda cuentas cada quincena.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>Preguntas frecuentes</span></div>
+
+  <!-- OBJECTIONS / FAQ -->
+  <section class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span>FAQ</span>
+      <h2 style="margin-top:18px">Lo que suelen preguntar <span class="grad">antes de contratar</span></h2>
+    </div>
+    <div class="objections-grid reveal">
+      <div class="obj-card">
+        <p class="obj-q">¿Qué pasa si no veo resultados en el primer mes?</p>
+        <p class="obj-a">El primer mes es de diagnóstico y estructura — no esperamos ventas inmediatas, esperamos bases sólidas. Los resultados tangibles aparecen en el mes 2–3. Por eso el contrato mínimo es de 3 meses.</p>
+      </div>
+      <div class="obj-card">
+        <p class="obj-q">¿El presupuesto de anuncios está incluido?</p>
+        <p class="obj-a">No. El paquete cubre la gestión estratégica y creativa. El presupuesto de pauta (Google/Meta) lo manejas tú directamente en tu cuenta y lo recomendamos según tu industria y metas.</p>
+      </div>
+      <div class="obj-card">
+        <p class="obj-q">¿Trabajan con cualquier tipo de negocio?</p>
+        <p class="obj-a">Solo tomamos negocios donde podemos generar resultados reales. Antes de contratar, hacemos un brief para evaluar si somos la opción correcta para ti. Si no encajamos, te lo decimos con honestidad.</p>
+      </div>
+      <div class="obj-card">
+        <p class="obj-q">¿Puedo cancelar antes de los 3 meses?</p>
+        <p class="obj-a">El compromiso mínimo es de 3 meses porque los resultados del marketing digital requieren ese tiempo para madurar. Cancelar antes significa perder la inversión en la estructura que ya construimos.</p>
+      </div>
+      <div class="obj-card">
+        <p class="obj-q">¿Cómo me reportan los resultados?</p>
+        <p class="obj-a">Recibes un dashboard mensual con tus métricas clave + 2 reuniones de trabajo al mes donde revisamos números, decidimos ajustes y coordinamos el siguiente período.</p>
+      </div>
+      <div class="obj-card">
+        <p class="obj-q">¿Ya lo hice con otra agencia y no funcionó. ¿Por qué sería diferente?</p>
+        <p class="obj-a">La mayoría de agencias venden campañas, no sistemas. Nosotros integramos Ads + SEO + contenido + analítica + estrategia en un solo proceso coherente. Además, tienes comunicación directa con Felipe, no con un ejecutivo de cuenta.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="sec-divider wrap"><span class="sec-divider-pill"><span class="dot"></span>¿Hablamos?</span></div>
+
+  <!-- CTA FINAL -->
+  <section class="wrap">
+    <div class="cta-band reveal">
+      <h2>¿Listo para escalar tu negocio <span class="grad">este trimestre?</span></h2>
+      <p>Agenda una llamada de 30 minutos para evaluar si tu negocio está listo para este nivel de crecimiento. Sin compromisos, con claridad total.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5215523867156?text=Hola%20Felipe%2C%20me%20interesa%20el%20servicio%20de%20Escalamiento%20Continuo%2C%20quisiera%20agendar%20una%20llamada..." class="btn wa" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Agendar mi llamada gratuita
+        </a>
+        <a href="https://www.elbuenpipe.com" class="btn ghost">← Volver a elbuenpipe.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="https://i.ibb.co/1f1L99mW/lgo-003.png" alt="GrowthsLab"/><span class="t">GrowthsLab</span></div>
+        <p class="foot-note">Sistemas de crecimiento y experiencias visuales que generan resultados reales. Marketing, diseño y producción en un solo lugar.</p>
+        <div class="foot-social">
+          <a href="https://www.instagram.com/elbuenpipe/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://wa.me/5215523867156?text=Hola%20Pipe%2C%20acabo%20de%20ver%20tu%20p%C3%A1gina" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+          <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Negocios</h5>
+        <a href="https://www.elbuenpipe.com/growhtlab/diagnostic-pro" target="_blank" rel="noopener">Diagnóstico Digital</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/sales-system" target="_blank" rel="noopener">Sistema de Ventas</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/escala-pro" target="_blank" rel="noopener">Escalamiento</a>
+        <a href="https://www.elbuenpipe.com/growhtlab/pro-visual" target="_blank" rel="noopener">Producción Visual</a>
+      </div>
+      <div>
+        <h5>Eventos</h5>
+        <a href="https://www.elbuenpipe.com/growhtlab/pro-visual" target="_blank" rel="noopener">Producción Audiovisual</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth" target="_blank" rel="noopener">Entretenimiento</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth" target="_blank" rel="noopener">Shows y Animación</a>
+        <a href="https://www.elbuenpipe.com/talentgrowth" target="_blank" rel="noopener">Cotizar Evento</a>
+      </div>
+      <div>
+        <h5>Contacto</h5>
+        <a href="https://wa.me/5215523867156?text=Hola%20Felipe,%20acabo%20de%20ver%20tu%20p%C3%A1gina,%20me%20encantar%C3%ADa%20agendar%20una%20reuni%C3%B3n" target="_blank" rel="noopener">Agendar llamada</a>
+        <a href="https://wa.me/5215523867156" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Email</a>
+        <a href="https://www.instagram.com/elbuenpipe/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <div>© <span id="year"></span> Elbuenpipe | GrowthsLab | <a href="https://www.elbuenpipe.com/ceo" target="_blank" rel="noopener">JD Producción Felipe Arturo</a></div>
+      <div>Todos los derechos reservados · <a href="https://www.elbuenpipe.com/growhtlab/arco" target="_blank" rel="noopener">Aviso de Privacidad</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* THEME */
+const root=document.documentElement,themeBtn=document.getElementById('themeBtn'),themeIcon=document.getElementById('themeIcon');
+function setTheme(t){root.setAttribute('data-theme',t);themeIcon.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';try{localStorage.setItem('elp-theme',t)}catch(e){}}
+setTheme(localStorage.getItem('elp-theme')||'dark');
+themeBtn.addEventListener('click',()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark'));
+
+/* PARTICLES */
+(()=>{const h=document.getElementById('particles');for(let i=0;i<22;i++){const p=document.createElement('span');p.className='particle';p.style.left=Math.random()*100+'vw';p.style.animationDuration=(10+Math.random()*14)+'s';p.style.animationDelay=(-Math.random()*20)+'s';p.style.opacity=(.3+Math.random()*.5).toFixed(2);p.style.transform=`scale(${(.5+Math.random()*1.8).toFixed(2)})`;h.appendChild(p);}})();
+
+/* REVEAL */
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'-8% 0px -5% 0px',threshold:0});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<!-- PRICE LOADER — GrowthsLab -->
+<script>
+(async function(){
+  const URL = 'https://script.google.com/macros/s/AKfycbwcfTJ85roDA4Y_O7dFMuPTK0tfDjsJd4ZZCxXy8VnZPT54lE_il8oESI0XjscikdGI/exec';
+  const SVC = 'escalamiento-continuo';
+  const MAP = { 'px-usd':'usd_display', 'px-mxn':'mxn_display' };
+  try {
+    const rows = await (await fetch(URL+'?sheet=Precios',{cache:'no-cache'})).json();
+    const svc  = rows.find(r => r.servicio_id === SVC);
+    if(!svc) return;
+    Object.entries(MAP).forEach(([id,field])=>{
+      const el = document.getElementById(id);
+      if(el && svc[field]) el.textContent = svc[field];
+    });
+    console.log('[GrowthsLab] ✓ Precios actualizados — escalamiento-continuo');
+  } catch(e){ console.log('[GrowthsLab] Precios: fallback estático.'); }
+})();
+</script>
+
+</body>
+</html>

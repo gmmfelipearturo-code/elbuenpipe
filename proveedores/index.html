@@ -937,6 +937,9 @@ footer strong { color: var(--green); }
       <button class="btn-primary" id="btn-send-code">Enviar código por WhatsApp</button>
       <p class="error-msg" id="phone-error">Ingresa un número válido de 10 dígitos.</p>
       <div class="info-note">📲 Recibirás un mensaje de WhatsApp con tu código de 5 dígitos</div>
+      <div style="text-align:center; margin-top:16px;">
+        <button class="btn-secondary" id="btn-have-code" style="font-size:12px; padding:9px 20px;">🔑 Ya tengo un código</button>
+      </div>
     </div>
 
     <div id="step-code" style="display:none">
@@ -1005,6 +1008,10 @@ footer strong { color: var(--green); }
     </div>
   </div>
   <div class="header-right">
+    <button class="cart-btn" id="btn-download-pricelist" style="background:rgba(241,194,50,0.1); border-color:rgba(241,194,50,0.3); color:var(--accent);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar lista de precios
+    </button>
     <button class="cart-btn" id="cart-toggle-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       Carrito
@@ -1066,6 +1073,48 @@ footer strong { color: var(--green); }
   </div>
 </div>
 
+<!-- ─── PRICE LIST OVERLAY ─── -->
+<div class="overlay hidden" id="pricelist-overlay">
+  <div class="modal-card">
+    <div class="modal-logo">
+      <img src="https://i.ibb.co/cmZR9F7/Recurso-48-Etiqueta2.png" alt="SentinellMarket" style="height:44px">
+    </div>
+    <h2 class="modal-title" style="font-size:18px">Descargar lista de precios</h2>
+    <p class="modal-sub" style="margin-bottom:20px">Ingresa tus datos para recibir la lista completa en Excel</p>
+
+    <div class="form-row">
+      <div class="field-group">
+        <label class="field-label">Nombre completo *</label>
+        <input class="field-input" id="pl-nombre" placeholder="Tu nombre" required>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Correo electrónico *</label>
+        <input class="field-input" id="pl-email" type="email" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Empresa / Compañía *</label>
+        <input class="field-input" id="pl-empresa" placeholder="Nombre de empresa">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Estado *</label>
+        <input class="field-input" id="pl-estado" placeholder="ej. CDMX, Jalisco…">
+      </div>
+      <div class="field-group full">
+        <label class="field-label">WhatsApp</label>
+        <input class="field-input" id="pl-whatsapp" placeholder="Auto-completado" readonly style="opacity:0.6">
+      </div>
+    </div>
+
+    <p class="error-msg" id="pricelist-error" style="display:none">Completa todos los campos requeridos.</p>
+
+    <div style="display:flex;gap:10px;margin-top:20px">
+      <button class="btn-secondary" id="btn-cancel-pricelist" style="flex:1">Cancelar</button>
+      <button class="btn-primary" id="btn-generate-pricelist" style="flex:2;margin-top:0">
+        📊 Descargar Excel</button>
+    </div>
+  </div>
+</div>
+
 <!-- ─── TOAST ─── -->
 <div class="toast" id="toast">
   <span id="toast-icon">✓</span>
@@ -1083,7 +1132,7 @@ footer strong { color: var(--green); }
 const CONFIG = {
   ACCESS_CODE: '97120',
   WA_OWNER:    '5523867156',          // Tu WhatsApp para recibir cotizaciones
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzBsEhuxeDSsPMLNhhvbUhY_HHwkQ7kXZBLys3uWpWNYoNIPYkvpIcNayiPVbUlqaiS/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxl_k-17WNT2VnwflUoVvSL8SvukpLDobwGNHVNBuibTgWXcnQ3-DdrJjgdC0jiA2v8/exec',
   FOLIO_PREFIX: 'SM',
 };
 
@@ -1771,6 +1820,138 @@ function sendWhatsApp(client) {
   const url = `https://wa.me/52${CONFIG.WA_OWNER}?text=${encodeURIComponent(msg)}`;
   window.open(url,'_blank');
   showToast('Cotización generada y PDF descargado ✓');
+}
+
+// ═══════════════════════════════════════════════════════
+// "YA TENGO UN CÓDIGO" — skip WhatsApp send
+// ═══════════════════════════════════════════════════════
+document.getElementById('btn-have-code').addEventListener('click', () => {
+  const phone = document.getElementById('login-phone').value.trim();
+  // Allow empty phone for code-only access; store if provided
+  if (phone && /^\d{10}$/.test(phone)) {
+    userPhone = phone;
+    document.getElementById('phone-display').textContent = phone.replace(/(\d{2})(\d{4})(\d{4})/, '$1 $2 $3');
+  } else if (!phone) {
+    document.getElementById('phone-display').textContent = '—';
+  } else {
+    document.getElementById('phone-error').classList.add('show');
+    return;
+  }
+  document.getElementById('phone-error').classList.remove('show');
+  document.getElementById('step-phone').style.display = 'none';
+  document.getElementById('step-code').style.display = 'block';
+  document.querySelector('.code-digit[data-idx="0"]').focus();
+});
+
+// ═══════════════════════════════════════════════════════
+// PRICE LIST MODAL
+// ═══════════════════════════════════════════════════════
+document.getElementById('btn-download-pricelist').addEventListener('click', () => {
+  document.getElementById('pl-whatsapp').value = userPhone;
+  document.getElementById('pricelist-overlay').classList.remove('hidden');
+});
+
+document.getElementById('btn-cancel-pricelist').addEventListener('click', () => {
+  document.getElementById('pricelist-overlay').classList.add('hidden');
+});
+
+document.getElementById('btn-generate-pricelist').addEventListener('click', async () => {
+  const nombre   = document.getElementById('pl-nombre').value.trim();
+  const email    = document.getElementById('pl-email').value.trim();
+  const empresa  = document.getElementById('pl-empresa').value.trim();
+  const estado   = document.getElementById('pl-estado').value.trim();
+  const whatsapp = document.getElementById('pl-whatsapp').value.trim();
+
+  if (!nombre || !email || !empresa || !estado) {
+    document.getElementById('pricelist-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('pricelist-error').style.display = 'none';
+  document.getElementById('pricelist-overlay').classList.add('hidden');
+
+  showLoading('Preparando lista de precios en Excel…');
+  await submitPriceListLead({ nombre, email, empresa, estado, whatsapp });
+  generateExcel({ nombre, email, empresa, estado, whatsapp });
+  hideLoading();
+  showToast('Lista de precios descargada ✓', '📊');
+});
+
+async function submitPriceListLead(client) {
+  if (CONFIG.APPS_SCRIPT_URL === 'TU_APPS_SCRIPT_URL_AQUI') return;
+  try {
+    await fetch(CONFIG.APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'savePriceListLead',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        nombre: client.nombre,
+        empresa: client.empresa,
+        estado: client.estado,
+        whatsapp: client.whatsapp,
+        email: client.email,
+      }),
+    });
+  } catch(e) { console.warn('No se pudo guardar lead de lista de precios'); }
+}
+
+function generateExcel(client) {
+  // Build CSV content (opens as Excel)
+  const now = new Date().toLocaleDateString('es-MX');
+  const rows = [];
+
+  // Header info
+  rows.push(['SentinellMarket.shop — Lista de Precios Castrol']);
+  rows.push(['Generada el:', now]);
+  rows.push(['Cliente:', client.nombre, 'Empresa:', client.empresa]);
+  rows.push(['Estado:', client.estado, 'WhatsApp:', client.whatsapp]);
+  rows.push(['Correo:', client.email]);
+  rows.push([]);
+
+  // Column headers
+  rows.push([
+    'Categoría', 'SKU', 'Descripción del Producto', 'SAE / Viscosidad',
+    'Litros por envase', 'Piezas por Pack',
+    'Precio Pack (MXN)', 'Precio Unidad (MXN)'
+  ]);
+
+  // Product rows
+  for (const p of PRODUCTS) {
+    rows.push([
+      TIPO_LABEL[p.tipo] || p.tipo,
+      p.sku,
+      p.nombre,
+      p.sae,
+      fmtL(p.litros),
+      p.piezas,
+      p.precio_pack.toFixed(2),
+      p.precio_unidad.toFixed(2)
+    ]);
+  }
+
+  rows.push([]);
+  rows.push(['* Precios en MXN. Vigencia sujeta a cambio. Uso exclusivo para distribuidores autorizados.']);
+  rows.push(['* sentinellmarket.shop']);
+
+  // Convert to CSV string
+  const csv = rows.map(r =>
+    r.map(cell => {
+      const s = String(cell ?? '');
+      return s.includes(',') || s.includes('"') || s.includes('\n')
+        ? `"${s.replace(/"/g, '""')}"` : s;
+    }).join(',')
+  ).join('\r\n');
+
+  // BOM for Excel UTF-8 recognition
+  const BOM = '\uFEFF';
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ListaPrecios-Castrol-SentinellMarket-${now.replace(/\//g,'-')}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 // Logout

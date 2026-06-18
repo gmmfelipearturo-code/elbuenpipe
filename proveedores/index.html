@@ -1060,8 +1060,8 @@ select.field-input { cursor: pointer; }
         <input class="field-input" id="q-email" type="email" placeholder="correo@ejemplo.com">
       </div>
       <div class="field-group">
-        <label class="field-label">WhatsApp</label>
-        <input class="field-input" id="q-whatsapp" placeholder="Auto-completado" readonly style="opacity:0.6">
+        <label class="field-label">WhatsApp (10 dígitos) *</label>
+        <input class="field-input" id="q-whatsapp" placeholder="ej. 5523867156" maxlength="10" inputmode="numeric" type="tel">
       </div>
     </div>
 
@@ -1720,7 +1720,16 @@ function applyFilters() {
 // QUOTE MODAL
 // ═══════════════════════════════════════════════════════
 document.getElementById('btn-open-quote').addEventListener('click',()=>{
-  document.getElementById('q-whatsapp').value = userPhone;
+  const qWa = document.getElementById('q-whatsapp');
+  if (userPhone) {
+    qWa.value    = userPhone;
+    qWa.readOnly = true;
+    qWa.style.opacity = '0.6';
+  } else {
+    qWa.value    = '';
+    qWa.readOnly = false;
+    qWa.style.opacity = '1';
+  }
   document.getElementById('quote-overlay').classList.remove('hidden');
   document.getElementById('cart-panel').classList.remove('open');
 });
@@ -1734,11 +1743,19 @@ document.getElementById('btn-generate-quote').addEventListener('click', async ()
   const email    = document.getElementById('q-email').value.trim();
   const whatsapp = document.getElementById('q-whatsapp').value.trim();
 
-  if (!nombre||!empresa||!email) {
-    document.getElementById('quote-error').style.display='block';
+  const errEl = document.getElementById('quote-error');
+  if (!nombre || !empresa || !email) {
+    errEl.textContent = 'Completa todos los campos requeridos.';
+    errEl.style.display = 'block';
     return;
   }
-  document.getElementById('quote-error').style.display='none';
+  if (!/^\d{10}$/.test(whatsapp)) {
+    errEl.textContent = 'Ingresa un número de WhatsApp válido de 10 dígitos.';
+    errEl.style.display = 'block';
+    document.getElementById('q-whatsapp').focus();
+    return;
+  }
+  errEl.style.display = 'none';
 
   folio = genFolio();
   const clientData = { nombre, empresa, email, whatsapp };
@@ -1974,16 +1991,11 @@ document.getElementById('btn-have-code').addEventListener('click', () => {
 // ═══════════════════════════════════════════════════════
 document.getElementById('btn-download-pricelist').addEventListener('click', () => {
   const waField = document.getElementById('pl-whatsapp');
-  if (userPhone) {
-    waField.value = userPhone;
-    waField.readOnly = true;
-    waField.style.opacity = '0.6';
-  } else {
-    waField.value = '';
-    waField.readOnly = false;
-    waField.style.opacity = '1';
-    waField.placeholder = 'Requerido — 10 dígitos';
-  }
+  // Pre-llenar si ya tiene teléfono, pero siempre editable y obligatorio
+  waField.value    = userPhone || '';
+  waField.readOnly = false;
+  waField.style.opacity = '1';
+  waField.placeholder = 'ej. 5523867156';
   document.getElementById('pricelist-overlay').classList.remove('hidden');
 });
 
@@ -1998,16 +2010,19 @@ document.getElementById('btn-generate-pricelist').addEventListener('click', asyn
   const estado   = document.getElementById('pl-estado').value.trim();
   const whatsapp = document.getElementById('pl-whatsapp').value.trim();
 
-  const waRequired = !userPhone;
-  if (!nombre || !email || !empresa || !estado || (waRequired && !/^\d{10}$/.test(whatsapp))) {
-    const errEl = document.getElementById('pricelist-error');
-    errEl.textContent = waRequired && !/^\d{10}$/.test(whatsapp) && nombre && email && empresa && estado
-      ? 'Ingresa un número de WhatsApp válido de 10 dígitos.'
-      : 'Completa todos los campos requeridos.';
-    errEl.style.display = 'block';
+  const plErrEl = document.getElementById('pricelist-error');
+  if (!nombre || !email || !empresa || !estado) {
+    plErrEl.textContent = 'Completa todos los campos requeridos.';
+    plErrEl.style.display = 'block';
     return;
   }
-  document.getElementById('pricelist-error').style.display = 'none';
+  if (!/^\d{10}$/.test(whatsapp)) {
+    plErrEl.textContent = 'Ingresa un número de WhatsApp válido de 10 dígitos.';
+    plErrEl.style.display = 'block';
+    document.getElementById('pl-whatsapp').focus();
+    return;
+  }
+  plErrEl.style.display = 'none';
   document.getElementById('pricelist-overlay').classList.add('hidden');
 
   showLoading('Preparando lista de precios en Excel…');

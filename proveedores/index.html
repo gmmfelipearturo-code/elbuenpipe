@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <style>
 :root {
@@ -910,6 +911,82 @@ footer strong { color: var(--green); }
   .form-row { grid-template-columns: 1fr; }
   .modal-card { padding: 28px 20px; }
 }
+
+/* ─── STORES BANNER ─── */
+.stores-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(241,194,50,0.05) 0%, rgba(6,15,20,0) 100%);
+  border: 1px solid rgba(241,194,50,0.12);
+  border-radius: 12px;
+}
+
+.stores-banner-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.store-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 16px;
+  text-decoration: none;
+  transition: all 0.22s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.store-pill-web {
+  background: rgba(241,194,50,0.1);
+  border: 1px solid rgba(241,194,50,0.28);
+  color: var(--accent);
+}
+.store-pill-web:hover {
+  background: rgba(241,194,50,0.18);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(241,194,50,0.18);
+}
+
+.store-pill-ml {
+  background: rgba(50,167,241,0.08);
+  border: 1px solid rgba(50,167,241,0.25);
+  color: #5bb8f5;
+}
+.store-pill-ml:hover {
+  background: rgba(50,167,241,0.16);
+  border-color: #5bb8f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(50,167,241,0.15);
+}
+
+select.field-input { cursor: pointer; }
+
+/* ─── RESPONSIVE: store banner ─── */
+@media (max-width: 480px) {
+  .stores-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+  .stores-banner-label { margin-right: 0; margin-bottom: 2px; }
+  .store-pill { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -1037,6 +1114,20 @@ footer strong { color: var(--green); }
       <button class="filter-btn" data-filter="TRANSMISIONES">Transmisiones</button>
     </div>
   </div>
+
+  <!-- ─── TIENDAS BANNER ─── -->
+  <div class="stores-banner">
+    <span class="stores-banner-label">Visítanos en:</span>
+    <a href="https://www.sentinellmarket.shop/productos/" target="_blank" rel="noopener" class="store-pill store-pill-web">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span>sentinellmarket.shop</span>
+    </a>
+    <a href="https://listado.mercadolibre.com.mx/_CustId_2351076199?item_id=MLM5346645978&category_id=MLM187678&seller_id=2351076199&client=recoview-selleritems&recos_listing=true#origin=vip&component=sellerData&typeSeller=classic" target="_blank" rel="noopener" class="store-pill store-pill-ml">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>Mercado Libre</span>
+    </a>
+  </div>
+
   <div class="stats">
     Mostrando <strong id="count-shown">0</strong> de <strong id="count-total">0</strong> productos
   </div>
@@ -1097,11 +1188,45 @@ footer strong { color: var(--green); }
       </div>
       <div class="field-group">
         <label class="field-label">Estado *</label>
-        <input class="field-input" id="pl-estado" placeholder="ej. CDMX, Jalisco…">
+        <select class="field-input" id="pl-estado">
+          <option value="">— Selecciona tu estado —</option>
+          <option>Aguascalientes</option>
+          <option>Baja California</option>
+          <option>Baja California Sur</option>
+          <option>Campeche</option>
+          <option>Chiapas</option>
+          <option>Chihuahua</option>
+          <option>Ciudad de México</option>
+          <option>Coahuila</option>
+          <option>Colima</option>
+          <option>Durango</option>
+          <option>Estado de México</option>
+          <option>Guanajuato</option>
+          <option>Guerrero</option>
+          <option>Hidalgo</option>
+          <option>Jalisco</option>
+          <option>Michoacán</option>
+          <option>Morelos</option>
+          <option>Nayarit</option>
+          <option>Nuevo León</option>
+          <option>Oaxaca</option>
+          <option>Puebla</option>
+          <option>Querétaro</option>
+          <option>Quintana Roo</option>
+          <option>San Luis Potosí</option>
+          <option>Sinaloa</option>
+          <option>Sonora</option>
+          <option>Tabasco</option>
+          <option>Tamaulipas</option>
+          <option>Tlaxcala</option>
+          <option>Veracruz</option>
+          <option>Yucatán</option>
+          <option>Zacatecas</option>
+        </select>
       </div>
       <div class="field-group full">
-        <label class="field-label">WhatsApp</label>
-        <input class="field-input" id="pl-whatsapp" placeholder="Auto-completado" readonly style="opacity:0.6">
+        <label class="field-label">WhatsApp (10 dígitos) *</label>
+        <input class="field-input" id="pl-whatsapp" placeholder="ej. 5523867156" maxlength="10" inputmode="numeric" type="tel">
       </div>
     </div>
 
@@ -1132,7 +1257,7 @@ footer strong { color: var(--green); }
 const CONFIG = {
   ACCESS_CODE: '97120',
   WA_OWNER:    '5523867156',          // Tu WhatsApp para recibir cotizaciones
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxBkQSrRygbsY50Gq6v8jEfY1ETbab6jJiGAOOoyP-rivFf9i_ltw_fUg-Vfmef8qVn/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyLdqYJuwRGF8qBxwXQrEVS-rMrVDevzQnxc9xj_uXgGTp3cIAUfXMCKJ1k2A9RH_bv/exec',
   FOLIO_PREFIX: 'SM',
 };
 
@@ -1848,7 +1973,17 @@ document.getElementById('btn-have-code').addEventListener('click', () => {
 // PRICE LIST MODAL
 // ═══════════════════════════════════════════════════════
 document.getElementById('btn-download-pricelist').addEventListener('click', () => {
-  document.getElementById('pl-whatsapp').value = userPhone;
+  const waField = document.getElementById('pl-whatsapp');
+  if (userPhone) {
+    waField.value = userPhone;
+    waField.readOnly = true;
+    waField.style.opacity = '0.6';
+  } else {
+    waField.value = '';
+    waField.readOnly = false;
+    waField.style.opacity = '1';
+    waField.placeholder = 'Requerido — 10 dígitos';
+  }
   document.getElementById('pricelist-overlay').classList.remove('hidden');
 });
 
@@ -1863,8 +1998,13 @@ document.getElementById('btn-generate-pricelist').addEventListener('click', asyn
   const estado   = document.getElementById('pl-estado').value.trim();
   const whatsapp = document.getElementById('pl-whatsapp').value.trim();
 
-  if (!nombre || !email || !empresa || !estado) {
-    document.getElementById('pricelist-error').style.display = 'block';
+  const waRequired = !userPhone;
+  if (!nombre || !email || !empresa || !estado || (waRequired && !/^\d{10}$/.test(whatsapp))) {
+    const errEl = document.getElementById('pricelist-error');
+    errEl.textContent = waRequired && !/^\d{10}$/.test(whatsapp) && nombre && email && empresa && estado
+      ? 'Ingresa un número de WhatsApp válido de 10 dígitos.'
+      : 'Completa todos los campos requeridos.';
+    errEl.style.display = 'block';
     return;
   }
   document.getElementById('pricelist-error').style.display = 'none';
@@ -1896,59 +2036,105 @@ async function submitPriceListLead(client) {
 }
 
 function generateExcel(client) {
-  // Build CSV content (opens as Excel)
   const now = new Date().toLocaleDateString('es-MX');
-  const rows = [];
+  const wb = XLSX.utils.book_new();
+  const ws_data = [];
 
-  // Header info
-  rows.push(['SentinellMarket.shop — Lista de Precios Castrol']);
-  rows.push(['Generada el:', now]);
-  rows.push(['Cliente:', client.nombre, 'Empresa:', client.empresa]);
-  rows.push(['Estado:', client.estado, 'WhatsApp:', client.whatsapp]);
-  rows.push(['Correo:', client.email]);
-  rows.push([]);
+  // === PALETTE (matching the website) ===
+  // Dark background: 060F14 | Surface: 081C24 | Accent/Gold: F1C232 | Text: E8EEF2 | Muted: 7A9BAA
+  const BG       = '060F14';
+  const SURFACE  = '081C24';
+  const SURFACE2 = '0D2530';
+  const GOLD     = 'F1C232';
+  const TEXT     = 'E8EEF2';
+  const MUTED    = '7A9BAA';
+  const WHITE    = 'F5F9FC';
 
-  // Column headers
-  rows.push([
-    'Categoría', 'SKU', 'Descripción del Producto', 'SAE / Viscosidad',
-    'Litros por envase', 'Piezas por Pack',
-    'Precio Pack (MXN)', 'Precio Unidad (MXN)'
+  const styleHeader = { font:{bold:true,color:{rgb:BG},sz:14}, fill:{fgColor:{rgb:GOLD}}, alignment:{horizontal:'center',vertical:'center'} };
+  const styleSubHeader = { font:{bold:true,color:{rgb:GOLD},sz:10}, fill:{fgColor:{rgb:SURFACE}}, alignment:{horizontal:'left'} };
+  const styleLabel = { font:{bold:true,color:{rgb:MUTED},sz:9}, fill:{fgColor:{rgb:SURFACE2}}, alignment:{horizontal:'right'} };
+  const styleValue = { font:{color:{rgb:TEXT},sz:9}, fill:{fgColor:{rgb:SURFACE2}} };
+  const styleColHead = { font:{bold:true,color:{rgb:BG},sz:9}, fill:{fgColor:{rgb:GOLD}}, alignment:{horizontal:'center'} };
+  const styleRow = { font:{color:{rgb:TEXT},sz:9}, fill:{fgColor:{rgb:SURFACE}} };
+  const styleRowAlt = { font:{color:{rgb:TEXT},sz:9}, fill:{fgColor:{rgb:SURFACE2}} };
+  const stylePrice = { font:{bold:true,color:{rgb:GOLD},sz:9}, fill:{fgColor:{rgb:SURFACE}}, alignment:{horizontal:'right'}, numFmt:'"$"#,##0.00' };
+  const stylePriceAlt = { font:{bold:true,color:{rgb:GOLD},sz:9}, fill:{fgColor:{rgb:SURFACE2}}, alignment:{horizontal:'right'}, numFmt:'"$"#,##0.00' };
+  const styleLink = { font:{color:{rgb:'6BBDFF'},underline:true,sz:9}, fill:{fgColor:{rgb:SURFACE}}, alignment:{horizontal:'center'} };
+  const styleFooter = { font:{color:{rgb:MUTED},italic:true,sz:8}, fill:{fgColor:{rgb:BG}}, alignment:{horizontal:'center'} };
+
+  // Row 1: Big title
+  ws_data.push([{v:'SentinellMarket.shop — Lista de Precios Castrol', s:styleHeader},'','','','','','','']);
+  // Row 2: Date
+  ws_data.push([{v:'Generada el: ' + now, s:styleSubHeader},'','','','','','','']);
+  // Row 3-5: Client info
+  ws_data.push([{v:'Cliente:',s:styleLabel},{v:client.nombre,s:styleValue},{v:'Empresa:',s:styleLabel},{v:client.empresa,s:styleValue},{v:'Estado:',s:styleLabel},{v:client.estado,s:styleValue},'','']);
+  ws_data.push([{v:'WhatsApp:',s:styleLabel},{v:client.whatsapp||'—',s:styleValue},{v:'Correo:',s:styleLabel},{v:client.email,s:styleValue},'','','','']);
+  // Row 6: blank
+  ws_data.push(['','','','','','','','']);
+  // Row 7: column headers
+  ws_data.push([
+    {v:'Categoría',s:styleColHead},{v:'SKU',s:styleColHead},{v:'Descripción del Producto',s:styleColHead},
+    {v:'SAE / Viscosidad',s:styleColHead},{v:'Litros',s:styleColHead},{v:'Pzas/Pack',s:styleColHead},
+    {v:'Precio Pack (MXN)',s:styleColHead},{v:'Precio Unidad (MXN)',s:styleColHead}
   ]);
 
-  // Product rows
+  let ri = 0;
   for (const p of PRODUCTS) {
-    rows.push([
-      TIPO_LABEL[p.tipo] || p.tipo,
-      p.sku,
-      p.nombre,
-      p.sae,
-      fmtL(p.litros),
-      p.piezas,
-      p.precio_pack.toFixed(2),
-      p.precio_unidad.toFixed(2)
+    const isAlt = ri % 2 === 1;
+    const sRow = isAlt ? styleRowAlt : styleRow;
+    const sPrice = isAlt ? stylePriceAlt : stylePrice;
+    ws_data.push([
+      {v:TIPO_LABEL[p.tipo]||p.tipo, s:sRow},
+      {v:p.sku, s:sRow},
+      {v:p.nombre, s:sRow},
+      {v:p.sae, s:sRow},
+      {v:Number(fmtL(p.litros)), s:{...sRow, alignment:{horizontal:'center'}}},
+      {v:p.piezas, s:{...sRow, alignment:{horizontal:'center'}}},
+      {v:p.precio_pack, s:sPrice},
+      {v:p.precio_unidad, s:sPrice},
     ]);
+    ri++;
   }
 
-  rows.push([]);
-  rows.push(['* Precios en MXN. Vigencia sujeta a cambio. Uso exclusivo para distribuidores autorizados.']);
-  rows.push(['* sentinellmarket.shop']);
+  // Blank row
+  ws_data.push(['','','','','','','','']);
+  // Links section
+  ws_data.push([{v:'🌐 Visita nuestra tienda web:', s:styleSubHeader},'','','','','','','']);
+  ws_data.push([{v:'https://www.sentinellmarket.shop/productos/', s:styleLink},'','','','','','','']);
+  ws_data.push([{v:'🛒 Encuéntranos en Mercado Libre:', s:styleSubHeader},'','','','','','','']);
+  ws_data.push([{v:'https://listado.mercadolibre.com.mx/_CustId_2351076199', s:styleLink},'','','','','','','']);
+  ws_data.push(['','','','','','','','']);
+  ws_data.push([{v:'* Precios en MXN · Vigencia sujeta a cambio · Uso exclusivo para distribuidores autorizados · sentinellmarket.shop', s:styleFooter},'','','','','','','']);
 
-  // Convert to CSV string
-  const csv = rows.map(r =>
-    r.map(cell => {
-      const s = String(cell ?? '');
-      return s.includes(',') || s.includes('"') || s.includes('\n')
-        ? `"${s.replace(/"/g, '""')}"` : s;
-    }).join(',')
-  ).join('\r\n');
+  const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
-  // BOM for Excel UTF-8 recognition
-  const BOM = '\uFEFF';
-  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+  // Merge title cells
+  ws['!merges'] = [
+    {s:{r:0,c:0},e:{r:0,c:7}},
+    {s:{r:1,c:0},e:{r:1,c:7}},
+    {s:{r:4,c:0},e:{r:4,c:7}},
+    {s:{r:ws_data.length-4,c:0},e:{r:ws_data.length-4,c:7}},
+    {s:{r:ws_data.length-3,c:0},e:{r:ws_data.length-3,c:7}},
+    {s:{r:ws_data.length-2,c:0},e:{r:ws_data.length-2,c:7}},
+    {s:{r:ws_data.length-1,c:0},e:{r:ws_data.length-1,c:7}},
+    {s:{r:ws_data.length,c:0},e:{r:ws_data.length,c:7}},
+  ];
+
+  // Column widths
+  ws['!cols'] = [
+    {wch:18},{wch:12},{wch:50},{wch:22},{wch:10},{wch:10},{wch:20},{wch:20}
+  ];
+
+  // Row heights
+  ws['!rows'] = [{hpt:32},{hpt:20}];
+
+  XLSX.utils.book_append_sheet(wb, ws, 'Lista de Precios');
+  const wbout = XLSX.write(wb, {bookType:'xlsx', type:'array'});
+  const blob = new Blob([wbout], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `ListaPrecios-Castrol-SentinellMarket-${now.replace(/\//g,'-')}.csv`;
+  a.download = `ListaPrecios-Castrol-SentinellMarket-${now.replace(/\//g,'-')}.xlsx`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

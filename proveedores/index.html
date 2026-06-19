@@ -903,13 +903,40 @@ footer strong { color: var(--green); }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  header { padding: 0 16px; }
-  main { padding: 16px 12px 60px; }
-  .cart-panel { width: 100%; top: 68px; }
-  th, td { padding: 9px 10px; }
-  .product-img, .img-ph { width: 36px; height: 36px; }
+  header { padding: 0 10px; height: 60px; }
+  .header-logo { height: 30px; }
+  .header-brand-text h1 { font-size: 12px; }
+  .header-brand-text p { font-size: 10px; }
+  .header-right { gap: 6px; }
+  .cart-btn { font-size: 11px; padding: 6px 8px; gap: 4px; }
+  .logout-btn { font-size: 11px; padding: 4px 6px; }
+  #btn-download-pricelist span { display: none; }
+
+  main { padding: 12px 8px 60px; }
+  .cart-panel { width: 100%; top: 60px; }
   .form-row { grid-template-columns: 1fr; }
-  .modal-card { padding: 28px 20px; }
+  .modal-card { padding: 24px 16px; }
+
+  .controls { gap: 8px; margin-bottom: 14px; }
+  .search-wrap { max-width: 100%; }
+  .filter-btn { font-size: 10px; padding: 5px 9px; }
+
+  /* Tabla compacta scrolleable */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
+  table { font-size: 11px; min-width: 560px; }
+  th { padding: 7px 8px; font-size: 9px; }
+  td { padding: 8px 8px; }
+  .product-img, .img-ph { width: 32px; height: 32px; }
+  .product-name { font-size: 11px; }
+  .product-sku { font-size: 9px; }
+  .sae-badge { font-size: 10px; padding: 2px 5px; }
+  .num { font-size: 11px; }
+  .price-pack { font-size: 12px; }
+  .price-unit { font-size: 11px; }
+  .qty-btn { width: 22px; height: 22px; font-size: 14px; }
+  .qty-input { width: 32px; font-size: 12px; }
+  .add-btn { font-size: 10px; padding: 5px 8px; }
+  .product-cell { gap: 7px; }
 }
 
 /* ─── STORES BANNER ─── */

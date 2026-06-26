@@ -427,12 +427,199 @@ h3{font-family:'Inter Tight';font-size:clamp(18px,2vw,24px);font-weight:400;lett
 .video-slot-label .vl-sub{font-size:11.5px;color:rgba(255,255,255,.45);letter-spacing:.4px}
 .video-badge{position:absolute;top:14px;left:14px;z-index:2;padding:4px 11px;border-radius:999px;background:rgba(180,120,255,.28);backdrop-filter:blur(12px);border:1px solid rgba(180,120,255,.35);font-size:10px;font-weight:600;color:#fff;letter-spacing:.5px;text-transform:uppercase;}
 
-.ia-cta-band{margin:0 auto;max-width:1100px;padding:54px 46px;border-radius:28px;background:linear-gradient(135deg,rgba(124,77,255,.16),rgba(255,143,209,.09));border:1px solid var(--border-strong);text-align:center;position:relative;overflow:hidden;backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 32px 80px -22px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.09) inset;}
-.ia-cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 80% at 30% 40%,rgba(133,78,255,.22),transparent 65%),radial-gradient(50% 80% at 70% 60%,rgba(255,120,200,.16),transparent 65%);opacity:.9;pointer-events:none;}
-.ia-cta-band .ia-icon{font-size:36px;margin-bottom:14px;position:relative}
-.ia-cta-band h2{position:relative;font-size:clamp(20px,2.8vw,34px);font-weight:400;margin-bottom:12px}
-.ia-cta-band p{position:relative;max-width:500px;margin:0 auto 26px;font-size:15.5px;color:var(--text-soft)}
-.ia-cta-band .ctas{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* ── iA Formulario Card — Cyan/Teal eléctrico ── */
+.ia-cta-band{
+  margin:0 auto;max-width:1100px;
+  border-radius:32px;
+  background:linear-gradient(140deg,rgba(0,28,32,.82) 0%,rgba(0,52,58,.72) 50%,rgba(0,36,40,.88) 100%);
+  border:1px solid rgba(0,210,200,.32);
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(40px) saturate(220%);-webkit-backdrop-filter:blur(40px) saturate(220%);
+  box-shadow:0 44px 100px -28px rgba(0,0,0,.72),0 1px 0 rgba(255,255,255,.10) inset,0 -1px 0 rgba(0,210,200,.14) inset;
+  display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:420px;
+}
+:root[data-theme="light"] .ia-cta-band{
+  background:linear-gradient(140deg,rgba(220,252,252,.92) 0%,rgba(240,254,255,.88) 50%,rgba(204,251,250,.94) 100%);
+  border-color:rgba(0,180,170,.28);
+}
+.ia-cta-band::before{
+  content:"";position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),rgba(0,230,220,.7),rgba(255,255,255,.5),transparent);
+  pointer-events:none;z-index:5;
+}
+.ia-cta-band::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(55% 70% at 20% 30%,rgba(0,200,195,.20),transparent 62%),
+    radial-gradient(45% 60% at 80% 75%,rgba(0,230,220,.14),transparent 60%),
+    radial-gradient(30% 40% at 60% 15%,rgba(80,255,240,.09),transparent 55%);
+  opacity:.9;pointer-events:none;z-index:0;
+}
+
+/* LEFT panel */
+.ia-cta-left{
+  padding:52px 44px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:2;
+  border-right:1px solid rgba(0,210,200,.14);
+}
+:root[data-theme="light"] .ia-cta-left{border-right-color:rgba(0,160,150,.12);}
+
+.ia-cta-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;
+  color:#00e5d8;font-weight:600;
+  padding:6px 14px;border-radius:999px;
+  background:rgba(0,210,200,.10);border:1px solid rgba(0,210,200,.30);
+  backdrop-filter:blur(14px);width:fit-content;margin-bottom:22px;
+  position:relative;overflow:hidden;
+}
+:root[data-theme="light"] .ia-cta-eyebrow{color:#007a72;}
+.ia-cta-eyebrow::before{
+  content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.20),transparent);
+  animation:eyebrowShine 3.5s ease-in-out infinite;
+}
+@keyframes eyebrowShine{0%,100%{left:-100%}50%{left:100%}}
+
+.ia-cta-left h2{
+  font-family:'Inter Tight';font-size:clamp(22px,2.6vw,36px);
+  font-weight:300;letter-spacing:-.025em;line-height:1.15;
+  margin-bottom:14px;position:relative;
+}
+.ia-cta-left p{
+  font-size:15px;color:var(--text-soft);line-height:1.7;
+  max-width:440px;margin-bottom:32px;
+}
+
+/* steps */
+.ia-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:34px}
+.ia-step{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 16px;border-radius:14px;
+  background:rgba(0,210,200,.06);border:1px solid rgba(0,210,200,.14);
+  backdrop-filter:blur(16px);transition:.25s;cursor:default;
+}
+:root[data-theme="light"] .ia-step{background:rgba(0,160,150,.05);border-color:rgba(0,160,150,.14);}
+.ia-step:hover{background:rgba(0,210,200,.12);border-color:rgba(0,210,200,.32);transform:translateX(4px)}
+.ia-step-num{
+  width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#00c8c0,#008f88);
+  display:grid;place-items:center;
+  font-family:'Inter Tight';font-size:12px;font-weight:700;color:#fff;
+  box-shadow:0 6px 14px -4px rgba(0,200,190,.45);
+}
+.ia-step-text{font-size:13.5px;color:var(--text-soft)}
+.ia-step-text strong{color:var(--text);font-weight:500}
+
+.ia-cta-band .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.ia-cta-band .ctas .btn.primary{
+  background:linear-gradient(135deg,#00c8c0,#007a74);
+  box-shadow:0 18px 44px -15px rgba(0,200,190,.5);
+}
+.ia-cta-band .ctas .btn.primary:hover{
+  box-shadow:0 26px 52px -15px rgba(0,200,190,.65);
+}
+
+/* RIGHT visual */
+.ia-cta-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;z-index:2;padding:40px 32px;
+}
+.ia-orbit-scene{position:relative;width:280px;height:280px;flex-shrink:0;}
+
+/* Core */
+.ia-core{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:76px;height:76px;border-radius:22px;
+  background:linear-gradient(135deg,rgba(0,200,195,.85),rgba(0,140,135,.75));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 0 0 1px rgba(0,210,200,.35),0 0 32px -6px rgba(0,200,195,.6),0 0 64px -12px rgba(0,160,155,.45),0 8px 28px -8px rgba(0,0,0,.5);
+  display:grid;place-items:center;z-index:10;
+  animation:corePulse 3s ease-in-out infinite;
+}
+@keyframes corePulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(0,210,200,.35),0 0 32px -6px rgba(0,200,195,.6),0 0 64px -12px rgba(0,160,155,.45),0 8px 28px -8px rgba(0,0,0,.5)}
+  50%{box-shadow:0 0 0 1px rgba(0,230,220,.6),0 0 48px -4px rgba(0,210,200,.8),0 0 80px -8px rgba(0,180,175,.6),0 8px 28px -8px rgba(0,0,0,.5)}
+}
+.ia-core svg{width:34px;height:34px;color:#fff;filter:drop-shadow(0 0 8px rgba(255,255,255,.4))}
+
+/* Rings */
+.ia-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(0,210,200,.18);transform:translate(-50%,-50%);}
+.ia-ring-1{width:120px;height:120px;border-color:rgba(0,210,200,.26);}
+.ia-ring-2{width:190px;height:190px;border-color:rgba(0,210,200,.15);}
+.ia-ring-3{width:265px;height:265px;border-color:rgba(0,210,200,.08);}
+
+/* Orbit containers */
+.ia-orbit-1{position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;animation:orbitSpin1 6s linear infinite;}
+.ia-orbit-2{position:absolute;top:50%;left:50%;width:190px;height:190px;margin:-95px 0 0 -95px;border-radius:50%;animation:orbitSpin2 10s linear infinite;}
+.ia-orbit-3{position:absolute;top:50%;left:50%;width:265px;height:265px;margin:-132.5px 0 0 -132.5px;border-radius:50%;animation:orbitSpin3 16s linear infinite reverse;}
+@keyframes orbitSpin1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes orbitSpin2{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes orbitSpin3{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Nodes */
+.ia-node{
+  position:absolute;top:-14px;left:50%;margin-left:-14px;
+  width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.22);
+  animation:counterSpin 6s linear infinite;
+}
+.ia-orbit-2 .ia-node{animation-duration:10s;}
+.ia-orbit-3 .ia-node{animation-duration:16s;animation-direction:reverse;}
+@keyframes counterSpin{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+.ia-node.n1{background:rgba(0,180,175,.75);border-color:rgba(0,220,210,.5);box-shadow:0 0 18px -4px rgba(0,200,195,.75);}
+.ia-node.n2{background:rgba(0,210,200,.6);border-color:rgba(0,230,220,.45);box-shadow:0 0 18px -4px rgba(0,220,210,.65);}
+.ia-node.n3{background:rgba(80,255,240,.45);border-color:rgba(120,255,245,.35);box-shadow:0 0 18px -4px rgba(80,255,240,.55);}
+.ia-node svg{width:13px;height:13px;color:#fff}
+
+/* Metric chips */
+.ia-metric-chips{position:absolute;display:flex;flex-direction:column;gap:9px;right:-4px;top:50%;transform:translateY(-50%);}
+.ia-mchip{
+  padding:8px 14px;border-radius:12px;
+  background:rgba(0,28,32,.78);
+  border:1px solid rgba(0,210,200,.22);
+  backdrop-filter:blur(22px) saturate(200%);
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+  box-shadow:0 8px 22px -8px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.07) inset;
+  animation:chipFloat 4s ease-in-out infinite;
+}
+:root[data-theme="light"] .ia-mchip{background:rgba(255,255,255,.88);border-color:rgba(0,180,170,.22);}
+.ia-mchip:nth-child(2){animation-delay:-1.4s}
+.ia-mchip:nth-child(3){animation-delay:-2.8s}
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.ia-mchip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ia-mchip-label{font-size:11.5px;color:var(--text-soft)}
+.ia-mchip-val{font-family:'Inter Tight';font-size:13px;font-weight:600;color:var(--text);margin-left:auto}
+
+/* Ping waves */
+.ia-ping{
+  position:absolute;top:50%;left:50%;border-radius:50%;
+  border:1px solid rgba(0,210,200,.4);
+  transform:translate(-50%,-50%) scale(.5);
+  animation:pingExpand 2.8s ease-out infinite;
+}
+.ia-ping-2{animation-delay:.9s}
+.ia-ping-3{animation-delay:1.8s}
+@keyframes pingExpand{
+  0%{transform:translate(-50%,-50%) scale(.4);opacity:.6;width:80px;height:80px}
+  100%{transform:translate(-50%,-50%) scale(1.1);opacity:0;width:80px;height:80px}
+}
+
+/* light mode ring override */
+:root[data-theme="light"] .ia-ring{border-color:rgba(0,180,170,.14);}
+:root[data-theme="light"] .ia-ring-1{border-color:rgba(0,180,170,.24);}
+:root[data-theme="light"] .ia-core{background:linear-gradient(135deg,rgba(0,170,165,.9),rgba(0,120,115,.8));}
+:root[data-theme="light"] .ia-cta-band::after{
+  background:radial-gradient(55% 70% at 20% 30%,rgba(0,180,175,.12),transparent 62%),radial-gradient(45% 60% at 80% 75%,rgba(0,200,190,.08),transparent 60%);
+}
+
+/* Mobile */
+@media(max-width:760px){
+  .ia-cta-band{grid-template-columns:1fr;min-height:auto}
+  .ia-cta-right{display:none}
+  .ia-cta-left{padding:36px 26px;border-right:none;border-bottom:1px solid rgba(0,210,200,.14)}
+}
 
 .cta-band{margin:0 auto;max-width:1100px;padding:66px 46px;border-radius:32px;background:linear-gradient(135deg,rgba(124,77,255,.22),rgba(228,92,181,.13));border:1px solid var(--border-strong);text-align:center;position:relative;overflow:hidden;backdrop-filter:blur(28px) saturate(178%);-webkit-backdrop-filter:blur(28px) saturate(178%);box-shadow:0 44px 100px -28px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.09) inset;}
 .cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 20% 30%,var(--glow-1),transparent 58%),radial-gradient(50% 60% at 80% 70%,var(--glow-3),transparent 58%);opacity:.7;pointer-events:none;}
@@ -521,7 +708,7 @@ body.menu-open .drawer{transform:translateX(0)}
   .xray-features{grid-template-columns:1fr}
   .sim-metrics{grid-template-columns:1fr 1fr}
   .growth-sim{padding:26px 20px}
-  .ia-cta-band{padding:34px 18px}
+  .ia-cta-band{min-height:auto}
   .aurora{opacity:.5}
 }
 @media(prefers-reduced-motion:reduce){
@@ -581,7 +768,7 @@ body.menu-open .drawer{transform:translateX(0)}
       </div>
     </div>
     <div class="hero-ctas reveal">
-      <a class="btn primary" href="https://www.elbuenpipe.com/diagnostic-pro">Solicita tu diagnóstico
+      <a class="btn primary" href="https://www.elbuenpipe.com/ia-growthlab">Solicita tu diagnóstico
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <a class="btn ghost" href="#medios">Servicios creativos</a>
@@ -884,13 +1071,82 @@ body.menu-open .drawer{transform:translateX(0)}
   <div class="sec-divider"><span class="sec-divider-pill"><span class="dot"></span>Diagnóstico con iA</span></div>
   <section class="wrap">
     <div class="ia-cta-band reveal">
-      <div class="ia-icon">🤖</div>
-      <h2>¿Aún no conoces lo que necesitas?</h2>
-      <p>En menos de 90 seg descubre lo que necesita tu negocio con iA.</p>
-      <div class="ctas">
-        <a class="btn primary" href="https://www.elbuenpipe.com/ia-growthlab">Iniciar diagnóstico iA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        <a class="btn ghost" href="https://www.elbuenpipe.com/ia-growthlab">Ver cómo funciona</a>
+
+      <!-- LEFT: copy & CTA -->
+      <div class="ia-cta-left">
+        <div class="ia-cta-eyebrow">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          iA Diagnóstico Inteligente
+        </div>
+        <h2>¿Aún no sabes qué <span class="grad">necesita tu negocio</span>?</h2>
+        <p>Nuestra iA analiza tu situación actual y te entrega un plan de acción personalizado — sin reuniones, sin espera, sin compromiso.</p>
+        <div class="ia-steps">
+          <div class="ia-step">
+            <div class="ia-step-num">1</div>
+            <div class="ia-step-text"><strong>Responde 5 preguntas</strong> sobre tu negocio y tus metas</div>
+          </div>
+          <div class="ia-step">
+            <div class="ia-step-num">2</div>
+            <div class="ia-step-text"><strong>La iA procesa</strong> tu perfil en menos de 90 segundos</div>
+          </div>
+          <div class="ia-step">
+            <div class="ia-step-num">3</div>
+            <div class="ia-step-text"><strong>Recibe tu hoja de ruta</strong> digital con prioridades claras</div>
+          </div>
+        </div>
+        <div class="ctas">
+          <a class="btn primary" href="https://www.elbuenpipe.com/ia-growthlab">Iniciar diagnóstico iA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a class="btn ghost" href="https://www.elbuenpipe.com/ia-growthlab">Ver cómo funciona</a>
+        </div>
       </div>
+
+      <!-- RIGHT: animated IA orbit visual -->
+      <div class="ia-cta-right">
+        <div class="ia-metric-chips">
+          <div class="ia-mchip">
+            <div class="ia-mchip-dot" style="background:#00e5d8;box-shadow:0 0 8px rgba(0,210,200,.7)"></div>
+            <span class="ia-mchip-label">Diagnóstico</span>
+            <span class="ia-mchip-val">90 seg</span>
+          </div>
+          <div class="ia-mchip">
+            <div class="ia-mchip-dot" style="background:#34d399;box-shadow:0 0 8px rgba(52,211,153,.7)"></div>
+            <span class="ia-mchip-label">Precisión iA</span>
+            <span class="ia-mchip-val">94%</span>
+          </div>
+          <div class="ia-mchip">
+            <div class="ia-mchip-dot" style="background:#fbbf24;box-shadow:0 0 8px rgba(251,191,36,.7)"></div>
+            <span class="ia-mchip-label">Planes generados</span>
+            <span class="ia-mchip-val">+1,200</span>
+          </div>
+        </div>
+        <div class="ia-orbit-scene">
+          <div class="ia-ping"></div>
+          <div class="ia-ping ia-ping-2"></div>
+          <div class="ia-ping ia-ping-3"></div>
+          <div class="ia-ring ia-ring-3"></div>
+          <div class="ia-ring ia-ring-2"></div>
+          <div class="ia-ring ia-ring-1"></div>
+          <div class="ia-core">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6L14 20H10l-1.7-5C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg>
+          </div>
+          <div class="ia-orbit-1">
+            <div class="ia-node n1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 4 3 5-7"/></svg>
+            </div>
+          </div>
+          <div class="ia-orbit-2">
+            <div class="ia-node n2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/></svg>
+            </div>
+          </div>
+          <div class="ia-orbit-3">
+            <div class="ia-node n3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h3l3-9 6 18 3-9h3"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -948,7 +1204,8 @@ body.menu-open .drawer{transform:translateX(0)}
       </div>
       <div><h5>Negocios</h5><a href="https://www.elbuenpipe.com/diagnostic-pro">Diagnóstico Pro</a><a href="https://www.elbuenpipe.com/sales-system">Sistema de Ventas</a><a href="https://www.elbuenpipe.com/escala-pro">Escalamiento</a><a href="https://www.elbuenpipe.com/digital-scanner">Digital Scanner</a></div>
       <div><h5>Producción &amp; Eventos</h5><a href="#medios">Fotografía y Video</a><a href="#medios">Producción audiovisual</a><a href="#medios">Entretenimiento</a><a href="https://www.elbuenpipe.com/pro-visual">Producción visual</a><a href="https://www.elbuenpipe.com/talentgrowth">Cotizar evento</a></div>
-      <div><h5>Contacto</h5><a href="https://wa.me/5215523867156?text=Hola%20Felipe" target="_blank" rel="noopener">WhatsApp +52 55 2386 7156</a><a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">gmmfelipearturo+elbuenpipe@gmail.com</a><a href="https://www.instagram.com/elbuenpipe/" target="_blank" rel="noopener">@elbuenpipe</a><a href="https://www.elbuenpipe.com/ceo">JD Producción Felipe Arturo</a><a href="https://www.elbuenpipe.com/growthlab/arco">Aviso de Privacidad</a></div>
+     
+ <div><h5>Contacto</h5><a href="https://wa.me/5215523867156?text=Hola%20Felipe" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Gmail</a><a href="https://www.instagram.com/elbuenpipe/" target="_blank" rel="noopener">Instagram</a><a href="https://www.elbuenpipe.com/ceo">Ceo</a><a href="https://www.elbuenpipe.com/growthlab/arco">Aviso de Privacidad</a></div>
     </div>
     <div class="foot-bar"><div>© <span id="year"></span> GrowthsLab · Elbuenpipe</div><div>Todos los derechos reservados.</div></div>
   </div>

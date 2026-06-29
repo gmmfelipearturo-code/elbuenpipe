@@ -130,15 +130,15 @@ section{padding:72px 5%;position:relative;z-index:1}
 .tl-day-hdr{display:inline-flex;align-items:center;gap:.7rem;background:var(--dark);color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;padding:.6rem 1.4rem;border-radius:100px;margin-bottom:1.4rem}
 .tl-day-hdr.day2{background:var(--forest)}
 .tl-items{display:flex;flex-direction:column;gap:0}
-.tl-item{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
-.tl-item::before{content:'';position:absolute;left:38px;top:32px;bottom:-2px;width:2px;background:linear-gradient(var(--lime),rgba(168,224,99,.1));z-index:0}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:0;position:relative}
+.tl-item::before{content:'';position:absolute;left:46px;top:36px;bottom:-2px;width:2px;background:linear-gradient(var(--lime),rgba(168,224,99,.1));z-index:0}
 .tl-item:last-child::before{display:none}
-.tl-time{padding:.9rem .5rem .9rem 0;text-align:right;z-index:1}
-.tl-time span{font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--green);background:#e8f5e9;padding:.25rem .5rem;border-radius:6px;display:inline-block;white-space:nowrap}
-.tl-dot{position:absolute;left:34px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(245,197,24,.25);z-index:2}
-.tl-content{padding:.9rem .9rem .9rem 1.8rem;z-index:1}
-.tl-content h4{font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:.2rem}
-.tl-content p{font-size:.8rem;color:#666;line-height:1.4}
+.tl-time{padding:1rem .5rem 1rem 0;text-align:right;z-index:1}
+.tl-time span{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--green);background:#e8f5e9;padding:.3rem .6rem;border-radius:6px;display:inline-block;white-space:nowrap;letter-spacing:.5px}
+.tl-dot{position:absolute;left:41px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(245,197,24,.3);z-index:2}
+.tl-content{padding:1rem 1rem 1rem 2rem;z-index:1}
+.tl-content h4{font-size:1.05rem;font-weight:700;color:var(--dark);margin-bottom:.3rem;line-height:1.3}
+.tl-content p{font-size:.82rem;color:#666;line-height:1.5}
 .tl-item.night .tl-time span{background:#1a237e;color:#fff}
 .tl-item.night .tl-content h4{color:#283593}
 .tl-item.day2 .tl-time span{background:#e8f5e9;color:var(--forest)}
@@ -368,10 +368,8 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:50px 5% 28px}
       <div class="tl-item reveal"><div class="tl-time"><span>9:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏔️ Salida a Huasca</h4><p>~45 min de trayecto desde Pachuca</p></div></div>
       <div class="tl-item reveal"><div class="tl-time"><span>10:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏕️ Llegada · Check-in cabaña</h4><p>Acomodarse · cambio de ropa si se requiere</p></div></div>
       <div class="tl-item reveal"><div class="tl-time"><span>11:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🪨 Prismas Basálticos</h4><p>Tour guiado · formaciones volcánicas únicas · ~1.5 hrs</p></div></div>
-      <div class="tl-item reveal"><div class="tl-time"><span>1:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🍽️ Comida en Huasca</h4><p>Restaurante local · cocina regional hidalguense</p></div></div>
-      <div class="tl-item reveal"><div class="tl-time"><span>3:00 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🧚 Museo de los Duendes</h4><p>Recorrido interactivo y peculiar · ~45 min</p></div></div>
-      <div class="tl-item reveal"><div class="tl-time"><span>4:00 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🌲 Bosque Manantial de las Truchas</h4><p>Caminata · arroyo cristalino · ambiente de bosque · ~1 hr</p></div></div>
-      <div class="tl-item reveal"><div class="tl-time"><span>5:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🤸 Tirolesa / Kayak</h4><p>Actividades recreativas opcionales · según disponibilidad del parque</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time"><span>2:40 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🍽️ Comida en Huasca</h4><p>Restaurante local · cocina regional hidalguense</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time"><span>5:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🤸 Actividades recreativas como: Tirolesa | Kayak | Gotcha | Paseo en cuatrimoto</h4><p>Actividades recreativas opcionales · según disponibilidad del parque · costo no incluido del tour</p></div></div>
       <div class="tl-item reveal"><div class="tl-time"><span>7:00 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏠 Regreso a la cabaña</h4><p>Descanso · ducha · preparar para la noche</p></div></div>
       <div class="tl-item night reveal"><div class="tl-time"><span>8:00 pm</span></div><div class="tl-dot" style="background:var(--fire)"></div><div class="tl-content"><h4>🔥 Cena grupal + Fogata</h4><p>Cena en cabaña · encendemos fogata · convivencia libre</p></div></div>
       <div class="tl-item night reveal"><div class="tl-time"><span>10:00 pm</span></div><div class="tl-dot" style="background:#1a237e"></div><div class="tl-content"><h4>🌙 Recorrido Nocturno</h4><p>Tour nocturno por el pueblo mágico · cielo estrellado</p></div></div>
@@ -385,11 +383,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:50px 5% 28px}
     <div class="tl-items">
       <div class="tl-item day2 reveal"><div class="tl-time"><span>8:00 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>☕ Despertar + desayuno</h4><p>En cabaña · café · fruta · tortillas</p></div></div>
       <div class="tl-item day2 reveal"><div class="tl-time"><span>9:30 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🏛️ Tour Histórico Huasca</h4><p>Centro histórico · arquitectura colonial · iglesia principal · ~1.5 hrs</p></div></div>
-      <div class="tl-item day2 reveal"><div class="tl-time"><span>11:30 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🛍️ Tiempo libre en el mercado</h4><p>Artesanías · dulces típicos · mole · quesos regionales · recuerdos</p></div></div>
-      <div class="tl-item day2 reveal"><div class="tl-time"><span>1:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🍲 Comida de despedida</h4><p>Último almuerzo juntos en el centro de Huasca</p></div></div>
-      <div class="tl-item day2 reveal"><div class="tl-time"><span>2:30 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>📸 Check-out cabaña</h4><p>Recoger maletas · limpiar espacio · foto grupal final</p></div></div>
-      <div class="tl-item day2 reveal"><div class="tl-time"><span>3:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🚌 Salida hacia Ecatepec</h4><p>Inicio del regreso · parada opcional en Pachuca si el grupo lo desea</p></div></div>
-      <div class="tl-item day2 reveal"><div class="tl-time"><span>~5:30 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>⛽ Parada opcional Pachuca</h4><p>Breve parada (~20-30 min)</p></div></div>
+      <div class="tl-item day2 reveal"><div class="tl-time"><span>12:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🧚 Museo de los Duendes</h4><p>Recorrido interactivo y peculiar · ~45 min</p></div></div>
+      <div class="tl-item day2 reveal"><div class="tl-time"><span>2:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>📸 Check-out cabaña</h4><p>Recoger maletas · limpiar espacio · foto grupal final</p></div></div>
+      <div class="tl-item day2 reveal"><div class="tl-time"><span>3:30 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🚌 Salida hacia Ecatepec</h4><p>Inicio del regreso</p></div></div>
       <div class="tl-item day2 reveal"><div class="tl-time"><span>~8:00 pm</span></div><div class="tl-dot" style="background:var(--gold);width:14px;height:14px;top:15px;left:32px;border-width:3px"></div><div class="tl-content"><h4>🏁 Llegada · FIN del tour</h4><p>Kiosko de Tulpetlac · Ecatepec ✦</p></div></div>
     </div>
   </div>
@@ -465,11 +461,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:50px 5% 28px}
     <a id="calBtnPrecio" href="#" class="btn btn-cal" style="width:100%;justify-content:center" target="_blank" rel="noopener">📅 Agregar Recordatorio</a>
   </div>
 
-  <!-- DESCARGA PDF -->
-  <div style="text-align:center;margin-top:2.5rem">
-    <a href="itinerario_huasca.pdf" download="Itinerario_Huasca_TravelFriendShip.pdf" class="btn btn-outline-gold" style="display:inline-flex;background:rgba(255,255,255,.06);border-color:var(--gold)">⬇️ Descargar itinerario PDF</a>
-    <p style="color:rgba(255,255,255,.35);font-size:.75rem;margin-top:.6rem">Incluye hipervínculos de pago y botones de contacto</p>
-  </div>
+
 </section>
 
 <div class="wave-sep"><svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#0D1B2A"><path d="M0,30 C360,0 1080,50 1440,20 L1440,50 L0,50Z" fill="#f7f7f5"/></svg></div>

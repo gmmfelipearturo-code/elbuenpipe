@@ -150,7 +150,6 @@ nav.scrolled{
   padding:9rem 2rem 7rem;
   overflow:hidden;
 }
-/* Deep navy background with Jalisco aurora */
 .hero-bg{
   position:absolute;inset:0;z-index:0;
   background:
@@ -160,10 +159,8 @@ nav.scrolled{
     radial-gradient(ellipse 70% 55% at 80% 60%,rgba(14,201,163,.06) 0%,transparent 60%),
     linear-gradient(175deg,#071929 0%,#07111F 40%,#06101A 100%);
 }
-/* Agave field SVG bottom */
 .hero-scene{position:absolute;bottom:0;left:0;right:0;z-index:1;width:100%;pointer-events:none}
 
-/* Floating glass orbs */
 .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(60px);opacity:.55}
 .orb1{width:500px;height:500px;background:rgba(14,201,163,.1);top:-100px;left:-100px}
 .orb2{width:400px;height:400px;background:rgba(245,166,35,.08);bottom:-80px;right:-80px}
@@ -205,7 +202,6 @@ nav.scrolled{
   color:var(--text-lo);margin-bottom:2.5rem;
 }
 
-/* Destination chips */
 .hero-dests{
   position:relative;z-index:5;
   display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
@@ -223,7 +219,6 @@ nav.scrolled{
 .dest-chip:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-2px)}
 .dest-chip .icon{font-size:15px}
 
-/* Stats bar — glass panel */
 .hero-stats{
   position:relative;z-index:5;
   display:flex;
@@ -253,14 +248,12 @@ nav.scrolled{
   font-family:var(--ff-head);font-weight:500;
 }
 
-/* Hero CTA buttons */
 .hero-cta{
   position:relative;z-index:5;
   display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
   margin-bottom:1.8rem;
 }
 
-/* Location link */
 .hero-loc{
   position:relative;z-index:5;
   display:inline-flex;align-items:center;gap:7px;
@@ -303,7 +296,7 @@ nav.scrolled{
 }
 
 /* =============================================
-   QUOTE BAND (Huasca-style inspirational)
+   QUOTE BAND
    ============================================= */
 .quote-band{
   position:relative;overflow:hidden;
@@ -367,8 +360,6 @@ nav.scrolled{
   font-family:var(--ff-display);font-size:2rem;
   color:rgba(255,255,255,.18);line-height:1;letter-spacing:.04em;
 }
-/* gradient frame */
-.film-inner::after{content:'';display:none}
 
 /* =============================================
    INCLUDES SECTION
@@ -441,7 +432,6 @@ nav.scrolled{
 }
 .day-sub{font-size:11px;color:var(--text-lo);letter-spacing:.05em}
 
-/* Timeline spine */
 .tl{position:relative;padding-left:32px}
 .tl::before{
   content:'';position:absolute;left:8px;top:12px;bottom:0;
@@ -489,7 +479,6 @@ nav.scrolled{
 }
 .tl-maps:hover{background:rgba(14,201,163,.16);border-color:rgba(14,201,163,.45)}
 
-/* Timeline tags */
 .tag{
   display:inline-block;padding:3px 11px;border-radius:var(--radius-pill);
   font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
@@ -518,17 +507,15 @@ nav.scrolled{
   gap:8px;border-radius:22px;overflow:hidden;
   box-shadow:0 50px 100px rgba(0,0,0,.6);
 }
-/* item layout */
 .gal-item{overflow:hidden;position:relative;background:#0F1E2E;cursor:pointer}
-.gal-item:first-child{grid-row:span 2}           /* tall left */
-.gal-item:nth-child(6){grid-column:span 2}       /* wide bottom-right */
+.gal-item:first-child{grid-row:span 2}
+.gal-item:nth-child(6){grid-column:span 2}
 .gal-item img{
   width:100%;height:100%;object-fit:cover;
   filter:brightness(.52) saturate(1.25);
   transition:filter .45s,transform .55s;display:block;
 }
 .gal-item:hover img{filter:brightness(.9) saturate(1.6);transform:scale(1.07)}
-/* caption */
 .gal-caption{
   position:absolute;bottom:0;left:0;right:0;
   padding:28px 16px 14px;
@@ -545,7 +532,6 @@ nav.scrolled{
   font-family:var(--ff-head);font-size:13px;letter-spacing:.06em;
   text-transform:uppercase;color:#fff;font-weight:700;line-height:1.2;
 }
-/* loading skeleton */
 .gal-item::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(135deg,#0a1828,#0e2240);
@@ -553,7 +539,6 @@ nav.scrolled{
 }
 .gal-item img{position:relative;z-index:1}
 .gal-caption{z-index:2}
-/* responsive */
 @media(max-width:700px){
   .gal-grid{
     grid-template-columns:1fr 1fr;
@@ -623,7 +608,7 @@ nav.scrolled{
 .price-menor .pm-note{font-size:11px;color:var(--text-lo);margin-top:.4rem}
 
 /* =============================================
-   BUTTON SYSTEM — CLEAN GLASS VARIANTS
+   BUTTON SYSTEM
    ============================================= */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
@@ -635,7 +620,6 @@ nav.scrolled{
 }
 .btn:hover{transform:translateY(-3px)}
 
-/* Primary — agave gradient (main CTA) */
 .btn-primary{
   background:linear-gradient(135deg,#0EC9A3,#08F2C4);
   color:#071F1A;
@@ -643,7 +627,6 @@ nav.scrolled{
 }
 .btn-primary:hover{box-shadow:0 14px 36px rgba(14,201,163,.55)}
 
-/* Secondary — amber gradient */
 .btn-amber{
   background:linear-gradient(135deg,var(--amber),var(--amber2));
   color:#1C1005;
@@ -651,7 +634,6 @@ nav.scrolled{
 }
 .btn-amber:hover{box-shadow:0 14px 36px rgba(245,166,35,.52)}
 
-/* WhatsApp */
 .btn-wa{
   background:linear-gradient(135deg,#25D366,#1DA85A);
   color:#fff;
@@ -659,7 +641,6 @@ nav.scrolled{
 }
 .btn-wa:hover{box-shadow:0 14px 32px rgba(37,211,102,.52)}
 
-/* Glass outline — maps, calendar */
 .btn-glass{
   background:var(--glass);
   border:1px solid var(--glass-border2);
@@ -668,7 +649,6 @@ nav.scrolled{
 }
 .btn-glass:hover{background:var(--glass2);border-color:rgba(255,255,255,.32);color:var(--text-hi)}
 
-/* Danger / terra — apartar */
 .btn-terra{
   background:linear-gradient(135deg,#E84855,#FF6B6B);
   color:#fff;
@@ -676,7 +656,6 @@ nav.scrolled{
 }
 .btn-terra:hover{box-shadow:0 14px 32px rgba(232,72,85,.52)}
 
-/* PDF */
 .btn-pdf{
   background:linear-gradient(135deg,#7C3AED,#E84855);
   color:#fff;
@@ -684,7 +663,6 @@ nav.scrolled{
 }
 .btn-pdf:hover{box-shadow:0 14px 32px rgba(124,58,237,.52)}
 
-/* Google calendar */
 .btn-cal{
   background:linear-gradient(135deg,#4285F4,#1a73e8);
   color:#fff;
@@ -692,7 +670,6 @@ nav.scrolled{
 }
 .btn-cal:hover{box-shadow:0 14px 32px rgba(66,133,244,.48)}
 
-/* Viajes link */
 .btn-viajes{
   background:var(--glass);
   border:1px solid rgba(245,166,35,.3);
@@ -701,9 +678,6 @@ nav.scrolled{
 }
 .btn-viajes:hover{background:rgba(245,166,35,.1);border-color:rgba(245,166,35,.5)}
 
-/* ============================================
-   CTA COLUMN — full-width, stacked, harmonic
-   ============================================= */
 .cta-col{
   display:flex;flex-direction:column;
   align-items:stretch;gap:.9rem;
@@ -711,7 +685,6 @@ nav.scrolled{
 }
 .cta-col .btn{justify-content:center;width:100%;font-size:14px}
 
-/* Divider label inside CTA col */
 .cta-divider{
   display:flex;align-items:center;gap:.8rem;
   font-size:9px;letter-spacing:.18em;text-transform:uppercase;
@@ -840,7 +813,6 @@ footer{
   .film-inner{grid-template-columns:1fr}
 }
 
-/* Jalisco floating particles */
 .jal-p{position:absolute;opacity:0;animation:jFloat linear infinite;pointer-events:none}
 @keyframes jFloat{
   0%{opacity:0;transform:translateY(0) rotate(0deg) scale(.8)}
@@ -855,7 +827,7 @@ footer{
 
 <!-- ===== ENTRY BANNER ===== -->
 <div class="entry-banner">
-  <span class="entry-text">✈️ Tour Jalisco · Oct 23–26, 2026 · <strong>$3,700 MXN</strong></span>
+  <span class="entry-text">✈️ Tour Jalisco · Oct 23–26, 2026 · <strong>$2,500 MXN</strong></span>
   <a href="https://elbuenpipe.com/traveling" target="_blank" rel="noopener" class="entry-pill ep-amber">🗺 Próximos viajes</a>
   <a id="entryCalBtn" href="#" target="_blank" rel="noopener" class="entry-pill ep-agave">📅 Agendar recordatorio</a>
 </div>
@@ -868,7 +840,7 @@ footer{
   <span class="nav-badge">Oct 23 · 2026</span>
 </nav>
 
-<a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350" class="wa-float" aria-label="WhatsApp">
+<a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="wa-float" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
@@ -879,10 +851,8 @@ footer{
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
 
-  <!-- Agave silhouette SVG bottom -->
   <div class="hero-scene">
     <svg viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" style="width:100%;height:180px;display:block">
-      <!-- Agave plants: left cluster -->
       <g transform="translate(120,180)" opacity=".22">
         <ellipse cx="0" cy="0" rx="7" ry="75" transform="rotate(-28)" fill="#0EC9A3"/>
         <ellipse cx="0" cy="0" rx="7" ry="70" transform="rotate(14)" fill="#0EC9A3"/>
@@ -893,7 +863,6 @@ footer{
         <ellipse cx="0" cy="0" rx="5" ry="62" transform="rotate(148)" fill="#08F2C4"/>
         <circle cx="0" cy="-10" r="8" fill="#F5A623"/>
       </g>
-      <!-- Agave center-left -->
       <g transform="translate(380,180)" opacity=".15">
         <ellipse cx="0" cy="0" rx="4" ry="48" transform="rotate(-22)" fill="#0EC9A3"/>
         <ellipse cx="0" cy="0" rx="4" ry="44" transform="rotate(20)" fill="#0EC9A3"/>
@@ -902,21 +871,17 @@ footer{
         <ellipse cx="0" cy="0" rx="4" ry="45" transform="rotate(108)" fill="#0EC9A3"/>
         <circle cx="0" cy="-6" r="5" fill="#F5A623"/>
       </g>
-      <!-- Tequila distillery silhouette (center) -->
       <g transform="translate(720,100)" fill="#0A1D35" opacity=".7">
-        <!-- Main tower -->
         <rect x="-10" y="0" width="20" height="80" rx="8"/>
         <rect x="-18" y="-24" width="36" height="28" rx="4"/>
         <rect x="-8" y="-46" width="16" height="24" rx="4"/>
         <rect x="-5" y="-64" width="10" height="20" rx="4"/>
         <rect x="-3" y="-80" width="6" height="18" rx="3"/>
-        <!-- Side buildings -->
         <rect x="-60" y="36" width="18" height="44" rx="4"/>
         <rect x="-58" y="16" width="52" height="14" rx="5"/>
         <rect x="42" y="40" width="18" height="40" rx="4"/>
         <rect x="6" y="20" width="52" height="14" rx="5"/>
       </g>
-      <!-- Agave right cluster -->
       <g transform="translate(1320,180)" opacity=".22">
         <ellipse cx="0" cy="0" rx="8" ry="88" transform="rotate(-25)" fill="#0EC9A3"/>
         <ellipse cx="0" cy="0" rx="8" ry="82" transform="rotate(18)" fill="#0EC9A3"/>
@@ -927,10 +892,8 @@ footer{
         <ellipse cx="0" cy="0" rx="6" ry="72" transform="rotate(152)" fill="#08F2C4"/>
         <circle cx="0" cy="-12" r="10" fill="#F5A623"/>
       </g>
-      <!-- Ground line w/ agave teal glow -->
       <line x1="0" y1="178" x2="1440" y2="178" stroke="#0EC9A3" stroke-width=".8" opacity=".35"/>
       <line x1="0" y1="178" x2="1440" y2="178" stroke="#08F2C4" stroke-width="1.5" opacity=".06" stroke-dasharray="6,22"/>
-      <!-- Stars / fireflies -->
       <circle cx="200" cy="60" r="1" fill="#F5A623" opacity=".5"/>
       <circle cx="500" cy="30" r="1.2" fill="#0EC9A3" opacity=".45"/>
       <circle cx="900" cy="50" r="1" fill="#FFD166" opacity=".4"/>
@@ -939,7 +902,6 @@ footer{
     </svg>
   </div>
 
-  <!-- Particles container -->
   <div id="pContainer" style="position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden"></div>
 
   <div class="hero-eyebrow">Tour 23 · 26 · Octubre · 2026 · By Felipe Arturo</div>
@@ -949,7 +911,6 @@ footer{
   <div class="hero-dests">
     <div class="dest-chip"><span class="icon">🏛</span> Lagos de Moreno</div>
     <div class="dest-chip"><span class="icon">🌋</span> Cerro del Cubilete</div>
-    <div class="dest-chip"><span class="icon">🥃</span> Tequila, Jalisco</div>
     <div class="dest-chip"><span class="icon">⛪</span> San Juan de los Lagos</div>
     <div class="dest-chip"><span class="icon">👟</span> León, Guanajuato</div>
   </div>
@@ -957,12 +918,12 @@ footer{
   <div class="hero-stats">
     <div class="hero-stat"><span class="h-stat-val">11:30</span><span class="h-stat-lbl">Salida pm</span></div>
     <div class="hero-stat"><span class="h-stat-val teal">4D · 3N</span><span class="h-stat-lbl">Duración</span></div>
-    <div class="hero-stat"><span class="h-stat-val gold">$3,700</span><span class="h-stat-lbl">MXN / persona</span></div>
+    <div class="hero-stat"><span class="h-stat-val gold">$2,500</span><span class="h-stat-lbl">MXN / persona</span></div>
     <div class="hero-stat"><span class="h-stat-val">Oct 23</span><span class="h-stat-lbl">2026</span></div>
   </div>
 
   <div class="hero-cta">
-    <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350" class="btn btn-primary">📌 Apartar lugar · $350 anticipo</a>
+    <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-primary">📌 Apartar lugar · $500 anticipo</a>
     <a href="#itinerario" class="btn btn-glass">Ver itinerario completo</a>
   </div>
 
@@ -984,7 +945,7 @@ footer{
 <section class="quote-band">
   <div class="qb-blob1"></div><div class="qb-blob2"></div>
   <div class="qb-inner">
-    <span class="qb-symbol">🌵🥃🤝</span>
+    <span class="qb-symbol">🌵⛪🤝</span>
     <p class="qb-quote">
       "A veces un solo día puede crear recuerdos que duran <span class="em">años...</span><br>nos vemos en Jalisco"
     </p>
@@ -992,11 +953,11 @@ footer{
       Si deseas acompañarnos, confirma tu lugar con pago. Cupo limitado para mantener la logística del grupo. ¡Será un fin de semana de convivencia, aventura y buenos momentos!
     </p>
     <div class="qb-wa">
-      💬 Confirma tu pago · WhatsApp: <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350">55 2386 7156</a>
+      💬 Confirma tu pago · WhatsApp: <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500">55 2386 7156</a>
     </div>
     <div class="qb-cta">
       <a href="https://elbuenpipe.com/traveling" target="_blank" rel="noopener" class="btn btn-viajes">🗺 Próximos viajes</a>
-      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350" class="btn btn-wa">💬 Apartar lugar — $350</a>
+      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-wa">💬 Apartar lugar — $500</a>
     </div>
   </div>
 </section>
@@ -1021,20 +982,20 @@ footer{
       <div class="film-num">01</div>
     </div>
     <div class="film-item">
-      <img src="https://i.ibb.co/hJfm7dTW/Tequila-Jalisco.jpg" alt="Tequila Jalisco" loading="lazy">
+      <img src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg" alt="Mirador San Miguel Lagos de Moreno" loading="lazy">
       <div class="film-overlay">
-        <div class="film-day">Día 3 · Domingo</div>
-        <div class="film-name">Tequila, Jalisco</div>
-        <div class="film-sub">Destilerías · Agave · Cantaritos</div>
+        <div class="film-day">Día 2 · Tarde</div>
+        <div class="film-name">Mirador San Miguel</div>
+        <div class="film-sub">Templo del Calvario · vistas panorámicas</div>
       </div>
       <div class="film-num">02</div>
     </div>
     <div class="film-item">
       <img src="https://i.ibb.co/5XzHwtJZ/Jalisco-San-Juan-de-los-Lagos-M-xico.jpg" alt="San Juan de los Lagos" loading="lazy">
       <div class="film-overlay">
-        <div class="film-day">Día 3 · Express</div>
+        <div class="film-day">Día 3 · Domingo</div>
         <div class="film-name">San Juan de los Lagos</div>
-        <div class="film-sub">Basílica · centro histórico</div>
+        <div class="film-sub">Basílica · puente histórico · plaza</div>
       </div>
       <div class="film-num">03</div>
     </div>
@@ -1057,14 +1018,14 @@ footer{
   </svg>
 </div>
 
-<!-- PHOTO STRIP — 4 recuadros encima de "Qué incluye" -->
+<!-- PHOTO STRIP -->
 <div style="background:#0B1829;padding:0 5% 1.5rem">
   <div style="max-width:940px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
     <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
-      <img src="https://i.ibb.co/xtPcW4kr/El-momento-de-viajar-es-ahora-Si-Tequila-Jalisco-est-en-tus-planes-en-Matices-Hotelde-Barricas-t.jpg" alt="Centro Tequila" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
+      <img src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg" alt="Centro Lagos de Moreno" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
       <div style="position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(7,17,31,.92),transparent)">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--agave);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">🥃 Centro</div>
-        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">Tequila, Jalisco</div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--agave);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">🏛 Centro Histórico</div>
+        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">Lagos de Moreno</div>
       </div>
     </div>
     <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
@@ -1209,9 +1170,23 @@ footer{
         <div class="tl-row hi">
           <div class="tl-dot"></div>
           <div class="tl-time">~12:30 pm</div>
-          <div class="tl-title">🎯 Actividades recreativas en Lagos</div>
-          <div class="tl-desc">Actividades en grupo · tiempo libre · se revelan en destino · tarde libre en el centro</div>
-          <span class="tag tag-terra">Sorpresa</span>
+          <div class="tl-title">🌄 Mirador San Miguel · Templo del Calvario</div>
+          <div class="tl-desc">Vista panorámica de Lagos de Moreno desde el Mirador San Miguel · después recorrido por el Templo del Calvario · arquitectura colonial religiosa · fotos grupales</div>
+          <span class="tag tag-gold">📸 Icónico</span>
+        </div>
+        <div class="tl-row hi">
+          <div class="tl-dot"></div>
+          <div class="tl-time">2:00 pm</div>
+          <div class="tl-title">🍽 Comida grupal en Lagos de Moreno</div>
+          <div class="tl-desc">Restaurante local en el centro histórico · cocina jalisciense · convivencia del grupo</div>
+          <span class="tag tag-warm">Grupal</span>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot"></div>
+          <div class="tl-time">3:00 – 6:00 pm</div>
+          <div class="tl-title">🚶 Tiempo libre · recorrido por Lagos de Moreno</div>
+          <div class="tl-desc">Centro histórico · calles coloniales · tiendas · cafés · iglesias · plaza de armas · a tu ritmo</div>
+          <span class="tag tag-blue">Libre</span>
         </div>
         <div class="tl-row">
           <div class="tl-dot"></div>
@@ -1237,64 +1212,78 @@ footer{
         <div class="day-n">03</div>
         <div class="day-info">
           <div class="day-title">Domingo 25 de Octubre, 2026</div>
-          <div class="day-sub">Tequila, Jalisco · destilerías · agave · cantaritos · hotel</div>
+          <div class="day-sub">San Juan de los Lagos · Basílica · centro histórico · Lagos de Moreno</div>
         </div>
       </div>
       <div class="tl">
-        <div class="tl-row hi">
+        <div class="tl-row">
           <div class="tl-dot"></div>
-          <div class="tl-time">6:15 am</div>
-          <div class="tl-title">🏨 Reunión en el lobby del hotel</div>
-          <div class="tl-desc">Check de asistencia · todos listos para abordar · salida puntual sin excepciones</div>
-          <span class="tag tag-blue">Lobby</span>
+          <div class="tl-time">9:00 am</div>
+          <div class="tl-title">☕ Desayuno grupal en el hotel</div>
+          <div class="tl-desc">Para quien guste · 10% de descuento en todo el menú · mañana tranquila antes de salir</div>
+          <span class="tag tag-teal">Opcional</span>
         </div>
         <div class="tl-row hi">
           <div class="tl-dot"></div>
-          <div class="tl-time">6:50 am</div>
-          <div class="tl-title">🚌 Salida hacia Tequila, Jalisco</div>
-          <div class="tl-desc">Ruta vía San Juan de los Lagos · ~4 hrs en total con parada express en SJDL</div>
-          <span class="tag tag-teal">Salida</span>
+          <div class="tl-time">12:30 pm</div>
+          <div class="tl-title">🚌 Salida hacia San Juan de los Lagos</div>
+          <div class="tl-desc">Desde el hotel · ~50 min en autobús privado · 43 km por carretera libre · llegada estimada 1:20 pm</div>
+          <span class="tag tag-blue">Traslado</span>
         </div>
         <div class="tl-row gold">
           <div class="tl-dot"></div>
-          <div class="tl-time">~10:30 am</div>
-          <div class="tl-title">⛪ San Juan de los Lagos · parada express</div>
-          <div class="tl-desc">Basílica de San Juan de los Lagos · 20 minutos · foto grupal y seguimos a Tequila</div>
-          <span class="tag tag-gold">⛪ SJDL</span>
+          <div class="tl-time">~1:20 pm</div>
+          <div class="tl-title">⛪ Llegada a San Juan de los Lagos</div>
+          <div class="tl-desc">Basílica de San Juan de los Lagos · foto grupal · recorrido espiritual por el interior</div>
+          <span class="tag tag-gold">⛪ Basílica</span>
         </div>
         <div class="tl-row hi">
           <div class="tl-dot"></div>
-          <div class="tl-time">~11:30 am</div>
-          <div class="tl-title">🥃 Llegada a Tequila, Jalisco</div>
-          <div class="tl-desc">Centro histórico · Plaza principal · letras de Tequila · fotos grupales</div>
-          <span class="tag tag-terra">Llegada</span>
+          <div class="tl-time">~2:00 pm</div>
+          <div class="tl-title">🌉 Puente Histórico · Plaza de las Armas</div>
+          <div class="tl-desc">Recorrido a pie por el centro · puente colonial · jardín central · arquitectura jalisciense · fotos del grupo</div>
+          <span class="tag tag-teal">Centro histórico</span>
         </div>
         <div class="tl-row hi">
           <div class="tl-dot"></div>
-          <div class="tl-time">1:00 pm</div>
-          <div class="tl-title">🌵 Tour destilerías · Museo del Tequila · campo del agave</div>
-          <div class="tl-desc">Recorrido guiado · proceso completo del agave azul · campo donde se filmó telenovela · ~3 hrs</div>
-          <span class="tag tag-gold">🥃 Incluido</span>
+          <div class="tl-time">~2:30 – 3:00 pm</div>
+          <div class="tl-title">🍽 Comida grupal en San Juan de los Lagos</div>
+          <div class="tl-desc">Restaurante local en el centro · comida tradicional jalisciense · tiempo para convivir antes del regreso</div>
+          <span class="tag tag-warm">Opcional</span>
         </div>
         <div class="tl-row hi">
           <div class="tl-dot"></div>
-          <div class="tl-time">~4:30 pm</div>
-          <div class="tl-title">🍹 Los Cantaritos · El Güerito</div>
-          <div class="tl-desc">El cierre perfecto · cantaritos, mezcal, souvenirs · tiempo libre en el pueblo mágico</div>
-          <span class="tag tag-terra">Fiesta</span>
-        </div>
-        <div class="tl-row hi">
-          <div class="tl-dot"></div>
-          <div class="tl-time">10:30 pm</div>
-          <div class="tl-title">🚌 El autobús nos recoge en Tequila</div>
-          <div class="tl-desc">Punto de reunión acordado en el centro · todos a bordo · traslado al hotel</div>
-          <span class="tag tag-teal">Regreso hotel</span>
+          <div class="tl-time">~4:00 pm</div>
+          <div class="tl-title">🚌 Regreso a Lagos de Moreno</div>
+          <div class="tl-desc">Abordamos el autobús en el centro · ~50 min de regreso · llegada estimada 4:50 – 5:00 pm</div>
+          <span class="tag tag-blue">Traslado</span>
         </div>
         <div class="tl-row">
           <div class="tl-dot"></div>
-          <div class="tl-time">~Medianoche</div>
-          <div class="tl-title">🏨 Check-in hotel · noche 3</div>
-          <div class="tl-desc">Asignación de habitaciones · confirma en el grupo de WhatsApp con nombre y cuarto ✅</div>
+          <div class="tl-time">~5:00 pm</div>
+          <div class="tl-title">🚃 Tranvía histórico de Lagos (opcional)</div>
+          <div class="tl-desc">Para quien tenga energía · recorrido colonial por el centro · quienes prefieran descansar van al hotel</div>
+          <span class="tag tag-teal">Opcional</span>
+        </div>
+        <div class="tl-row">
+          <div class="tl-dot"></div>
+          <div class="tl-time">6:00 pm</div>
+          <div class="tl-title">🌆 Tiempo libre en Lagos de Moreno</div>
+          <div class="tl-desc">Paseo por el centro · tiendas · descanso · fotos al atardecer por las calles coloniales</div>
+          <span class="tag tag-blue">Libre</span>
+        </div>
+        <div class="tl-row hi">
+          <div class="tl-dot"></div>
+          <div class="tl-time">7:30 pm</div>
+          <div class="tl-title">🍽 Cena grupal en Lagos de Moreno</div>
+          <div class="tl-desc">Nos reunimos en el centro · restaurante a elegir en destino · participación libre</div>
+          <span class="tag tag-warm">Opcional</span>
+        </div>
+        <div class="tl-row hi">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Antes de 10:00 pm</div>
+          <div class="tl-title">🏨 Regreso al hotel · noche 3</div>
+          <div class="tl-desc">Confirma en el grupo de WhatsApp con tu nombre y número de cuarto ✅</div>
           <div class="tl-note">💡 Igual que ayer: confirmación rápida en el grupo cuando estés en tu cuarto. Nos cuidamos entre todos.</div>
           <span class="tag tag-teal">Check seguridad</span>
         </div>
@@ -1366,79 +1355,48 @@ footer{
     <h2 class="section-title">Jalisco te <span class="hl">espera</span></h2>
   </div>
   <div class="gal-grid">
-
-    <!-- 1. Lagos de Moreno — tall left -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg"
-        alt="Lagos de Moreno, Jalisco"
-        loading="lazy">
+      <img src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg" alt="Lagos de Moreno, Jalisco" loading="lazy">
       <div class="gal-caption">
         <span class="gal-cap-label">🏛️ Lagos de Moreno</span>
         <span class="gal-cap-name">Centro Histórico Colonial</span>
       </div>
     </div>
-
-    <!-- 2. Tequila transporte -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/hJfm7dTW/Tequila-Jalisco.jpg"
-        alt="Tequila, Jalisco"
-        loading="lazy">
+      <img src="https://i.ibb.co/5XzHwtJZ/Jalisco-San-Juan-de-los-Lagos-M-xico.jpg" alt="San Juan de los Lagos, Jalisco" loading="lazy">
       <div class="gal-caption">
-        <span class="gal-cap-label">🚌 En ruta</span>
-        <span class="gal-cap-name">Tequila, Jalisco</span>
+        <span class="gal-cap-label">🌉 Puente Histórico</span>
+        <span class="gal-cap-name">San Juan de los Lagos</span>
       </div>
     </div>
-
-    <!-- 3. Cerro del Cubilete -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/8gqrC4GG/Cerro-del-Cubilete-Guanajuato.jpg"
-        alt="Cerro del Cubilete — Cristo Rey"
-        loading="lazy">
+      <img src="https://i.ibb.co/8gqrC4GG/Cerro-del-Cubilete-Guanajuato.jpg" alt="Cerro del Cubilete — Cristo Rey" loading="lazy">
       <div class="gal-caption">
         <span class="gal-cap-label">🌋 Amanecer épico</span>
         <span class="gal-cap-name">Cristo Rey · Cubilete</span>
       </div>
     </div>
-
-    <!-- 4. San Juan de los Lagos -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/hFGfB9NL/Todas-las-publicaciones-Instagram.jpg"
-        alt="San Juan de los Lagos"
-        loading="lazy">
+      <img src="https://i.ibb.co/hFGfB9NL/Todas-las-publicaciones-Instagram.jpg" alt="San Juan de los Lagos" loading="lazy">
       <div class="gal-caption">
         <span class="gal-cap-label">⛪ Parada de Fe</span>
         <span class="gal-cap-name">San Juan de los Lagos</span>
       </div>
     </div>
-
-    <!-- 5. Campo de agave azul -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/r2KXCPdY/Tequila-Jal.jpg"
-        alt="Campo de agave azul — Tequila, Jalisco"
-        loading="lazy">
+      <img src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg" alt="Mirador San Miguel — Lagos de Moreno, Jalisco" loading="lazy">
       <div class="gal-caption">
-        <span class="gal-cap-label">🌵 Donde se filmó la telenovela</span>
-        <span class="gal-cap-name">Campo Agave Azul</span>
+        <span class="gal-cap-label">🌄 Vista panorámica</span>
+        <span class="gal-cap-name">Mirador San Miguel · Lagos</span>
       </div>
     </div>
-
-    <!-- 6. León, Guanajuato — wide -->
     <div class="gal-item">
-      <img
-        src="https://i.ibb.co/5gwbhG6T/Leon-Guanajuato-Mexico.jpg"
-        alt="León, Guanajuato"
-        loading="lazy">
+      <img src="https://i.ibb.co/5gwbhG6T/Leon-Guanajuato-Mexico.jpg" alt="León, Guanajuato" loading="lazy">
       <div class="gal-caption">
         <span class="gal-cap-label">👟 León, Guanajuato</span>
         <span class="gal-cap-name">Calles y Arco Triunfal</span>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1458,9 +1416,9 @@ footer{
 
     <div class="price-card reveal">
       <div class="price-lbl">Todo incluido · por persona</div>
-      <div class="price-num">$3,700</div>
+      <div class="price-num">$2,500</div>
       <div class="price-cur">MXN</div>
-      <div class="price-note">Anticipo de $350 MXN aparta tu lugar<br>Saldo restante 30 días antes · <strong style="color:var(--amber2)">23 Sep, 2026</strong></div>
+      <div class="price-note">Anticipo de $500 MXN aparta tu lugar<br>Saldo restante 30 días antes · <strong style="color:var(--amber2)">23 Sep, 2026</strong></div>
       <div class="price-div"></div>
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem;font-family:var(--ff-head)">⏳ Faltan para el tour</div>
       <div class="cd-wrap" id="cdGrid">
@@ -1474,24 +1432,21 @@ footer{
 
     <div class="price-menor reveal">
       <div class="pm-lbl">Menores de 15 años</div>
-      <div class="pm-num">$2,172 <span style="font-size:1rem;opacity:.5">MXN</span></div>
+      <div class="pm-num">$1,900 <span style="font-size:1rem;opacity:.5">MXN</span></div>
       <div class="pm-note">Mismos beneficios · tarifa especial niños</div>
     </div>
 
-    <!-- ===== CTA COLUMN — structured, harmonic ===== -->
+    <!-- CTA COLUMN -->
     <div class="cta-col reveal">
-      <!-- PRIMARY ACTION -->
-      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350" class="btn btn-terra">📌 Apartar mi lugar — $350 anticipo</a>
-      <a href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20quiero%20pagar%20el%20tour%20completo%20a%20Jalisco%20TFS-JAL-2026" class="btn btn-amber">💳 Pagar completo — $3,700 MXN</a>
+      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-terra">📌 Apartar mi lugar — $500 anticipo</a>
+      <a href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20quiero%20pagar%20el%20tour%20completo%20a%20Jalisco%20TFS-JAL-2026" class="btn btn-amber">💳 Pagar completo — $2,500 MXN</a>
 
       <div class="cta-divider">o contactar</div>
 
-      <!-- CONTACT -->
-      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24350" class="btn btn-wa">💬 WhatsApp · 55 2386 7156</a>
+      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-wa">💬 WhatsApp · 55 2386 7156</a>
 
       <div class="cta-divider">más opciones</div>
 
-      <!-- UTILITY -->
       <a href="https://maps.app.goo.gl/ejfhQkQr5qQpmA4U7" target="_blank" rel="noopener" class="btn btn-glass">📍 Punto de encuentro · Xalostoc</a>
       <a id="calBtnPrecio" href="#" class="btn btn-cal" target="_blank" rel="noopener">📅 Agregar al calendario</a>
       <a href="https://elbuenpipe.com/traveling" target="_blank" rel="noopener" class="btn btn-viajes">🗺 Ver próximos viajes</a>
@@ -1514,7 +1469,7 @@ footer{
     <div class="cond-grid">
       <div class="cond-card">
         <div class="cond-title">💳 Forma de pago</div>
-        <div class="cond-body">Anticipo $350 MXN aparta tu lugar. Saldo total 30 días antes de la salida.<br><br>SPEI · Stripe · PayPal · Transferencia sin comisión · +3.6% en tarjeta</div>
+        <div class="cond-body">Anticipo $500 MXN aparta tu lugar. Saldo total 30 días antes de la salida.<br><br>SPEI · Stripe · PayPal · Transferencia sin comisión · +3.6% en tarjeta</div>
       </div>
       <div class="cond-card">
         <div class="cond-title">❌ Cancelación</div>
@@ -1599,7 +1554,7 @@ var ro=new IntersectionObserver(function(entries){
 },{threshold:.05});
 document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el)});
 
-// Jalisco particles — tequila/agave theme
+// Jalisco particles
 (function(){
   var symbols=['🌵','🥃','⭐','🌾','✨','🎺','🌶️','🦅','💫','🌟','🍹','🏺','🇲🇽'];
   var container=document.getElementById('pContainer');
@@ -1625,11 +1580,11 @@ document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el)});
   setInterval(spawn,2500);
 })();
 
-// Countdown + calendar links — NO auto-refresh on page
+// Countdown + calendar links
 (function(){
   var target=new Date('2026-10-23T23:30:00-06:00').getTime();
   var calTitle  =encodeURIComponent('Tour Jalisco · Travel Friend Ship TFS-JAL-2026');
-  var calDetails=encodeURIComponent('Tour 4 días · Lagos de Moreno · Tequila · San Juan de los Lagos · León\n\nIncluye: transporte, hotel 2 noches, Cerro del Cubilete, tour Tequila con destilerías y degustaciones.\n\nContacto: wa.me/525523867156');
+  var calDetails=encodeURIComponent('Tour 4 días · Lagos de Moreno · San Juan de los Lagos · León\n\nIncluye: transporte, hotel 2 noches, Cerro del Cubilete, Mirador San Miguel, Templo del Calvario, visita a San Juan de los Lagos.\n\nContacto: wa.me/525523867156');
   var calLoc    =encodeURIComponent('Iglesia Asunción de María, Xalostoc, Ecatepec, Estado de México');
   var calUrl='https://calendar.google.com/calendar/render?action=TEMPLATE'
     +'&text='+calTitle+'&details='+calDetails+'&location='+calLoc

@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Open+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png"/>
 <link rel="shortcut icon" type="image/png" href="https://i.ibb.co/1f1L99mW/lgo-003.png"/>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <style>
 /* =============================================
    RESET & ROOT
@@ -678,6 +679,50 @@ nav.scrolled{
 }
 .btn-viajes:hover{background:rgba(245,166,35,.1);border-color:rgba(245,166,35,.5)}
 
+.btn-pay{
+  background:linear-gradient(135deg,var(--agave),var(--agave2));
+  color:#04231b;
+  box-shadow:0 10px 28px rgba(14,201,163,.4);
+  font-size:1rem;
+}
+.btn-pay:hover{box-shadow:0 16px 36px rgba(14,201,163,.55);transform:translateY(-2px)}
+
+/* =============================================
+   STICKY PAY BAR
+   ============================================= */
+.sticky-pay{
+  position:fixed;left:0;right:0;bottom:0;z-index:500;
+  display:flex;gap:.6rem;align-items:center;justify-content:center;
+  padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+  background:rgba(7,17,31,.92);
+  backdrop-filter:blur(18px) saturate(1.4);
+  border-top:1px solid var(--glass-border);
+  transform:translateY(110%);transition:transform .35s ease;
+}
+.sticky-pay.show{transform:translateY(0)}
+.sticky-pay .sp-info{display:flex;flex-direction:column;line-height:1.15;margin-right:auto}
+.sticky-pay .sp-price{font-family:var(--ff-head);font-weight:700;font-size:1rem;color:var(--text-hi)}
+.sticky-pay .sp-note{font-size:10px;color:var(--text-lo)}
+.sticky-pay .btn{padding:.65rem 1.1rem;font-size:12px;white-space:nowrap}
+@media (max-width:520px){.sticky-pay .sp-info{display:none}}
+
+/* =============================================
+   ITINERARY ACCORDION
+   ============================================= */
+.day-block{border:1px solid var(--glass-border);border-radius:var(--radius-lg);margin-bottom:1rem;overflow:hidden;background:var(--glass)}
+.day-block>summary{list-style:none;cursor:pointer;padding:1.1rem 1.3rem}
+.day-block>summary::-webkit-details-marker{display:none}
+.day-block .day-label{display:flex;align-items:center;gap:1rem}
+.day-block .day-toggle{margin-left:auto;font-size:11px;font-family:var(--ff-head);letter-spacing:.08em;color:var(--agave2);border:1px solid rgba(14,201,163,.35);padding:5px 12px;border-radius:var(--radius-pill);white-space:nowrap}
+.day-block[open] .day-toggle::after{content:" · cerrar"}
+.day-block:not([open]) .day-toggle::after{content:" · ver detalle"}
+.day-block .tl{padding:0 1.3rem 1.3rem}
+
+.cta-more{cursor:pointer;list-style:none}
+.cta-more::-webkit-details-marker{display:none}
+.cta-more>summary{text-align:center;font-size:12px;color:var(--text-lo);font-family:var(--ff-head);letter-spacing:.06em;padding:.4rem 0;cursor:pointer}
+.cta-more[open]>summary{color:var(--text-mid)}
+
 .cta-col{
   display:flex;flex-direction:column;
   align-items:stretch;gap:.9rem;
@@ -923,9 +968,10 @@ footer{
   </div>
 
   <div class="hero-cta">
-    <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-primary">📌 Apartar lugar · $500 anticipo</a>
-    <a href="#itinerario" class="btn btn-glass">Ver itinerario completo</a>
+    <a href="https://book.stripe.com/4gM3cv0S9fou6itarugbm05" target="_blank" rel="noopener" class="btn btn-pay">💳 Pagar con tarjeta — $2,500 MXN</a>
+    <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-glass">📌 Apartar con $500</a>
   </div>
+  <a href="#itinerario" class="hero-loc" style="margin-top:.4rem">Ver itinerario en 4 días ↓</a>
 
   <a href="https://maps.app.goo.gl/ejfhQkQr5qQpmA4U7" target="_blank" rel="noopener" class="hero-loc">
     📍 Iglesia Asunción de María · Xalostoc, Ecatepec
@@ -1018,40 +1064,6 @@ footer{
   </svg>
 </div>
 
-<!-- PHOTO STRIP -->
-<div style="background:#0B1829;padding:0 5% 1.5rem">
-  <div style="max-width:940px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-    <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
-      <img src="https://i.ibb.co/LXby8BBT/Lagos-de-Moreno-Jalisco.jpg" alt="Centro Lagos de Moreno" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(7,17,31,.92),transparent)">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--agave);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">🏛 Centro Histórico</div>
-        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">Lagos de Moreno</div>
-      </div>
-    </div>
-    <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
-      <img src="https://i.ibb.co/C3S2BY1j/Templo-Expiatorio.jpg" alt="San Juan de los Lagos Templo" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(7,17,31,.92),transparent)">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber2);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">⛪ Basílica</div>
-        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">San Juan de los Lagos</div>
-      </div>
-    </div>
-    <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
-      <img src="https://i.ibb.co/5XzHwtJZ/Jalisco-San-Juan-de-los-Lagos-M-xico.jpg" alt="San Juan de los Lagos" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(7,17,31,.92),transparent)">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber2);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">⛪ Fe y devoción</div>
-        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">San Juan de los Lagos</div>
-      </div>
-    </div>
-    <div style="position:relative;height:180px;overflow:hidden;border-radius:12px;background:#0F1E2E">
-      <img src="https://i.ibb.co/ZztwDJry/Templo-Expiatorio-Le-n-Guanajuato.jpg" alt="León Guanajuato Templo" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3);transition:filter .4s,transform .5s;display:block" onmouseover="this.style.filter='brightness(.85) saturate(1.5)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='brightness(.55) saturate(1.3)';this.style.transform='scale(1)'">
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:22px 12px 10px;background:linear-gradient(to top,rgba(7,17,31,.92),transparent)">
-        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--agave);font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:2px">👟 Calzado</div>
-        <div style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff">León, Guanajuato</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ===== INCLUDES ===== -->
 <section class="section includes-section reveal">
   <div class="section-inner">
@@ -1084,14 +1096,15 @@ footer{
     <h2 class="section-title">4 días, <span class="hl">cada momento planeado</span></h2>
 
     <!-- DÍA 1 -->
-    <div class="day-block reveal">
-      <div class="day-label">
+    <details class="day-block reveal" open>
+      <summary><div class="day-label">
         <div class="day-n">01</div>
         <div class="day-info">
           <div class="day-title">Viernes 23 de Octubre, 2026</div>
           <div class="day-sub">Salida nocturna · Iglesia Asunción de María · Xalostoc</div>
         </div>
-      </div>
+        <span class="day-toggle"></span>
+      </div></summary>
       <div class="tl">
         <div class="tl-row hi">
           <div class="tl-dot"></div>
@@ -1110,17 +1123,18 @@ footer{
           <span class="tag tag-teal">Nocturno</span>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- DÍA 2 -->
-    <div class="day-block reveal">
-      <div class="day-label">
+    <details class="day-block reveal">
+      <summary><div class="day-label">
         <div class="day-n">02</div>
         <div class="day-info">
           <div class="day-title">Sábado 24 de Octubre, 2026</div>
           <div class="day-sub">Cerro del Cubilete · Lagos de Moreno · tranvía · noche</div>
         </div>
-      </div>
+        <span class="day-toggle"></span>
+      </div></summary>
       <div class="tl">
         <div class="tl-row hi">
           <div class="tl-dot"></div>
@@ -1201,17 +1215,18 @@ footer{
           <span class="tag tag-teal">Check seguridad</span>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- DÍA 3 -->
-    <div class="day-block reveal">
-      <div class="day-label">
+    <details class="day-block reveal">
+      <summary><div class="day-label">
         <div class="day-n">03</div>
         <div class="day-info">
           <div class="day-title">Domingo 25 de Octubre, 2026</div>
           <div class="day-sub">San Juan de los Lagos · Basílica · centro histórico · Lagos de Moreno</div>
         </div>
-      </div>
+        <span class="day-toggle"></span>
+      </div></summary>
       <div class="tl">
         <div class="tl-row">
           <div class="tl-dot"></div>
@@ -1285,17 +1300,18 @@ footer{
           <span class="tag tag-teal">Check seguridad</span>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- DÍA 4 -->
-    <div class="day-block reveal">
-      <div class="day-label">
+    <details class="day-block reveal">
+      <summary><div class="day-label">
         <div class="day-n">04</div>
         <div class="day-info">
           <div class="day-title">Lunes 26 de Octubre, 2026</div>
           <div class="day-sub">Desayuno · León, Guanajuato · Regreso a Ecatepec</div>
         </div>
-      </div>
+        <span class="day-toggle"></span>
+      </div></summary>
       <div class="tl">
         <div class="tl-row">
           <div class="tl-dot"></div>
@@ -1333,7 +1349,7 @@ footer{
           <span class="tag tag-teal">Casa 🏠</span>
         </div>
       </div>
-    </div>
+    </details>
 
   </div>
 </section>
@@ -1435,18 +1451,24 @@ footer{
 
     <!-- CTA COLUMN -->
     <div class="cta-col reveal">
-      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-terra">📌 Apartar mi lugar — $500 anticipo</a>
-      <a href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20quiero%20pagar%20el%20tour%20completo%20a%20Jalisco%20TFS-JAL-2026" class="btn btn-amber">💳 Pagar completo — $2,500 MXN</a>
+      <a href="https://book.stripe.com/4gM3cv0S9fou6itarugbm05" target="_blank" rel="noopener" class="btn btn-pay">💳 Pagar ahora con tarjeta — $2,500 MXN</a>
+      <div style="display:flex;justify-content:center;margin:.2rem 0">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1TwVXnHuZ0tCu9239akMn4ie"
+          publishable-key="pk_live_51Ol1REHuZ0tCu923BtdsQOOIFSaEwdXgken0h0DZtxZixFzHHEWlvmBoc9QBCQZ7eV5rQgJ1a21BQS1Ut9ILYzdT00dojKJIoQ">
+        </stripe-buy-button>
+      </div>
+      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-terra">📌 Apartar con $500 anticipo</a>
 
-      <div class="cta-divider">o contactar</div>
-
-      <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-wa">💬 WhatsApp · 55 2386 7156</a>
-
-      <div class="cta-divider">más opciones</div>
-
-      <a href="https://maps.app.goo.gl/ejfhQkQr5qQpmA4U7" target="_blank" rel="noopener" class="btn btn-glass">📍 Punto de encuentro · Xalostoc</a>
-      <a id="calBtnPrecio" href="#" class="btn btn-cal" target="_blank" rel="noopener">📅 Agregar al calendario</a>
-      <a href="https://elbuenpipe.com/tfs" target="_blank" rel="noopener" class="btn btn-viajes">🗺 Ver próximos viajes</a>
+      <details class="cta-more">
+        <summary>Más opciones</summary>
+        <div class="cta-col" style="margin-top:.7rem;max-width:100%">
+          <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-wa">💬 WhatsApp · 55 2386 7156</a>
+          <a href="https://maps.app.goo.gl/ejfhQkQr5qQpmA4U7" target="_blank" rel="noopener" class="btn btn-glass">📍 Punto de encuentro · Xalostoc</a>
+          <a id="calBtnPrecio" href="#" class="btn btn-cal" target="_blank" rel="noopener">📅 Agregar al calendario</a>
+          <a href="https://elbuenpipe.com/tfs" target="_blank" rel="noopener" class="btn btn-viajes">🗺 Ver próximos viajes</a>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -1528,7 +1550,31 @@ footer{
   </div>
 </footer>
 
+<!-- STICKY PAY BAR -->
+<div class="sticky-pay" id="stickyPay">
+  <div class="sp-info">
+    <span class="sp-price">$2,500 MXN</span>
+    <span class="sp-note">Anticipo $500 · cupo limitado</span>
+  </div>
+  <a href="https://wa.me/525523867156?text=Hola%20deseo%20apartar%20mi%20lugar%20para%20Lagos%20de%20moreno%20con%20%24500" class="btn btn-glass">📌 Apartar</a>
+  <a href="https://book.stripe.com/4gM3cv0S9fou6itarugbm05" target="_blank" rel="noopener" class="btn btn-pay">💳 Pagar ahora</a>
+</div>
+
 <script>
+// Sticky pay bar: show after leaving hero, hide once price/footer is in view
+(function(){
+  var bar=document.getElementById('stickyPay');
+  var hero=document.querySelector('.hero');
+  var priceSection=document.getElementById('precio');
+  if(!bar||!hero) return;
+  window.addEventListener('scroll',function(){
+    var heroBottom=hero.getBoundingClientRect().bottom;
+    var pastHero=heroBottom<0;
+    var atPrice=priceSection && priceSection.getBoundingClientRect().top<window.innerHeight*0.6;
+    bar.classList.toggle('show', pastHero && !atPrice);
+  },{passive:true});
+})();
+
 // Progress bar
 window.addEventListener('scroll',function(){
   var d=document.documentElement,s=window.scrollY,h=d.scrollHeight-window.innerHeight;

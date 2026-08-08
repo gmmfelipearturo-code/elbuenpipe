@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Huasca de Ocampo · Itinerario · Travel Friend Ship</title>
+<title>Taxco · Itinerario · Travel Friend Ship</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="icon" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png"/>
+<link rel="icon" type="image/png" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png"/>
+<link rel="apple-touch-icon" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png"/>
 <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#f5f9f0;min-height:100vh}
+body{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#FAF5EE;min-height:100vh}
 
 :root{
-  --dark:#0D1B2A;--gold:#F5C518;--gold2:#E6A800;--white:#fff;
-  --green:#2e7d32;--lime:#A8E063;--fire:#FF6B35;--wa:#25D366;
-  --blue:#1565C0;--cream:#FFFBF0;--forest:#1B4332;
+  --dark:#2B2428;--gold:#D97A55;--gold2:#B15A3B;--white:#fff;
+  --green:#7C8B6F;--lime:#DCDCE2;--fire:#C0483C;--wa:#25D366;
+  --blue:#1565C0;--cream:#FAF5EE;--forest:#3A2E30;
 }
 
 /* ── NATURE BG GRAPHICS ── */
@@ -35,14 +36,14 @@ body{font-family:'Outfit',sans-serif;overflow-x:hidden;background:#f5f9f0;min-he
 nav#main-nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;
   padding:0 5%;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(13,27,42,.94);backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(245,197,24,.2);
+  background:rgba(43,36,40,.94);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(217,122,85,.2);
 }
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:.5rem}
-.nav-logo img{height:32px;width:auto;display:block;flex-shrink:0}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:.6rem}
 .nav-logo .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:dotPulse 2s infinite}
 @keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.6)}}
 .nav-logo span{color:var(--gold)}
+.nav-logo-img{height:32px;width:32px;object-fit:contain;border-radius:50%;flex-shrink:0}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:var(--gold)}
@@ -50,10 +51,10 @@ nav#main-nav{
 .nav-pay-btn:hover{transform:translateY(-2px)}
 
 /* ── MOB NAV ── */
-.mob-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;background:var(--dark);border-bottom:1px solid rgba(245,197,24,.2);padding:0 14px;align-items:center;justify-content:space-between}
-.mn-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:2px;text-decoration:none;display:flex;align-items:center;gap:.4rem}
-.mn-logo img{height:26px;width:auto;display:block;flex-shrink:0}
+.mob-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;background:var(--dark);border-bottom:1px solid rgba(217,122,85,.2);padding:0 14px;align-items:center;justify-content:space-between}
+.mn-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:2px;text-decoration:none;display:flex;align-items:center}
 .mn-logo span{color:var(--gold)}
+.mn-logo-img{height:34px;width:34px;object-fit:contain;border-radius:50%}
 .mn-pay{background:var(--gold);color:var(--dark);font-size:.75rem;font-weight:800;padding:.45rem 1rem;border-radius:100px;text-decoration:none}
 @media(max-width:768px){
   .mob-nav{display:flex}
@@ -64,15 +65,16 @@ nav#main-nav{
 /* ── HERO ── */
 .hero{
   min-height:78vh;position:relative;
-  background:linear-gradient(160deg,var(--forest) 0%,#1a5c32 30%,#0d3d20 60%,var(--dark) 100%);
+  background:linear-gradient(160deg,var(--forest) 0%,#4A3B3A 50%,var(--dark) 100%);
   display:flex;align-items:center;justify-content:center;text-align:center;
   overflow:hidden;padding:90px 5% 56px;
 }
+.hero-silhouette{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(720px,100%);opacity:.1;pointer-events:none;z-index:1}
 .hero-particles{position:absolute;inset:0;pointer-events:none}
 .hero-particle{position:absolute;animation:floatUp linear infinite;opacity:0}
 @keyframes floatUp{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:.7}90%{opacity:.3}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
 .hero-content{position:relative;z-index:2;max-width:720px}
-.hero-eyebrow{display:inline-block;background:rgba(245,197,24,.2);border:1px solid var(--gold);color:var(--gold);font-size:.7rem;font-weight:700;padding:.35rem 1.1rem;border-radius:50px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1.1rem;animation:fadeD .8s ease both}
+.hero-eyebrow{display:inline-block;background:rgba(217,122,85,.2);border:1px solid var(--gold);color:var(--gold);font-size:.7rem;font-weight:700;padding:.35rem 1.1rem;border-radius:50px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1.1rem;animation:fadeD .8s ease both}
 .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,10vw,6.4rem);color:#fff;line-height:.9;letter-spacing:2px;animation:fadeD .8s .15s ease both}
 .hero h1 .gld{color:var(--gold)}
 .hero-sub{font-family:'Caveat',cursive;font-size:clamp(1.15rem,3vw,1.6rem);color:rgba(255,255,255,.8);margin:.9rem 0 1.5rem;animation:fadeD .8s .3s ease both}
@@ -82,13 +84,13 @@ nav#main-nav{
 
 /* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;font-size:.9rem;padding:.85rem 1.7rem;border-radius:50px;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;min-height:48px}
-.btn-gold{background:var(--gold);color:var(--dark);box-shadow:0 6px 24px rgba(245,197,24,.4)}
-.btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(245,197,24,.5)}
+.btn-gold{background:var(--gold);color:var(--dark);box-shadow:0 6px 24px rgba(217,122,85,.4)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(217,122,85,.5)}
 .btn-dark{background:var(--dark);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .btn-dark:hover{transform:translateY(-3px)}
 .btn-wa{background:var(--wa);color:#fff;box-shadow:0 6px 20px rgba(37,211,102,.35)}
 .btn-wa:hover{transform:translateY(-3px)}
-.btn-maps{background:linear-gradient(135deg,var(--forest),var(--green));color:#fff;box-shadow:0 6px 20px rgba(46,125,50,.35)}
+.btn-maps{background:linear-gradient(135deg,var(--forest),var(--green));color:#fff;box-shadow:0 6px 20px rgba(124,139,111,.35)}
 .btn-maps:hover{transform:translateY(-3px)}
 .btn-sm{font-size:.78rem;padding:.65rem 1.2rem}
 .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
@@ -116,13 +118,13 @@ section{padding:60px 5%;position:relative;z-index:1}
 @media(max-width:640px){.info-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── PAGO (sección estrella) ── */
-.pago-sec{background:linear-gradient(135deg,var(--dark),#162a40)}
+.pago-sec{background:linear-gradient(135deg,var(--dark),#211B1E)}
 .pago-sec .sec-title,.pago-sec .sec-eyebrow{color:#fff}
 .pago-sec .sec-eyebrow{color:var(--gold)}
 .pago-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;max-width:780px;margin:0 auto}
 @media(max-width:680px){.pago-grid{grid-template-columns:1fr}}
 .pago-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:1.7rem 1.4rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.6rem;position:relative}
-.pago-card.featured{border-color:var(--gold);background:rgba(245,197,24,.08)}
+.pago-card.featured{border-color:var(--gold);background:rgba(217,122,85,.08)}
 .pago-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-size:.62rem;font-weight:800;letter-spacing:1.5px;padding:.3rem .9rem;border-radius:100px;text-transform:uppercase;white-space:nowrap}
 .pago-lbl{color:rgba(255,255,255,.55);font-size:.76rem}
 .pago-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);line-height:1}
@@ -135,13 +137,13 @@ section{padding:60px 5%;position:relative;z-index:1}
 .mini-cd{margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.1);text-align:center}
 .mini-cd-lbl{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.9rem}
 .mini-cd-grid{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
-.mini-cd-block{background:rgba(255,255,255,.06);border:1px solid rgba(245,197,24,.2);border-radius:12px;padding:.7rem .85rem;min-width:64px}
+.mini-cd-block{background:rgba(255,255,255,.06);border:1px solid rgba(217,122,85,.2);border-radius:12px;padding:.7rem .85rem;min-width:64px}
 .mini-cd-num{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold);line-height:1;display:block}
 .mini-cd-lbl2{color:rgba(255,255,255,.4);font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:.15rem}
 .cd-expired{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--lime);margin-top:.6rem}
 
 /* ── ITINERARIO (tabs + resumen) ── */
-.timeline-sec{background:linear-gradient(135deg,#f5f9f0,#eef6ee)}
+.timeline-sec{background:linear-gradient(135deg,#FAF5EE,#F1EAE0)}
 .day-tabs{display:flex;gap:.6rem;max-width:520px;margin:0 auto 1.8rem}
 .day-tab-btn{flex:1;background:#fff;border:1.5px solid rgba(0,0,0,.08);color:#777;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1.5px;padding:.7rem;border-radius:12px;cursor:pointer;transition:.2s}
 .day-tab-btn.active{background:var(--dark);color:var(--gold);border-color:var(--dark)}
@@ -149,16 +151,16 @@ section{padding:60px 5%;position:relative;z-index:1}
 .day-panel.active{display:block}
 .tl-items{display:flex;flex-direction:column;gap:0}
 .tl-item{display:grid;grid-template-columns:82px 1fr;gap:0;position:relative}
-.tl-item::before{content:'';position:absolute;left:36px;top:32px;bottom:-2px;width:2px;background:linear-gradient(var(--lime),rgba(168,224,99,.1));z-index:0}
+.tl-item::before{content:'';position:absolute;left:36px;top:32px;bottom:-2px;width:2px;background:linear-gradient(var(--lime),rgba(220,220,226,.1));z-index:0}
 .tl-item:last-child::before{display:none}
 .tl-time{padding:.9rem .5rem .9rem 0;text-align:right;z-index:1}
-.tl-time span{font-family:'Bebas Neue',sans-serif;font-size:.98rem;color:var(--green);background:#e8f5e9;padding:.28rem .55rem;border-radius:6px;display:inline-block;white-space:nowrap;letter-spacing:.5px}
-.tl-dot{position:absolute;left:31px;top:18px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(245,197,24,.3);z-index:2}
+.tl-time span{font-family:'Bebas Neue',sans-serif;font-size:.98rem;color:var(--gold2);background:#EFEDF0;padding:.28rem .55rem;border-radius:6px;display:inline-block;white-space:nowrap;letter-spacing:.5px}
+.tl-dot{position:absolute;left:31px;top:18px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(217,122,85,.3);z-index:2}
 .tl-content{padding:.9rem 1rem .9rem 1.6rem;z-index:1}
 .tl-content h4{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.2rem;line-height:1.3}
 .tl-content p{font-size:.8rem;color:#666;line-height:1.5}
-.tl-item.night .tl-time span{background:#1a237e;color:#fff}
-.tl-item.day2 .tl-time span{background:#e8f5e9;color:var(--forest)}
+.tl-item.night .tl-time span{background:#3A2E30;color:#fff}
+.tl-item.day2 .tl-time span{background:#EFEDF0;color:var(--forest)}
 .tl-item.day2 .tl-dot{background:var(--green)}
 
 details.full-itin{margin-top:1.6rem;border:1px dashed rgba(0,0,0,.15);border-radius:14px;padding:.9rem 1.1rem;max-width:560px;margin-left:auto;margin-right:auto}
@@ -171,11 +173,11 @@ details.full-itin .tl-items{margin-top:1.2rem}
 /* ── INCLUYE ── */
 .incluye-sec{background:#fff}
 .incluye-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.7rem;max-width:820px;margin:0 auto}
-.inc-item{display:flex;align-items:center;gap:.65rem;background:#f0faf0;border:1px solid #c8e6c9;border-radius:12px;padding:.8rem .95rem;font-size:.84rem;font-weight:600;color:var(--forest)}
+.inc-item{display:flex;align-items:center;gap:.65rem;background:#FDFBF8;border:1px solid #ECE4D8;border-radius:12px;padding:.8rem .95rem;font-size:.84rem;font-weight:600;color:var(--forest)}
 .inc-icon{font-size:1.3rem;flex-shrink:0}
 
 /* ── CANCELACIÓN (colapsable) ── */
-.cancel-sec{background:#f7f7f5}
+.cancel-sec{background:#F5F1EA}
 details.cancel-box{max-width:700px;margin:0 auto}
 details.cancel-box summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.5rem;font-weight:700;color:var(--dark);font-size:.9rem;padding:.4rem 0}
 details.cancel-box summary::-webkit-details-marker{display:none}
@@ -185,16 +187,16 @@ details.cancel-box[open] summary::before{content:'▾'}
 .cancel-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:#444;line-height:1.5}
 .cancel-list li::before{content:'•';color:var(--gold2);font-size:1.1rem;flex-shrink:0;line-height:1.3}
 .cancel-list li b{color:var(--dark)}
-.deslinde-box{background:#fff8e1;border:1.5px solid #FF8C00;border-radius:16px;padding:1.2rem 1.4rem;margin-top:1.4rem}
-.deslinde-box h4{color:#e65100;font-size:.82rem;font-weight:700;margin-bottom:.5rem;letter-spacing:.5px}
+.deslinde-box{background:#FBEDE7;border:1.5px solid #C0483C;border-radius:16px;padding:1.2rem 1.4rem;margin-top:1.4rem}
+.deslinde-box h4{color:#8B3A2E;font-size:.82rem;font-weight:700;margin-bottom:.5rem;letter-spacing:.5px}
 .deslinde-box p{font-size:.78rem;color:#555;line-height:1.6}
 
 /* ── FOOTER ── */
 footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 .footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
-.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;display:flex;align-items:center;gap:.5rem;letter-spacing:3px;margin-bottom:.6rem}
-.f-logo img{height:30px;width:auto;display:block;flex-shrink:0}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;display:block;letter-spacing:3px;margin-bottom:.6rem}
 .f-logo span{color:var(--gold)}
+.f-logo-img{height:52px;width:52px;object-fit:contain;border-radius:50%;display:block;margin-bottom:.8rem}
 .footer-brand p{line-height:1.6;max-width:230px;font-size:.82rem}
 .footer-col h4{color:var(--gold);font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
@@ -225,7 +227,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 @media(max-width:768px){.wa-float{display:none}}
 
 /* ── MOB STICKY PAGO ── */
-.mob-pay-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9990;padding:10px 16px;background:rgba(13,27,42,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(245,197,24,.2);gap:8px}
+.mob-pay-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9990;padding:10px 16px;background:rgba(43,36,40,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(217,122,85,.2);gap:8px}
 @media(max-width:768px){.mob-pay-sticky{display:flex}}
 .mob-pay-sticky .btn{flex:1;font-size:.78rem;padding:.7rem .5rem;min-height:46px}
 
@@ -238,9 +240,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 
 <!-- BG NATURE -->
 <div class="nature-bg">
-  <div class="nb-tree">🌲</div>
-  <div class="nb-tree">🌳</div>
-  <div class="nb-tree">🌲</div>
+  <div class="nb-tree">⛪</div>
+  <div class="nb-tree">🏠</div>
+  <div class="nb-tree">🔔</div>
   <div class="nb-rock">🪨</div>
 </div>
 
@@ -251,7 +253,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 <div class="wa-float" id="waFloat">
   <div class="wa-popup" id="waPopup">
     <div class="wa-ph">
-      <div class="wa-av">🌍</div>
+      <div class="wa-av">🥈</div>
       <div class="wa-pi">
         <div class="wa-pn">Pipe · Tours</div>
         <div class="wa-ps"><span class="wa-od"></span> En línea ahora</div>
@@ -259,8 +261,8 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
       <button class="wa-xb" id="waClose">✕</button>
     </div>
     <div class="wa-pb">
-      <div class="wa-bubble">¿Listo para Huasca? 🏔️ Escríbeme para apartar tu lugar o resolver tus dudas.</div>
-      <a class="wa-link" href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20tengo%20una%20pregunta%20sobre%20el%20Tour%20Huasca%20de%20Ocampo">💬 Abrir WhatsApp</a>
+      <div class="wa-bubble">¿Listo para Taxco? 🥈 Escríbeme para apartar tu lugar o resolver tus dudas.</div>
+      <a class="wa-link" href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20tengo%20una%20pregunta%20sobre%20el%20Tour%20Taxco">💬 Abrir WhatsApp</a>
     </div>
   </div>
   <button class="wa-fab" id="waFab">💬</button>
@@ -268,14 +270,14 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 
 <!-- MOB STICKY PAGO -->
 <div class="mob-pay-sticky">
-  <a href="https://book.stripe.com/8x2bJ1dEV2BIfT37figbm04" target="_blank" rel="noopener" class="btn btn-gold btn-sm">💳 Pagar $1,300</a>
-  <a href="https://wa.me/525523867156?text=Hola.%20Me%20gustaria%20apartar%20mi%20lugar%20con%20%24200%20al%20Tour%20Huasca%20de%20Ocampo%2029%20de%20Agosto" class="btn btn-wa btn-sm">📌 Apartar $200</a>
+  <a href="https://book.stripe.com/8x2bJ1dEV2BIfT37figbm04" target="_blank" rel="noopener" class="btn btn-gold btn-sm">💳 Pagar $990</a>
+  <a href="https://wa.me/525523867156?text=Hola.%20Me%20gustaria%20apartar%20mi%20lugar%20con%20%24300%20al%20Tour%20Taxco%205%20de%20Diciembre" class="btn btn-wa btn-sm">📌 Apartar $300</a>
 </div>
 
 <!-- NAV DESKTOP -->
 <nav id="main-nav">
   <a class="nav-logo" href="https://elbuenpipe.com/tfs/">
-    <img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
+    <img class="nav-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
     <span class="dot"></span> <span>TRAVEL</span>&nbsp;FRIEND&nbsp;SHIP
   </a>
   <ul class="nav-links">
@@ -288,44 +290,47 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 
 <!-- MOB NAV -->
 <nav class="mob-nav">
-  <a class="mn-logo" href="https://elbuenpipe.com/tfs/">
-    <img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
-    <span>TRAVEL</span> FRIEND SHIP
-  </a>
+  <a class="mn-logo" href="https://elbuenpipe.com/tfs/"><img class="mn-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship"></a>
   <a class="mn-pay" href="#pagar">💳 Pagar</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-particles" id="heroParticles"></div>
+  <svg class="hero-silhouette" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#D97A55" stroke-width="2">
+    <path d="M0,260 L0,190 L60,190 L60,150 L100,150 L100,190 L160,190 L160,60 Q160,30 190,30 Q220,30 220,60 L220,110 L200,110 L200,190 L260,190 L260,120 L280,90 L300,120 L300,190 L360,190 L360,20 L380,0 L400,20 L400,190 L460,190 L460,120 L480,90 L500,120 L500,190 L560,190 L560,60 Q560,30 590,30 Q620,30 620,60 L620,110 L600,110 L600,190 L660,190 L660,150 L700,150 L700,190 L720,190 L720,260 Z"/>
+    <circle cx="380" cy="55" r="10"/>
+    <circle cx="190" cy="70" r="7"/>
+    <circle cx="590" cy="70" r="7"/>
+  </svg>
   <div class="hero-content reveal">
-    <div class="hero-eyebrow">✦ Tour 29 · 30 · 08 · 2026 ✦</div>
-    <h1>HUASCA DE<br><span class="gld">OCAMPO</span></h1>
-    <p class="hero-sub">Hidalgo · Pueblo Mágico · 2 días de aventura 🌲</p>
-    <div class="hero-date">📅 Agosto 29 · 7:00am &nbsp;|&nbsp; Regreso Agosto 30 · ~8:00pm</div>
+    <div class="hero-eyebrow">✦ Tour 05 · 12 · 2026 ✦</div>
+    <h1>TAXCO<br><span class="gld">DE ALARCÓN</span></h1>
+    <p class="hero-sub">Guerrero · Pueblo Mágico de la Plata · 1 día de aventura 🥈</p>
+    <div class="hero-date">📅 Diciembre 5 · 7:00am &nbsp;|&nbsp; Regreso ~6:30pm</div>
     <div class="hero-btns">
       <a href="#pagar" class="btn btn-gold">💳 Pagar / Apartar mi lugar</a>
-      <a href="https://maps.app.goo.gl/TuJAHe894WvdhXBE8" class="btn btn-outline">📍 Punto de encuentro</a>
+      <a href="https://share.google/Zkun9ydtyFtrZkBjp" class="btn btn-outline">📍 Punto de encuentro</a>
     </div>
   </div>
   <div class="wave-sep" style="position:absolute;bottom:0;left:0;right:0">
     <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,30 C360,65 1080,-5 1440,30 L1440,60 L0,60Z" fill="#f5f9f0"/>
+      <path d="M0,30 C360,65 1080,-5 1440,30 L1440,60 L0,60Z" fill="#FAF5EE"/>
     </svg>
   </div>
 </section>
 
 <!-- INFO STRIP -->
-<section style="background:#f5f9f0;padding:36px 5% 20px">
+<section style="background:#FAF5EE;padding:36px 5% 20px">
   <div class="info-grid">
-    <div class="info-card reveal"><div class="ic-label">Precio</div><div class="ic-val">$1,300</div><div class="ic-sub">MXN / persona</div></div>
-    <div class="info-card reveal"><div class="ic-label">Duración</div><div class="ic-val">2 días</div><div class="ic-sub">1 noche cabaña</div></div>
-    <div class="info-card reveal"><div class="ic-label">Salida</div><div class="ic-val" style="font-size:1.05rem">Ago 29</div><div class="ic-sub">7:00am Tulpetlac</div></div>
+    <div class="info-card reveal"><div class="ic-label">Precio</div><div class="ic-val">$990</div><div class="ic-sub">MXN / persona</div></div>
+    <div class="info-card reveal"><div class="ic-label">Duración</div><div class="ic-val">1 día</div><div class="ic-sub">Tour completo</div></div>
+    <div class="info-card reveal"><div class="ic-label">Salida</div><div class="ic-val" style="font-size:1.05rem">Dic 5</div><div class="ic-sub">7:00am Tulpetlac</div></div>
     <div class="info-card reveal"><div class="ic-label">Cupos</div><div class="ic-val" style="color:var(--fire);font-size:1.15rem">Limitados</div><div class="ic-sub">¡Aparta ya!</div></div>
   </div>
 </section>
 
-<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#f5f9f0"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#0D1B2A"/></svg></div>
+<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#FAF5EE"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#2B2428"/></svg></div>
 
 <!-- PAGO — sección principal, arriba, en 3 clicks -->
 <section class="pago-sec" id="pagar">
@@ -337,10 +342,10 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
     <div class="pago-card featured reveal">
       <span class="pago-badge">Recomendado</span>
       <div class="pago-lbl">Pago completo con tarjeta</div>
-      <div class="pago-num">$1,300</div>
+      <div class="pago-num">$990</div>
       <div class="pago-desc">Pago único y seguro procesado por Stripe. Tu lugar queda confirmado al instante.</div>
       <stripe-buy-button
-        buy-button-id="buy_btn_1TuIQSHuZ0tCu923VZB3hK1q"
+        buy-button-id="buy_btn_1U2GJfHuZ0tCu923zgbzTE9T"
         publishable-key="pk_live_51Ol1REHuZ0tCu923BtdsQOOIFSaEwdXgken0h0DZtxZixFzHHEWlvmBoc9QBCQZ7eV5rQgJ1a21BQS1Ut9ILYzdT00dojKJIoQ">
       </stripe-buy-button>
       <a class="pago-fallback" href="https://book.stripe.com/8x2bJ1dEV2BIfT37figbm04" target="_blank" rel="noopener">¿No carga el botón? Paga aquí →</a>
@@ -348,9 +353,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 
     <div class="pago-card reveal">
       <div class="pago-lbl">Apartar con anticipo</div>
-      <div class="pago-num">$200</div>
+      <div class="pago-num">$300</div>
       <div class="pago-desc">Reserva tu lugar ahora y liquida el resto (por transferencia, tarjeta o efectivo) antes de la salida.</div>
-      <a href="https://wa.me/525523867156?text=Hola.%20Me%20gustaria%20apartar%20mi%20lugar%20con%20%24200%20al%20Tour%20Huasca%20de%20Ocampo%2029%20de%20Agosto" class="btn btn-wa" style="width:100%">📌 Apartar por WhatsApp</a>
+      <a href="https://wa.me/525523867156?text=Hola.%20Me%20gustaria%20apartar%20mi%20lugar%20con%20%24300%20al%20Tour%20Taxco%205%20de%20Diciembre" class="btn btn-wa" style="width:100%">📌 Apartar por WhatsApp</a>
     </div>
   </div>
 
@@ -374,127 +379,88 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
   </div>
 </section>
 
-<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#0D1B2A"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#f5f9f0"/></svg></div>
+<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#2B2428"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#FAF5EE"/></svg></div>
 
-<!-- ITINERARIO — resumen con tabs, detalle opcional -->
+<!-- ITINERARIO — resumen del día, detalle opcional -->
 <section class="timeline-sec reveal" id="itinerario">
-  <div class="sec-eyebrow">📅 Agosto 2026</div>
+  <div class="sec-eyebrow">📅 Sábado 5 de Diciembre 2026</div>
   <h2 class="sec-title">ITINERARIO</h2>
-  <p class="sec-sub">Lo esencial de cada día. Toca el día que quieras ver.</p>
+  <p class="sec-sub">Lo esencial del día. Un tour completo, ida y vuelta el mismo día.</p>
 
-  <div class="day-tabs">
-    <button class="day-tab-btn active" data-day="1" onclick="showDay(1)">🚌 DÍA 1 · SÁB 29</button>
-    <button class="day-tab-btn" data-day="2" onclick="showDay(2)">🌅 DÍA 2 · DOM 30</button>
-  </div>
-
-  <!-- RESUMEN DÍA 1 -->
+  <!-- RESUMEN -->
   <div class="day-panel active" id="panel1">
     <div class="tl-items">
       <div class="tl-item"><div class="tl-time"><span>7:00 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🚌 Salida</h4><p>Kiosko de Tulpetlac, Ecatepec</p></div></div>
-      <div class="tl-item"><div class="tl-time"><span>10:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏕️ Llegada · check-in</h4><p>Acomodo en cabaña</p></div></div>
-      <div class="tl-item"><div class="tl-time"><span>11:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🪨 Prismas Basálticos</h4><p>Tour guiado ~1.5 hrs</p></div></div>
-      <div class="tl-item"><div class="tl-time"><span>2:40 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🍽️ Comida en Huasca</h4><p>Cocina regional hidalguense</p></div></div>
-      <div class="tl-item night"><div class="tl-time"><span>8:00 pm</span></div><div class="tl-dot" style="background:var(--fire)"></div><div class="tl-content"><h4>🔥 Cena + Fogata</h4><p>Convivencia grupal</p></div></div>
-      <div class="tl-item night"><div class="tl-time"><span>10:00 pm</span></div><div class="tl-dot" style="background:#1a237e"></div><div class="tl-content"><h4>🌙 Recorrido nocturno</h4><p>Pueblo mágico bajo las estrellas</p></div></div>
+      <div class="tl-item"><div class="tl-time"><span>10:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏘️ Llegada a Taxco</h4><p>Orientación grupal en el Zócalo</p></div></div>
+      <div class="tl-item"><div class="tl-time"><span>11:00 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>⛪ Tour histórico</h4><p>Santa Prisca, Casa Borda y centro colonial</p></div></div>
+      <div class="tl-item"><div class="tl-time"><span>12:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🥈 Mercado de la plata</h4><p>Tiempo libre para comprar y comer</p></div></div>
+      <div class="tl-item"><div class="tl-time"><span>2:30 pm</span></div><div class="tl-dot" style="background:var(--fire)"></div><div class="tl-content"><h4>🚡 Teleférico (opcional)</h4><p>Vista panorámica de Taxco</p></div></div>
+      <div class="tl-item"><div class="tl-time"><span>4:30 pm</span></div><div class="tl-dot" style="background:#3A2E30"></div><div class="tl-content"><h4>🚌 Regreso</h4><p>Salida hacia Ecatepec</p></div></div>
     </div>
     <details class="full-itin">
-      <summary>Ver itinerario detallado del Día 1 (hora por hora)</summary>
+      <summary>Ver itinerario detallado (hora por hora)</summary>
       <div class="tl-items">
         <div class="tl-item"><div class="tl-time"><span>7:00 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🚌 Punto de encuentro</h4><p>Kiosko de Tulpetlac · Ecatepec — todos abordan la combi</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>7:15 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🛣️ Salida oficial</h4><p>Ruta hacia Pachuca, Hidalgo</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>~9:00 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🥐 Parada Pachuca Centro</h4><p>Compra de comida · desayuno rápido · snacks (~30 min)</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>9:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏔️ Salida a Huasca</h4><p>~45 min de trayecto desde Pachuca</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>10:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏕️ Llegada · Check-in cabaña</h4><p>Acomodarse · cambio de ropa si se requiere</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>11:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🪨 Prismas Basálticos</h4><p>Tour guiado · formaciones volcánicas únicas · ~1.5 hrs</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>2:40 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🍽️ Comida en Huasca</h4><p>Restaurante local · cocina regional hidalguense</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>5:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🤸 Actividades recreativas</h4><p>Tirolesa | Kayak | Gotcha | Cuatrimoto — opcionales, costo no incluido</p></div></div>
-        <div class="tl-item"><div class="tl-time"><span>7:00 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏠 Regreso a la cabaña</h4><p>Descanso · ducha · preparar para la noche</p></div></div>
-        <div class="tl-item night"><div class="tl-time"><span>8:00 pm</span></div><div class="tl-dot" style="background:var(--fire)"></div><div class="tl-content"><h4>🔥 Cena grupal + Fogata</h4><p>Cena en cabaña · encendemos fogata · convivencia libre</p></div></div>
-        <div class="tl-item night"><div class="tl-time"><span>10:00 pm</span></div><div class="tl-dot" style="background:#1a237e"></div><div class="tl-content"><h4>🌙 Recorrido Nocturno</h4><p>Tour nocturno por el pueblo mágico · cielo estrellado</p></div></div>
-        <div class="tl-item night"><div class="tl-time"><span>11:30 pm</span></div><div class="tl-dot" style="background:#555"></div><div class="tl-content"><h4>😴 Regreso cabaña · descanso</h4><p>Noche libre</p></div></div>
-      </div>
-    </details>
-  </div>
-
-  <!-- RESUMEN DÍA 2 -->
-  <div class="day-panel" id="panel2">
-    <div class="tl-items">
-      <div class="tl-item day2"><div class="tl-time"><span>8:00 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>☕ Desayuno</h4><p>Café · fruta · tortillas en cabaña</p></div></div>
-      <div class="tl-item day2"><div class="tl-time"><span>9:30 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🏛️ Tour histórico</h4><p>Centro y arquitectura colonial ~1.5 hrs</p></div></div>
-      <div class="tl-item day2"><div class="tl-time"><span>12:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🧚 Museo de los Duendes</h4><p>Recorrido interactivo ~45 min</p></div></div>
-      <div class="tl-item day2"><div class="tl-time"><span>2:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>📸 Check-out</h4><p>Foto grupal final</p></div></div>
-      <div class="tl-item day2"><div class="tl-time"><span>~8:00 pm</span></div><div class="tl-dot" style="background:var(--gold);width:13px;height:13px;top:16px;left:29px;border-width:3px"></div><div class="tl-content"><h4>🏁 Llegada · FIN del tour</h4><p>Kiosko de Tulpetlac, Ecatepec ✦</p></div></div>
-    </div>
-    <details class="full-itin">
-      <summary>Ver itinerario detallado del Día 2 (hora por hora)</summary>
-      <div class="tl-items">
-        <div class="tl-item day2"><div class="tl-time"><span>8:00 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>☕ Despertar + desayuno</h4><p>En cabaña · café · fruta · tortillas</p></div></div>
-        <div class="tl-item day2"><div class="tl-time"><span>9:30 am</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🏛️ Tour Histórico Huasca</h4><p>Centro histórico · arquitectura colonial · iglesia principal · ~1.5 hrs</p></div></div>
-        <div class="tl-item day2"><div class="tl-time"><span>12:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🧚 Museo de los Duendes</h4><p>Recorrido interactivo y peculiar · ~45 min</p></div></div>
-        <div class="tl-item day2"><div class="tl-time"><span>2:00 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>📸 Check-out cabaña</h4><p>Recoger maletas · limpiar espacio · foto grupal final</p></div></div>
-        <div class="tl-item day2"><div class="tl-time"><span>3:30 pm</span></div><div class="tl-dot" style="background:var(--green)"></div><div class="tl-content"><h4>🚌 Salida hacia Ecatepec</h4><p>Inicio del regreso</p></div></div>
-        <div class="tl-item day2"><div class="tl-time"><span>~8:00 pm</span></div><div class="tl-dot" style="background:var(--gold);width:13px;height:13px;top:16px;left:29px;border-width:3px"></div><div class="tl-content"><h4>🏁 Llegada · FIN del tour</h4><p>Kiosko de Tulpetlac · Ecatepec ✦</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>7:15 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🛣️ Salida oficial</h4><p>Ruta hacia Taxco de Alarcón, Guerrero, vía Autopista del Sol</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>~9:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🥐 Parada técnica</h4><p>Baño · snacks · desayuno rápido (~20 min)</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>10:30 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🏘️ Llegada a Taxco</h4><p>Bajada del camión · orientación grupal en el Zócalo</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>11:00 am</span></div><div class="tl-dot"></div><div class="tl-content"><h4>⛪ Tour histórico</h4><p>Parroquia de Santa Prisca, Casa Borda y calles empedradas del centro · ~1.5 hrs</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>12:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🥈 Talleres y mercado de plata</h4><p>Calle San Agustín y Av. de los Plateros · tiempo libre para comprar</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>1:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>🍽️ Comida libre</h4><p>Restaurantes locales en el centro (no incluida)</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>2:30 pm</span></div><div class="tl-dot" style="background:var(--fire)"></div><div class="tl-content"><h4>🚡 Teleférico</h4><p>Vista panorámica de Taxco desde las alturas — opcional, costo no incluido</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>3:30 pm</span></div><div class="tl-dot"></div><div class="tl-content"><h4>📸 Tiempo libre</h4><p>Últimas compras y fotos por el pueblo mágico</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>4:30 pm</span></div><div class="tl-dot" style="background:#3A2E30"></div><div class="tl-content"><h4>🚌 Abordaje y salida</h4><p>Inicio del regreso hacia Ecatepec</p></div></div>
+        <div class="tl-item"><div class="tl-time"><span>~6:30 pm</span></div><div class="tl-dot" style="background:var(--gold);width:13px;height:13px;top:16px;left:29px;border-width:3px"></div><div class="tl-content"><h4>🏁 Llegada · FIN del tour</h4><p>Kiosko de Tulpetlac, Ecatepec ✦</p></div></div>
       </div>
     </details>
   </div>
 
   <div style="margin-top:2rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-    <a href="https://maps.app.goo.gl/TuJAHe894WvdhXBE8" class="btn btn-maps">📍 Ubicar punto de encuentro</a>
+    <a href="https://share.google/Zkun9ydtyFtrZkBjp" class="btn btn-maps">📍 Ubicar punto de encuentro</a>
     <a href="https://elbuenpipe.com/tfs/" class="btn btn-dark">🗺️ Conocer próximos viajes</a>
   </div>
 </section>
 
-<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#eef6ee"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#fff"/></svg></div>
+<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#F1EAE0"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#fff"/></svg></div>
 
 <!-- QUÉ INCLUYE -->
 <section class="incluye-sec reveal" id="incluye">
   <div class="sec-eyebrow">✅ Qué trae el tour</div>
   <h2 class="sec-title">QUÉ INCLUYE</h2>
-  <p class="sec-sub">Todo esto viene en el precio de $1,300 MXN por persona.</p>
+  <p class="sec-sub">Todo esto viene en el precio de $990 MXN por persona.</p>
   <div class="incluye-grid">
     <div class="inc-item"><span class="inc-icon">🚌</span> Transporte seguro (ida y vuelta)</div>
-    <div class="inc-item"><span class="inc-icon">🏛️</span> Tour Histórico por Huasca</div>
-    <div class="inc-item"><span class="inc-icon">🪨</span> Prismas Basálticos</div>
-    <div class="inc-item"><span class="inc-icon">🌲</span> Bosque Manantial de las Truchas</div>
-    <div class="inc-item"><span class="inc-icon">🧚</span> Museo de los Duendes</div>
-    <div class="inc-item"><span class="inc-icon">🌙</span> Recorrido Nocturno</div>
-    <div class="inc-item"><span class="inc-icon">🔥</span> Fogata grupal</div>
-    <div class="inc-item"><span class="inc-icon">🏕️</span> Cabaña segura (1 noche)</div>
-    <div class="inc-item"><span class="inc-icon">🤸</span> Actividades recreativas adicionales</div>
+    <div class="inc-item"><span class="inc-icon">⛪</span> Tour Histórico por el centro de Taxco</div>
+    <div class="inc-item"><span class="inc-icon">🏛️</span> Visita a Santa Prisca y Casa Borda</div>
+    <div class="inc-item"><span class="inc-icon">🥈</span> Recorrido por talleres y mercado de plata</div>
+    <div class="inc-item"><span class="inc-icon">🧑‍✈️</span> Guía y acompañamiento del grupo</div>
+    <div class="inc-item"><span class="inc-icon">📸</span> Tiempo libre para fotos y compras</div>
   </div>
+  <p class="sec-sub" style="margin-top:1rem;margin-bottom:0;font-size:.78rem">*Comida y teleférico no incluidos — costo por cuenta del viajero.</p>
   <div style="margin-top:1.6rem;text-align:center">
     <a href="#pagar" class="btn btn-gold">💳 Quiero mi lugar</a>
   </div>
 </section>
 
-<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#fff"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#f7f7f5"/></svg></div>
+<div class="wave-sep"><svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#fff"><path d="M0,20 C480,45 960,0 1440,20 L1440,40 L0,40Z" fill="#F5F1EA"/></svg></div>
 
 <!-- CANCELACIÓN (colapsable) -->
 <section class="cancel-sec reveal" id="cancelacion">
   <div class="sec-eyebrow">📋 Condiciones</div>
   <h2 class="sec-title">POLÍTICAS Y CONDICIONES</h2>
   <details class="cancel-box">
-    <summary>Ver política de pago, cancelación y deslinde de responsabilidad</summary>
-    <ul class="cancel-list">
-      <li><b>Forma de pago:</b> 50% anticipo al apartar, 50% contra salida del tour.</li>
-      <li><b>Medios:</b> Tarjeta (Stripe), transferencia SPEI, o PayPal (comisión 3.6% adicional en tarjeta).</li>
-      <li><b>Validez:</b> Precio sujeto a disponibilidad de cupo. Cupos limitados.</li>
-      <li><b>Ajustes de itinerario:</b> Puede modificarse por condiciones del destino. Se notificará con anticipación.</li>
-      <li><b>Propiedad:</b> Los recuerdos y entregables del viaje son del viajero al completar el pago total.</li>
-    </ul>
-    <div class="deslinde-box">
-      <h4>📊 POLÍTICA DE CANCELACIONES Y REEMBOLSOS</h4>
-      <ul class="cancel-list" style="margin-top:.6rem">
-        <li><b>Reembolso del 90%:</b> solicitando con más de 27 días de anticipación a la fecha de salida.</li>
-        <li><b>Reembolso del 50%:</b> solicitando entre 19 y 27 días antes de la salida.</li>
-        <li><b>No reembolsable (0%):</b> faltando menos de 17 días para la salida.</li>
-        <li><b>Reembolso del 90%</b> en caso de fuerza mayor ajena a la organización que impida la salida.</li>
-      </ul>
-    </div>
+    <summary>Deslinde de Responsabilidad &amp; Políticas de Reembolso</summary>
     <div class="deslinde-box">
       <h4>⚠️ DESLINDE DE RESPONSABILIDAD — TRAVEL FRIEND SHIP</h4>
       <p>Al realizar cualquier pago (parcial o total) y participar en este tour, el viajero acepta y reconoce que <strong>Travel Friend Ship</strong> y el organizador <strong>Felipe Arturo (JD Producción / GrowthsLab)</strong> se deslindan expresamente de cualquier accidente, lesión, percance médico de fuerza mayor, pérdida de objetos personales, o cualquier situación derivada del <strong>comportamiento inadecuado de los participantes</strong> durante el desarrollo de la experiencia. El viajero declara participar voluntariamente, aceptando los riesgos inherentes a actividades de aventura y turismo al aire libre. El organizador no se responsabiliza por decisiones personales tomadas fuera del programa establecido. Se recomienda contar con seguro de viajero personal.</p>
     </div>
+    <h4 style="color:var(--dark);font-size:.9rem;font-weight:800;margin:1.6rem 0 .9rem;letter-spacing:.3px">📊 Política de Cancelaciones y Reembolsos</h4>
+    <ul class="cancel-list">
+      <li><b>Reembolso del 90%:</b> solicitar con más de 27 días antes de la fecha de salida.</li>
+      <li><b>Reembolso del 50%:</b> solicitar entre 19 y 27 días antes de la salida.</li>
+      <li><b>No reembolsable (0%):</b> faltando menos de 17 días para la salida.</li>
+      <li><b>Reembolso del 90%</b> en caso de fuerza mayor ajena a la organización que impida la salida.</li>
+    </ul>
   </details>
 </section>
 
@@ -502,7 +468,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:46px 5% 26px}
 <footer>
   <div class="footer-grid">
     <div class="footer-brand footer-col">
-      <span class="f-logo"><img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">TRAVEL <span>FRIEND</span> SHIP</span>
+      <img class="f-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
       <p>Nació del deseo de crear algo más que tours — nació para construir comunidad. Creado por <a href="https://www.elbuenpipe.com" style="color:var(--gold);text-decoration:none;font-weight:700">GrowthsLab</a> y liderado por Felipe Arturo.</p>
     </div>
     <div class="footer-col"><h4>Negocios</h4><ul>
@@ -565,7 +531,7 @@ setTimeout(function(){var p=document.getElementById('waPopup');if(p&&window.inne
 (function(){
   var c=document.getElementById('heroParticles');
   if(!c)return;
-  var emojis=['🌿','🍃','⭐','🌸','🪨','🌲','✨','💫'];
+  var emojis=['✨','⭐','🔔','🕊️','💫','🪙','⛪','🌟'];
   function mk(){
     var p=document.createElement('div');
     p.className='hero-particle';
@@ -586,23 +552,16 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 
-// Tabs itinerario
-function showDay(n){
-  document.querySelectorAll('.day-tab-btn').forEach(function(b){b.classList.toggle('active', b.dataset.day == n)});
-  document.querySelectorAll('.day-panel').forEach(function(p){p.classList.remove('active')});
-  document.getElementById('panel'+n).classList.add('active');
-}
-
 // Countdown timer
 (function(){
-  var target = new Date('2026-08-29T07:00:00-06:00').getTime();
+  var target = new Date('2026-12-05T07:00:00-06:00').getTime();
 
   // Google Calendar link
-  var calTitle = encodeURIComponent('Tour Huasca de Ocampo · Travel Friend Ship');
-  var calDetails = encodeURIComponent('Tour 2 días · Huasca de Ocampo, Hidalgo · Pueblo Mágico\n\nPrismas Basálticos, Bosque Manantial de las Truchas, Museo de los Duendes, Fogata grupal, Cabaña 1 noche.\n\nContacto: wa.me/525523867156\nMás info: https://elbuenpipe.com/tfs/');
+  var calTitle = encodeURIComponent('Tour Taxco · Travel Friend Ship');
+  var calDetails = encodeURIComponent('Tour de 1 día · Taxco de Alarcón, Guerrero · Pueblo Mágico de la Plata\n\nTour histórico, Parroquia de Santa Prisca, Casa Borda, mercado de plata, teleférico opcional.\n\nContacto: wa.me/525523867156\nMás info: https://elbuenpipe.com/tfs/');
   var calLocation = encodeURIComponent('Kiosko de Tulpetlac, Ecatepec, Estado de México');
-  var calStart = '20260829T070000';
-  var calEnd   = '20260830T200000';
+  var calStart = '20261205T070000';
+  var calEnd   = '20261205T183000';
   var calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
     + '&text=' + calTitle
     + '&details=' + calDetails

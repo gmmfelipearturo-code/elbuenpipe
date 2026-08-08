@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Travel Friend Ship — Tours Grupales</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="icon" href="https://i.ibb.co/1f1L99mW/lgo-003.png" />
+<link rel="icon" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H38BNTJ53L"></script>
 <script>
@@ -90,6 +90,7 @@ nav#main-nav.scrolled{border-bottom-color:rgba(255,107,53,.35);box-shadow:0 4px 
   font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;
   color:#fff;text-decoration:none;display:flex;align-items:center;gap:.5rem;white-space:nowrap;
 }
+.nav-logo img{height:34px;width:auto;display:block;flex-shrink:0}
 .nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--fire);display:inline-block;animation:logoPulse 2s ease-in-out infinite}
 .nav-logo span{color:var(--fire)}
 .nav-logo em{color:var(--lime);font-style:normal}
@@ -109,34 +110,32 @@ nav#main-nav.scrolled{border-bottom-color:rgba(255,107,53,.35);box-shadow:0 4px 
 .nav-wa-desktop:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.4)}
 .nav-donar-desktop:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,215,0,.5)}
 
-/* ═══════════ MOBILE NAV TOP ═══════════ */
+/* ═══════════ MOBILE NAV BOTTOM ═══════════ */
 .mob-navbar{
-  display:none;position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:60px;background:var(--dark);border-bottom:1px solid rgba(255,255,255,.08);
-  padding:0 16px;align-items:center;justify-content:space-between;gap:8px;
-  box-shadow:0 4px 30px rgba(0,0,0,.3);
+  display:none;position:fixed;bottom:0;left:0;right:0;top:auto;z-index:1000;
+  height:66px;background:rgba(13,17,23,.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.08);border-bottom:none;
+  padding:0 6px;padding-bottom:env(safe-area-inset-bottom,0px);
+  align-items:center;justify-content:space-around;gap:2px;
+  box-shadow:0 -6px 30px rgba(0,0,0,.35);
 }
 .mob-nav-item{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;text-decoration:none;color:rgba(255,255,255,.45);font-size:.62rem;font-weight:600;
-  letter-spacing:.5px;text-transform:uppercase;transition:color .2s;min-height:44px;padding:0 4px;
+  gap:4px;text-decoration:none;color:rgba(255,255,255,.45);font-size:.6rem;font-weight:600;
+  letter-spacing:.3px;transition:color .2s,transform .15s;min-height:52px;padding:6px 2px;
 }
-.mob-nav-item:hover,.mob-nav-item.active{color:rgba(255,255,255,.9)}
-.mob-nav-item svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
-.mob-nav-wa{
-  flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  width:68px;background:var(--wa);color:#fff;border-radius:14px;
-  font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-  text-decoration:none;border:none;min-height:48px;padding:0 8px;
-  animation:waItemPulse 2.5s ease-in-out infinite;transition:transform .15s;margin-top:4px;
-}
-.mob-nav-wa:active{transform:scale(.95)}
-.mob-nav-wa svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.mob-nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;transition:stroke .2s}
+.mob-nav-item.wa-icon{color:var(--wa)}
+.mob-nav-item.wa-icon svg{stroke:none;fill:currentColor}
+.mob-nav-item.wa-icon:hover,.mob-nav-item.wa-icon:active{color:#1ebe5d}
+.mob-nav-item:hover,.mob-nav-item.active{color:var(--fire)}
+.mob-nav-item:active{transform:scale(.93)}
 
 @media(max-width:768px){
   .mob-navbar{display:flex}
   .wa-float{display:none!important}
-  body{padding-top:60px;padding-bottom:0}
+  body{padding-top:0;padding-bottom:78px}
   nav#main-nav{display:none}
 }
 
@@ -291,7 +290,7 @@ section{padding:88px 5%}
 @media(min-width:769px){
   .tours-grid{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:stretch}
   .tours-grid .tc{flex:1 1 calc(50% - .75rem);min-width:300px;max-width:calc(50% - .75rem)}
-  .tc-tepo{order:1}.tc-puebla{order:2}.tc-huasca{order:3}.tc-jalisco{order:4}
+  .tc-tepo{order:1}.tc-puebla{order:2}.tc-huasca{order:3}.tc-jalisco{order:4}.tc-tequila{order:5}.tc-taxco{order:6}
 }
 
 /* ═══════════ TIKTOK ═══════════ */
@@ -389,7 +388,7 @@ section{padding:88px 5%}
 /* ═══════════ FOOTER ═══════════ */
 footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-size:.85rem}
 .footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
-.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#fff;display:block;letter-spacing:3px;margin-bottom:.8rem}
+.f-logo{display:block;height:42px;width:auto;margin-bottom:.8rem}
 .footer-brand p{line-height:1.65;max-width:240px}
 .footer-col h4{color:var(--gold);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.2rem}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
@@ -438,7 +437,8 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
 
 <!-- ══ NAV DESKTOP ══ -->
 <nav id="main-nav">
-  <a class="nav-logo" href="https://elbuenpipe.com/traveling/" target="_blank">
+  <a class="nav-logo" href="https://elbuenpipe.com/tfs/" target="_blank">
+    <img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
     <span class="dot"></span> <span>TRAVEL</span>&nbsp;<em>FRIEND</em>&nbsp;SHIP
   </a>
   <ul class="nav-links">
@@ -455,29 +455,21 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
 
 <!-- ══ MOBILE NAV BOTTOM ══ -->
 <nav class="mob-navbar" id="mob-nav" aria-label="Navegación móvil">
-  <a class="mob-nav-item" href="#inicio">
+  <a class="mob-nav-item" href="#inicio" data-section="inicio">
     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Inicio
   </a>
-  <a class="mob-nav-item" href="#proximos">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 000 16c4 0 8-3.58 8-8S16 2 12 2z"/><path d="M12 22v-4"/></svg>
-    Tours
+  <a class="mob-nav-item" href="#proximos" data-section="proximos">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Cartelera
   </a>
-  <a class="mob-nav-wa" href="https://wa.me/525523867156?text=Hola%20Pipe%2C%20me%20gustar%C3%ADa%20agendar%20un%20tour..." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a class="mob-nav-item" href="#donar" data-section="donar">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    Donar
+  </a>
+  <a class="mob-nav-item wa-icon" href="https://wa.me/525523867156?text=Hola%20Pipe%2C%20me%20gustar%C3%ADa%20agendar%20un%20tour..." target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.467 2 2 6.462 2 11.993c0 1.75.456 3.394 1.25 4.817L2 22l5.39-1.24A10.01 10.01 0 0012.004 22C17.539 22 22 17.537 22 12.003 22 6.467 17.539 2 12.004 2z"/></svg>
     WhatsApp
-  </a>
-  <a class="mob-nav-item" href="#tiktoks">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-    Videos
-  </a>
-  <a class="mob-nav-item" href="#galeria">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    Galería
-  </a>
-  <a class="mob-nav-donar" href="https://donate.stripe.com/fZucN58kBekq36hczCgbm03" target="_blank" rel="noopener" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:62px;background:var(--gold);color:var(--ocean);border-radius:14px;font-size:.6rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;border:none;min-height:48px;padding:0 6px;margin-top:4px;">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-    Donar
   </a>
 </nav>
 
@@ -630,7 +622,7 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
         <!-- Botones activos (se ocultan al finalizar) -->
         <div id="huasca-btns" style="display:flex;gap:.6rem;margin-top:.2rem">
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tour+Huasca+de+Ocampo+%F0%9F%8F%95%EF%B8%8F+Travel+Friend+Ship&dates=20260829T070000/20260830T190000&details=Tour+grupal+Huasca+de+Ocampo+con+Travel+Friend+Ship.+Prismas+bas%C3%A1lticos%2C+Bosque+Manantial+de+las+Truchas%2C+Museo+de+los+Duendes%2C+Tirolesa%2C+Kayak%2C+Recorrido+Nocturno%2C+Fogata+y+Caba%C3%B1a.+%F0%9F%94%B5+Contacto%3A+wa.me%2F525523867156&location=https%3A%2F%2Fmaps.app.goo.gl%2FPSP31w5n1CaGBbJa9&trp=false&crm=AVAILABLE&add=&recur=&reminder=10080" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;background:linear-gradient(135deg,#1565C0,#0a3d62);display:flex;align-items:center;justify-content:center;gap:.35rem">🗓️ Recordatorio</a>
-          <a href="https://elbuenpipe.com/traveling/hidalgo/huascadeocampo/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem">📋 Tour Completo</a>
+          <a href="https://elbuenpipe.com/tfs/hidalgo/huascadeocampo/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem">📋 Tour Completo</a>
         </div>
         <!-- Botón finalizado (oculto hasta que expire) -->
         <div id="huasca-done-btn" style="display:none;margin-top:.2rem">
@@ -694,7 +686,7 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
         <!-- Botones activos -->
         <div id="jalisco-btns" style="display:flex;gap:.6rem;margin-top:.2rem">
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tour+Jalisco+%F0%9F%8C%B5+Travel+Friend+Ship&dates=20261023T220000/20261026T200000&details=Tour+grupal+a+Lagos+de+Moreno+y+Jalisco+con+Travel+Friend+Ship.+Punto+de+partida%3A+Ecatepec+de+Morelos.+Encuentro%3A+Sal%C3%B3n+Mar%C3%ADa+Estela+a+las+10pm.+%F0%9F%94%B5+Contacto%3A+wa.me%2F525523867156&location=https%3A%2F%2Fmaps.app.goo.gl%2FrVsSqWq5jXjDjVRF8&trp=false&crm=AVAILABLE&reminder=10080" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;background:linear-gradient(135deg,#6a1b9a,#4a0080);display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">🗓️ Recordatorio</a>
-          <a href="https://elbuenpipe.com/traveling/jalisco/lagosdemoreno/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">📋 Tour Completo</a>
+          <a href="https://elbuenpipe.com/tfs/jalisco/lagosdemoreno/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">📋 Tour Completo</a>
         </div>
         <!-- Botón finalizado (oculto hasta que expire) -->
         <div id="jalisco-done-btn" style="display:none;margin-top:.2rem">
@@ -703,53 +695,123 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ══ SECCIÓN DONATIVO ══ -->
-<section id="donar" style="background:linear-gradient(135deg,#f5f9ff,#eef4ff);padding:72px 5%;">
-  <div class="reveal" style="max-width:600px;margin:0 auto;text-align:center;">
-    <div class="sec-eyebrow" style="justify-content:center;">💛 Apoya el movimiento</div>
-    <h2 class="sec-title" style="font-size:clamp(2rem,5vw,3.5rem);">CONTRIBUYE AL<br>VIAJE</h2>
-    <div style="background:#fff;border-radius:24px;border:1px solid rgba(0,0,0,.07);box-shadow:0 4px 24px rgba(0,0,0,.08);padding:2.5rem 2rem 2rem;margin-top:1rem;">
-      <p style="font-size:1rem;line-height:1.8;color:#333;margin:0 0 1rem;">
-        <strong>Travel Friend Ship</strong> no es solo un proyecto de viajes, es una comunidad de personas que creen en las experiencias, la conexión y los recuerdos que se construyen en el camino.
-      </p>
-      <p style="font-size:1rem;line-height:1.8;color:#333;margin:0 0 1rem;">
-        Si te gusta lo que hacemos y quieres apoyar este movimiento, puedes realizar un donativo desde <strong>$10 MXN</strong> (aproximadamente $0.57 USD). Cada aportación, sin importar el monto, nos ayuda a seguir creando experiencias accesibles, auténticas y memorables para más personas.
-      </p>
-      <p style="font-size:.95rem;line-height:1.8;color:#888;margin:0 0 2rem;">
-        Gracias por ser parte de este viaje. 🌍
-      </p>
-
-
-
-      <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
-        <a id="btn-donar" href="https://donate.stripe.com/fZucN58kBekq36hczCgbm03" target="_blank" rel="noopener"
-          style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.65rem;background:linear-gradient(135deg,#FFD700 0%,#FFAA00 100%);color:#0A3D62;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;padding:1rem 2.8rem;border-radius:100px;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,165,0,.38);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease;letter-spacing:.3px;min-height:56px;width:100%;max-width:340px;text-decoration:none;"
-          onmouseenter="this.style.transform='translateY(-3px) scale(1.03)';this.style.boxShadow='0 18px 42px rgba(255,165,0,.55)';"
-          onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 28px rgba(255,165,0,.38)';"
-          onmousedown="this.style.transform='scale(.97)';"
-          onmouseup="this.style.transform='translateY(-3px) scale(1.03)';"
-        >
-          <span id="donar-heart" style="font-size:1.3rem;display:inline-block;">💛</span>
-          <span>Hacer un donativo</span>
-          <span style="font-size:.76rem;opacity:.72;font-weight:600;white-space:nowrap;">desde $10 MXN</span>
-        </a>
-        <p style="font-size:.74rem;color:#ccc;margin:0;display:flex;align-items:center;gap:.4rem;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          Pago seguro con Stripe
-        </p>
+    <!-- Tour Tequila, Jalisco — 31 Oct al 1 Nov 2026 -->
+    <div class="tc tc-tequila reveal">
+      <div class="tc-img" style="padding:0;overflow:hidden;background:#0EC9A3">
+        <img src="https://i.ibb.co/r2KXCPdY/Tequila-Jal.jpg" alt="Tour Tequila, Jalisco" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <span class="tc-badge b-hot" id="tequila-badge">🔥 Preventa activa</span>
+        <span class="tc-spots">¡Aparta tu lugar!</span>
       </div>
-
-      <style>
-        @keyframes donarShimmer{0%{left:-80%}100%{left:160%}}
-        @keyframes donarHeart{0%,100%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(1.1)}}
-        #btn-donar::after{content:'';position:absolute;top:0;left:-80%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);animation:donarShimmer 2.2s ease-in-out infinite;pointer-events:none;}
-        #donar-heart{animation:donarHeart 1.9s ease-in-out infinite;}
-        @media(max-width:480px){#btn-donar{font-size:.93rem;padding:.85rem 1.6rem;}}
-      </style>
+      <div class="tc-body">
+        <div class="tc-dest">📍 Jalisco · Tequila · Guadalajara</div>
+        <div class="tc-name">TEQUILA, JALISCO</div>
+        <div class="tc-meta"><span>📅 31 Oct – 1 Nov 2026</span><span>🕐 3 días</span><span>👥 Salida y regreso</span></div>
+        <div class="tc-price" style="flex-direction:column;align-items:flex-start;gap:.2rem">
+          <span id="tequila-phase-lbl" style="font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0a7d63">Fase 1 · Preventa</span>
+          <div style="display:flex;align-items:flex-end;gap:.4rem">
+            <span class="tc-price-main" id="tequila-price-main">$1,990</span>
+            <span class="tc-price-lbl">MXN por persona</span>
+          </div>
+        </div>
+        <div id="tequila-preventa-note" style="background:rgba(14,201,163,.1);border:1px solid rgba(14,201,163,.3);border-radius:12px;padding:.6rem .9rem;margin-bottom:1.1rem;font-size:.72rem;color:#0a7d63;line-height:1.5">
+          🎉 <strong>Preventa vigente:</strong> apartando con un anticipo desde <strong>$350 MXN</strong>, tu precio de preventa queda respetado sin importar cuándo liquides el resto.
+        </div>
+        <div class="tc-tags">
+          <span class="tc-tag">🚌 Transporte seguro</span>
+          <span class="tc-tag">🏨 1 noche hotel GDL</span>
+          <span class="tc-tag">🌵 Tour a Tequila</span>
+          <span class="tc-tag">🍹 Cantaritos El Güero</span>
+        </div>
+        <!-- Countdown fase de precio -->
+        <div id="tequila-countdown" style="background:linear-gradient(135deg,#0a7d63,#0EC9A3);border-radius:14px;padding:.9rem 1rem;margin:.4rem 0;text-align:center">
+          <div id="tequila-cd-lbl" style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.5rem">⏳ Precio de preventa termina en</div>
+          <div style="display:flex;justify-content:center;gap:.5rem">
+            <div style="text-align:center">
+              <div id="tqcd-d" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase">días</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="tqcd-h" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase">hrs</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="tqcd-m" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase">min</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="tqcd-s" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#FFD700;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase">seg</div>
+            </div>
+          </div>
+        </div>
+        <!-- Botones activos (se ocultan al concluir el 30 Oct) -->
+        <div id="tequila-btns" style="display:flex;gap:.6rem;margin-top:.2rem">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tour+Tequila%2C+Jalisco+%F0%9F%8C%B5+Travel+Friend+Ship&dates=20261030T220000/20261101T220000&details=Tour+grupal+a+Tequila%2C+Jalisco+con+Travel+Friend+Ship.+Incluye+transporte%2C+1+noche+de+hotel+en+Guadalajara%2C+tour+a+Tequila+y+parada+en+Cantaritos+El+G%C3%BCero.+%F0%9F%94%B5+Contacto%3A+wa.me%2F525523867156&location=Viveros+de+Xalostoc%2C+Ecatepec&trp=false&crm=AVAILABLE&reminder=10080" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;background:linear-gradient(135deg,#0a7d63,#0EC9A3);display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">🗓️ Recordatorio</a>
+          <a href="https://elbuenpipe.com/tfs/jalisco/tequila/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">📋 Tour Completo</a>
+        </div>
+        <!-- Botón finalizado (oculto hasta el 30 Oct) -->
+        <div id="tequila-done-btn" style="display:none;margin-top:.2rem">
+          <div class="tc-cta done">🔒 Tour finalizado</div>
+        </div>
+      </div>
     </div>
+
+    <!-- Tour Taxco — 5 Dic 2026 -->
+    <div class="tc tc-taxco reveal">
+      <div class="tc-img" style="padding:0;overflow:hidden;background:#7b1fa2">
+        <img src="https://i.ibb.co/SDRmg97K/Gemini-Generated-Image-6mcbvd6mcbvd6mcb.png" alt="Tour Taxco" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <span class="tc-badge b-hot" id="taxco-badge">🔥 ¡Disponible!</span>
+        <span class="tc-spots">¡Aparta tu lugar!</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-dest">📍 Guerrero · Taxco</div>
+        <div class="tc-name">TAXCO, EL PUEBLO DE LA PLATA</div>
+        <div class="tc-meta"><span>📅 5 Dic 2026</span><span>🕐 1 día</span><span>👥 Salida y regreso</span></div>
+        <div class="tc-price"><span class="tc-price-main">$990</span><span class="tc-price-lbl">MXN por persona</span></div>
+        <div class="tc-tags">
+          <span class="tc-tag">🥈 Centro platero</span>
+          <span class="tc-tag">⛪ Santa Prisca</span>
+        </div>
+        <!-- Countdown Taxco -->
+        <div id="taxco-countdown" style="background:linear-gradient(135deg,#4a0080,#7b1fa2);border-radius:14px;padding:.9rem 1rem;margin:.4rem 0;text-align:center">
+          <div style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem">⏳ Faltan para el tour</div>
+          <div style="display:flex;justify-content:center;gap:.5rem">
+            <div style="text-align:center">
+              <div id="txcd-d" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase">días</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="txcd-h" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase">hrs</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="txcd-m" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase">min</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,.3);line-height:1;padding-top:0">:</div>
+            <div style="text-align:center">
+              <div id="txcd-s" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--fire);line-height:1;min-width:2.2rem">--</div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase">seg</div>
+            </div>
+          </div>
+        </div>
+        <!-- Botones activos (se ocultan al finalizar) -->
+        <div id="taxco-btns" style="display:flex;gap:.6rem;margin-top:.2rem">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Tour+Taxco%2C+El+Pueblo+de+la+Plata+%F0%9F%A5%88+Travel+Friend+Ship&dates=20261205T070000/20261205T200000&details=Tour+grupal+a+Taxco%2C+Guerrero+con+Travel+Friend+Ship.+Centro+platero+y+Catedral+de+Santa+Prisca.+%F0%9F%94%B5+Contacto%3A+wa.me%2F525523867156&location=Taxco+de+Alarc%C3%B3n%2C+Guerrero&trp=false&crm=AVAILABLE&reminder=10080" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;background:linear-gradient(135deg,#4a0080,#7b1fa2);display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">🗓️ Recordatorio</a>
+          <a href="https://elbuenpipe.com/tfs/guerrero/taxco/" class="tc-cta" style="flex:1;padding:.75rem .5rem;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:.35rem" target="_blank" rel="noopener">📋 Tour Completo</a>
+        </div>
+        <!-- Botón finalizado (oculto hasta que expire) -->
+        <div id="taxco-done-btn" style="display:none;margin-top:.2rem">
+          <div class="tc-cta done">🔒 Tour finalizado</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -831,6 +893,53 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
   </div>
 </section>
 
+<!-- ══ SECCIÓN DONATIVO ══ -->
+<section id="donar" style="background:linear-gradient(135deg,#f5f9ff,#eef4ff);padding:72px 5%;">
+  <div class="reveal" style="max-width:600px;margin:0 auto;text-align:center;">
+    <div class="sec-eyebrow" style="justify-content:center;">💛 Apoya el movimiento</div>
+    <h2 class="sec-title" style="font-size:clamp(2rem,5vw,3.5rem);">CONTRIBUYE AL<br>VIAJE</h2>
+    <div style="background:#fff;border-radius:24px;border:1px solid rgba(0,0,0,.07);box-shadow:0 4px 24px rgba(0,0,0,.08);padding:2.5rem 2rem 2rem;margin-top:1rem;">
+      <p style="font-size:1rem;line-height:1.8;color:#333;margin:0 0 1rem;">
+        <strong>Travel Friend Ship</strong> no es solo un proyecto de viajes, es una comunidad de personas que creen en las experiencias, la conexión y los recuerdos que se construyen en el camino.
+      </p>
+      <p style="font-size:1rem;line-height:1.8;color:#333;margin:0 0 1rem;">
+        Si te gusta lo que hacemos y quieres apoyar este movimiento, puedes realizar un donativo desde <strong>$10 MXN</strong> (aproximadamente $0.57 USD). Cada aportación, sin importar el monto, nos ayuda a seguir creando experiencias accesibles, auténticas y memorables para más personas.
+      </p>
+      <p style="font-size:.95rem;line-height:1.8;color:#888;margin:0 0 2rem;">
+        Gracias por ser parte de este viaje. 🌍
+      </p>
+
+
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+        <a id="btn-donar" href="https://donate.stripe.com/fZucN58kBekq36hczCgbm03" target="_blank" rel="noopener"
+          style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.65rem;background:linear-gradient(135deg,#FFD700 0%,#FFAA00 100%);color:#0A3D62;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;padding:1rem 2.8rem;border-radius:100px;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,165,0,.38);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease;letter-spacing:.3px;min-height:56px;width:100%;max-width:340px;text-decoration:none;"
+          onmouseenter="this.style.transform='translateY(-3px) scale(1.03)';this.style.boxShadow='0 18px 42px rgba(255,165,0,.55)';"
+          onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 28px rgba(255,165,0,.38)';"
+          onmousedown="this.style.transform='scale(.97)';"
+          onmouseup="this.style.transform='translateY(-3px) scale(1.03)';"
+        >
+          <span id="donar-heart" style="font-size:1.3rem;display:inline-block;">💛</span>
+          <span>Hacer un donativo</span>
+          <span style="font-size:.76rem;opacity:.72;font-weight:600;white-space:nowrap;">desde $10 MXN</span>
+        </a>
+        <p style="font-size:.74rem;color:#ccc;margin:0;display:flex;align-items:center;gap:.4rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Pago seguro con Stripe
+        </p>
+      </div>
+
+      <style>
+        @keyframes donarShimmer{0%{left:-80%}100%{left:160%}}
+        @keyframes donarHeart{0%,100%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(1.1)}}
+        #btn-donar::after{content:'';position:absolute;top:0;left:-80%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);animation:donarShimmer 2.2s ease-in-out infinite;pointer-events:none;}
+        #donar-heart{animation:donarHeart 1.9s ease-in-out infinite;}
+        @media(max-width:480px){#btn-donar{font-size:.93rem;padding:.85rem 1.6rem;}}
+      </style>
+    </div>
+  </div>
+</section>
+
 <!-- ══ TESTIMONIOS ══ -->
 <section class="testi-sec reveal" id="testimonios">
   <div class="sec-eyebrow">💬 Lo que dicen los viajeros</div>
@@ -883,7 +992,7 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
 <footer>
   <div class="footer-grid">
     <div class="footer-brand footer-col">
-      <span class="f-logo">TRAVEL FRIEND SHIP</span>
+      <img class="f-logo" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
       <p>Nació del deseo de crear algo más que tours — nació para construir comunidad. Creado por <a href="https://www.elbuenpipe.com" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:700">GrowthsLab</a> y liderado por Felipe Arturo.</p>
     </div>
     <div class="footer-col"><h4>Negocios</h4><ul><li><a href="https://elbuenpipe.com/diagnostic-pro/">Diagnóstico Digital</a></li><li><a href="https://elbuenpipe.com/sales-system/">Sistema de Ventas</a></li><li><a href="https://elbuenpipe.com/escala-pro/">Escalamiento</a></li><li><a href="https://elbuenpipe.com/pro-visual/">Producción Visual</a></li></ul></div>
@@ -1048,6 +1157,123 @@ document.querySelectorAll('[data-target]').forEach(function(el){co.observe(el)})
   setInterval(tick,1000);
 })();
 
+// ── Tequila, Jalisco: Fases de Preventa automáticas ──
+(function(){
+  var card=document.querySelector('.tc-tequila');
+  if(!card) return;
+
+  // Fase 1 (Preventa): desde 08/08/2026 — $1,990
+  // Fase 2: 28 Ago → 17 Sep 2026 — $2,000
+  // Fase 3: 17 Sep → 30 Oct 2026 — $2,250 (último día que se acepta pago)
+  // A partir del 30 Oct: cartel queda concluido
+  var phase2Start = new Date('2026-08-28T00:00:00-06:00').getTime();
+  var phase3Start = new Date('2026-09-17T00:00:00-06:00').getTime();
+  var closeSales  = new Date('2026-10-30T23:59:59-06:00').getTime();
+
+  var priceEl = document.getElementById('tequila-price-main');
+  var lblEl   = document.getElementById('tequila-phase-lbl');
+  var noteEl  = document.getElementById('tequila-preventa-note');
+  var cdLbl   = document.getElementById('tequila-cd-lbl');
+  var cdBox   = document.getElementById('tequila-countdown');
+  var btns    = document.getElementById('tequila-btns');
+  var done    = document.getElementById('tequila-done-btn');
+  var badge   = document.getElementById('tequila-badge');
+
+  function pad(n){return String(Math.floor(n)).padStart(2,'0');}
+
+  function tick(){
+    var now=Date.now();
+
+    if(now>=closeSales){
+      // Concluido — mismo tratamiento visual que Tepoztlán/Puebla/Huasca
+      if(cdBox) cdBox.style.display='none';
+      if(btns) btns.style.display='none';
+      if(done) done.style.display='block';
+      card.style.opacity='.7'; card.style.filter='grayscale(25%)';
+      var img=card.querySelector('.tc-img'); if(img) img.style.filter='grayscale(35%)';
+      if(badge){ badge.className='tc-badge b-done'; badge.textContent='✅ Realizado'; }
+      return;
+    }
+
+    var target;
+    if(now<phase2Start){
+      priceEl.textContent='$1,990';
+      lblEl.textContent='Fase 1 · Preventa';
+      if(noteEl) noteEl.style.display='block';
+      cdLbl.textContent='⏳ Precio de preventa termina en';
+      target=phase2Start;
+    } else if(now<phase3Start){
+      priceEl.textContent='$2,000';
+      lblEl.textContent='Fase 2';
+      if(noteEl) noteEl.style.display='none';
+      cdLbl.textContent='⏳ El precio sube en';
+      target=phase3Start;
+    } else {
+      priceEl.textContent='$2,250';
+      lblEl.textContent='Fase 3 · Últimos lugares';
+      if(noteEl) noteEl.style.display='none';
+      cdLbl.textContent='⏳ Cierre de venta en';
+      target=closeSales;
+    }
+
+    var diff=target-now;
+    var days=diff/(1000*60*60*24);
+    var hours=(diff%(1000*60*60*24))/(1000*60*60);
+    var mins=(diff%(1000*60*60))/(1000*60);
+    var secs=(diff%(1000*60))/1000;
+    document.getElementById('tqcd-d').textContent=pad(days);
+    document.getElementById('tqcd-h').textContent=pad(hours);
+    document.getElementById('tqcd-m').textContent=pad(mins);
+    document.getElementById('tqcd-s').textContent=pad(secs);
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+// ── Taxco: countdown a la salida (5 Dic 2026, 7:00 AM) ──
+(function(){
+  var card=document.querySelector('.tc-taxco');
+  if(!card) return;
+
+  var target = new Date('2026-12-05T07:00:00-06:00').getTime();
+
+  var cdBox = document.getElementById('taxco-countdown');
+  var btns  = document.getElementById('taxco-btns');
+  var done  = document.getElementById('taxco-done-btn');
+  var badge = document.getElementById('taxco-badge');
+
+  function pad(n){return String(Math.floor(n)).padStart(2,'0');}
+
+  function tick(){
+    var now=Date.now();
+    var diff=target-now;
+    if(diff<=0){
+      if(cdBox) cdBox.style.display='none';
+      if(btns) btns.style.display='none';
+      if(done) done.style.display='block';
+      card.style.opacity='.7'; card.style.filter='grayscale(25%)';
+      var img=card.querySelector('.tc-img');
+      if(img) img.style.filter='grayscale(35%)';
+      if(badge){ badge.className='tc-badge b-done'; badge.textContent='✅ Realizado'; }
+      return;
+    }
+    var days=diff/(1000*60*60*24);
+    var hours=(diff%(1000*60*60*24))/(1000*60*60);
+    var mins=(diff%(1000*60*60))/(1000*60);
+    var secs=(diff%(1000*60))/1000;
+    var d=document.getElementById('txcd-d');
+    var h=document.getElementById('txcd-h');
+    var m=document.getElementById('txcd-m');
+    var s=document.getElementById('txcd-s');
+    if(d)d.textContent=pad(days);
+    if(h)h.textContent=pad(hours);
+    if(m)m.textContent=pad(mins);
+    if(s)s.textContent=pad(secs);
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
 (function(){
   var track=document.getElementById('carouselTrack');
   if(!track)return;
@@ -1090,17 +1316,17 @@ document.querySelectorAll('[data-target]').forEach(function(el){co.observe(el)})
   track.addEventListener('touchmove',function(e){var dx=e.touches[0].clientX-tx,dy=e.touches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>10)e.preventDefault();},{passive:false});
   track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>30){dx<0?goTo(cur+1):goTo(cur-1);}if(!paused)startA();},{passive:true});
 
-  // Mobile nav active state
-  var sections=['inicio','proximos','tiktoks','galeria','testimonios'];
-  var mobItems=document.querySelectorAll('.mob-nav-item');
+  // Mobile nav active state (solo Inicio/Cartelera tienen sección asociada)
+  var mobSectionItems=document.querySelectorAll('.mob-nav-item[data-section]');
+  var mobSections=Array.from(mobSectionItems).map(function(el){return el.dataset.section;});
   window.addEventListener('scroll',function(){
     var scrollY=window.scrollY+100;
-    sections.forEach(function(id,i){
+    mobSections.forEach(function(id,i){
       var el=document.getElementById(id);
-      var nextEl=i<sections.length-1?document.getElementById(sections[i+1]):null;
+      var nextEl=i<mobSections.length-1?document.getElementById(mobSections[i+1]):null;
       if(el&&scrollY>=el.offsetTop&&(!nextEl||scrollY<nextEl.offsetTop)){
-        mobItems.forEach(function(mi){mi.classList.remove('active');});
-        if(mobItems[i])mobItems[i].classList.add('active');
+        mobSectionItems.forEach(function(mi){mi.classList.remove('active');});
+        if(mobSectionItems[i])mobSectionItems[i].classList.add('active');
       }
     });
   },{passive:true});

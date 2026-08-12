@@ -343,6 +343,44 @@ section{padding:88px 5%}
 .tt-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:3.5rem}
 .tt-follow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);padding:.55rem 1.3rem;border-radius:100px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:all .2s}
 .tt-follow:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3)}
+
+/* ═══════════ SOCIAL GLASS BUTTONS ═══════════ */
+.tt-social-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.tt-social-btn{
+  position:relative;display:inline-flex;align-items:center;gap:.55rem;
+  padding:.6rem 1.15rem .6rem .6rem;border-radius:100px;text-decoration:none;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 4px 18px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s,background .25s;
+  overflow:hidden;
+}
+.tt-social-btn::before{
+  content:'';position:absolute;inset:0;border-radius:100px;opacity:0;
+  transition:opacity .3s;z-index:0;
+}
+.tt-social-btn:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(255,255,255,.35)}
+.tt-social-btn:hover::before{opacity:1}
+.tt-social-btn .tt-social-ic{
+  position:relative;z-index:1;width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:rgba(255,255,255,.1);transition:transform .3s;
+}
+.tt-social-btn:hover .tt-social-ic{transform:rotate(-8deg) scale(1.08)}
+.tt-social-btn .tt-social-ic svg{width:18px;height:18px}
+.tt-social-btn .tt-social-label{position:relative;z-index:1;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.9);white-space:nowrap}
+.tt-social-btn.tiktok::before{background:linear-gradient(135deg,rgba(255,0,80,.35),rgba(0,242,234,.35))}
+.tt-social-btn.tiktok:hover{box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.08),0 0 24px rgba(0,242,234,.25)}
+.tt-social-btn.instagram::before{background:linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+.tt-social-btn.instagram:hover{box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 24px rgba(214,41,118,.3)}
+.tt-social-btn.facebook::before{background:linear-gradient(135deg,#1877F2,#3b93ff)}
+.tt-social-btn.facebook:hover{box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 24px rgba(24,119,242,.3)}
+@media(max-width:560px){
+  .tt-social-btn{padding:.5rem .9rem .5rem .5rem}
+  .tt-social-btn .tt-social-ic{width:30px;height:30px}
+  .tt-social-btn .tt-social-label{display:none}
+}
 .tt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
 .tt-carousel-wrap{max-width:340px;margin:0 auto}
 .tt-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;overflow:hidden;transition:border-color .3s,transform .3s}
@@ -833,47 +871,61 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
   <div class="ya-vividos reveal">
     <div class="sec-eyebrow">✅ Ya vividos</div>
     <div class="ya-vividos-title">TOURS REALIZADOS</div>
-    <div class="vividos-stack">
 
-      <!-- Tour realizado — Tepoztlán -->
-      <div class="tc tc-tepo reveal" style="opacity:.7;filter:grayscale(25%)">
-        <div class="tc-img gi2" style="filter:grayscale(35%)">🏔️
-          <span class="tc-badge b-done">✅ Realizado</span>
-          <span class="tc-spots">📅 22 Mar 2026</span>
-        </div>
-        <div class="tc-body">
-          <div class="tc-dest">📍 Estado de México</div>
-          <div class="tc-name">TEPOZTLÁN MÁGICO</div>
-          <div class="tc-meta"><span>📅 22 Mar 2026</span><span>🕐 1 día</span><span>👥 Grupo completo</span></div>
-          <div class="tc-price"><span class="tc-price-main" style="color:#bbb">$350</span><span class="tc-price-lbl">MXN por persona</span></div>
-          <div class="tc-tags"><span class="tc-tag">🚌 Transporte</span><span class="tc-tag">📸 Fotógrafo</span></div>
-          <div class="tc-cta done">🔒 Tour finalizado</div>
-        </div>
-      </div>
+    <!-- Carrusel de tours realizados (se llena en automático cuando un tour próximo termina) -->
+    <div class="carousel-wrap tt-carousel-wrap" style="max-width:520px">
+      <div class="carousel-track" id="visitadosTrack">
 
-      <!-- Tour realizado — Puebla -->
-      <div class="tc tc-puebla reveal" style="opacity:.7;filter:grayscale(25%)">
-        <div class="tc-img" style="padding:0;overflow:hidden;background:#1565C0;filter:grayscale(35%)">
-          <img src="https://i.ibb.co/s9yGKFWH/Gemini-Generated-Image-un1se3un1se3un1s.png" alt="Tour Puebla" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
-          <span class="tc-badge b-done">✅ Realizado</span>
-          <span class="tc-spots">📅 30 May 2026</span>
-        </div>
-        <div class="tc-body">
-          <div class="tc-dest">📍 Puebla · Zacatlán · Chignahuapan</div>
-          <div class="tc-name">PUEBLA · ZACATLÁN</div>
-          <div class="tc-meta"><span>📅 30 May 2026</span><span>🕐 1 día</span><span>👥 Salida y regreso</span></div>
-          <div class="tc-price"><span class="tc-price-main" style="color:#bbb">$550</span><span class="tc-price-lbl">MXN por persona</span></div>
-          <div class="tc-tags">
-            <span class="tc-tag">🍷 Cata Casa Esmeralda</span>
-            <span class="tc-tag">🦎 Museo Ajolote</span>
-            <span class="tc-tag">🎯 Gotcha completo</span>
-            <span class="tc-tag">🌉 Mirador de Cristal</span>
-            <span class="tc-tag">⛪ Centro y Basílica</span>
+        <!-- Tour realizado — Tepoztlán -->
+        <div class="cs active">
+        <div class="tc tc-tepo reveal" style="opacity:.7;filter:grayscale(25%)">
+          <div class="tc-img gi2" style="filter:grayscale(35%)">🏔️
+            <span class="tc-badge b-done">✅ Realizado</span>
+            <span class="tc-spots">📅 22 Mar 2026</span>
           </div>
-          <div class="tc-cta done">🔒 Tour finalizado</div>
+          <div class="tc-body">
+            <div class="tc-dest">📍 Estado de México</div>
+            <div class="tc-name">TEPOZTLÁN MÁGICO</div>
+            <div class="tc-meta"><span>📅 22 Mar 2026</span><span>🕐 1 día</span><span>👥 Grupo completo</span></div>
+            <div class="tc-price"><span class="tc-price-main" style="color:#bbb">$350</span><span class="tc-price-lbl">MXN por persona</span></div>
+            <div class="tc-tags"><span class="tc-tag">🚌 Transporte</span><span class="tc-tag">📸 Fotógrafo</span></div>
+            <div class="tc-cta done">🔒 Tour finalizado</div>
+          </div>
         </div>
-      </div>
+        </div>
 
+        <!-- Tour realizado — Puebla -->
+        <div class="cs">
+        <div class="tc tc-puebla reveal" style="opacity:.7;filter:grayscale(25%)">
+          <div class="tc-img" style="padding:0;overflow:hidden;background:#1565C0;filter:grayscale(35%)">
+            <img src="https://i.ibb.co/s9yGKFWH/Gemini-Generated-Image-un1se3un1se3un1s.png" alt="Tour Puebla" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+            <span class="tc-badge b-done">✅ Realizado</span>
+            <span class="tc-spots">📅 30 May 2026</span>
+          </div>
+          <div class="tc-body">
+            <div class="tc-dest">📍 Puebla · Zacatlán · Chignahuapan</div>
+            <div class="tc-name">PUEBLA · ZACATLÁN</div>
+            <div class="tc-meta"><span>📅 30 May 2026</span><span>🕐 1 día</span><span>👥 Salida y regreso</span></div>
+            <div class="tc-price"><span class="tc-price-main" style="color:#bbb">$550</span><span class="tc-price-lbl">MXN por persona</span></div>
+            <div class="tc-tags">
+              <span class="tc-tag">🍷 Cata Casa Esmeralda</span>
+              <span class="tc-tag">🦎 Museo Ajolote</span>
+              <span class="tc-tag">🎯 Gotcha completo</span>
+              <span class="tc-tag">🌉 Mirador de Cristal</span>
+              <span class="tc-tag">⛪ Centro y Basílica</span>
+            </div>
+            <div class="tc-cta done">🔒 Tour finalizado</div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+      <div class="carousel-controls">
+        <button class="cb" id="visitadosPrev" aria-label="Anterior">‹</button>
+        <div class="cdots" id="visitadosDots"></div>
+        <button class="cb" id="visitadosNext" aria-label="Siguiente">›</button>
+      </div>
+      <button class="cpause" id="visitadosPause">⏸ Pausar</button>
     </div>
   </div>
 
@@ -890,39 +942,74 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
       <h2 class="sec-title" style="color:#fff">EN TIKTOK</h2>
       <p class="sec-sub">Los mejores momentos de nuestros viajes — en video.</p>
     </div>
-    <a href="https://www.tiktok.com/@felipearturojd" class="tt-follow">▶ Síguenos en TikTok</a>
+    <div class="tt-social-row">
+      <a href="https://www.tiktok.com/@travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn tiktok" aria-label="TikTok Travel Friend Ship">
+        <span class="tt-social-ic">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+        </span>
+        <span class="tt-social-label">TikTok</span>
+      </a>
+      <a href="https://www.instagram.com/travelfriendship.mx/" target="_blank" rel="noopener" class="tt-social-btn instagram" aria-label="Instagram Travel Friend Ship">
+        <span class="tt-social-ic">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="#fff" stroke="none"/></svg>
+        </span>
+        <span class="tt-social-label">Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn facebook" aria-label="Facebook Travel Friend Ship">
+        <span class="tt-social-ic">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.44C16.2 4.4 15.3 4.3 14.26 4.3c-2.19 0-3.68 1.34-3.68 3.79v2.35H8.02v2.96h2.56V21h2.92z"/></svg>
+        </span>
+        <span class="tt-social-label">Facebook</span>
+      </a>
+    </div>
   </div>
   <div class="carousel-wrap tt-carousel-wrap">
     <div class="carousel-track" id="tiktokTrack">
       <div class="cs active">
       <div class="tt-card reveal">
         <div class="tt-embed">
-          <iframe src="https://www.tiktok.com/embed/v2/7621229478504647944?autoplay=1&mute=1&loop=1&rel=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="TikTok Tepoztlán"></iframe>
-          <a class="tt-open" href="https://www.tiktok.com/@felipearturojd/video/7621229478504647944" rel="noopener">
+          <iframe src="https://www.tiktok.com/embed/v2/7672649446622006535?autoplay=1&mute=1&loop=1&rel=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="TikTok Tepoztlán Inicio"></iframe>
+          <a class="tt-open" href="https://www.tiktok.com/@travelfriendship.mx/video/7672649446622006535?is_from_webapp=1&sender_device=pc&web_id=7672297961950742017" rel="noopener">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
             Ver en TikTok
           </a>
         </div>
         <div class="tt-meta">
-          <span class="tt-meta-dest">📍 Tepoztlán · 22 Mar 2026</span>
-          <span class="tt-meta-title">¿Quién organiza mal en tu grupo? Fuimos a Tepoztlán a desconectar… 🏔️</span>
-          <span class="tt-meta-handle"><a href="https://www.tiktok.com/@felipearturojd">@felipearturojd</a></span>
+          <span class="tt-meta-dest">📍 Tepoztlán · Inicio</span>
+          <span class="tt-meta-title">Tepoztlán Inicio — así arrancó nuestra aventura 🏔️</span>
+          <span class="tt-meta-handle"><a href="https://www.tiktok.com/@travelfriendship.mx">@travelfriendship.mx</a></span>
         </div>
       </div>
       </div>
       <div class="cs">
       <div class="tt-card reveal">
         <div class="tt-embed">
-          <iframe src="https://www.tiktok.com/embed/v2/7622592262437866759?autoplay=1&mute=1&loop=1&rel=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="TikTok Tepoztlán 2"></iframe>
-          <a class="tt-open" href="https://www.tiktok.com/@felipearturojd/video/7622592262437866759" rel="noopener">
+          <iframe src="https://www.tiktok.com/embed/v2/7672650803555077384?autoplay=1&mute=1&loop=1&rel=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="TikTok Tepoztlán Parte 2"></iframe>
+          <a class="tt-open" href="https://www.tiktok.com/@travelfriendship.mx/video/7672650803555077384?is_from_webapp=1&sender_device=pc&web_id=7672297961950742017" rel="noopener">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
             Ver en TikTok
           </a>
         </div>
         <div class="tt-meta">
           <span class="tt-meta-dest">📍 Tepoztlán · Parte 2</span>
-          <span class="tt-meta-title">Fuimos a soltar lo que no controlamos… casi soltamos la vida subiendo 🪙💀</span>
-          <span class="tt-meta-handle"><a href="https://www.tiktok.com/@felipearturojd">@felipearturojd</a></span>
+          <span class="tt-meta-title">Segunda parte de Tepoztlán — lo que no viste en el primer video 🪙</span>
+          <span class="tt-meta-handle"><a href="https://www.tiktok.com/@travelfriendship.mx">@travelfriendship.mx</a></span>
+        </div>
+      </div>
+      </div>
+      <div class="cs">
+      <div class="tt-card reveal">
+        <div class="tt-embed">
+          <iframe src="https://www.tiktok.com/embed/v2/7673164988298644743?autoplay=1&mute=1&loop=1&rel=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="TikTok Chignahuapan Puebla"></iframe>
+          <a class="tt-open" href="https://www.tiktok.com/@travelfriendship.mx/video/7673164988298644743?is_from_webapp=1&sender_device=pc&web_id=7672297961950742017" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+            Ver en TikTok
+          </a>
+        </div>
+        <div class="tt-meta">
+          <span class="tt-meta-dest">📍 Chignahuapan, Puebla</span>
+          <span class="tt-meta-title">Viaje a Chignahuapan, Puebla ✨</span>
+          <span class="tt-meta-handle"><a href="https://www.tiktok.com/@travelfriendship.mx">@travelfriendship.mx</a></span>
         </div>
       </div>
       </div>
@@ -1429,6 +1516,7 @@ function initCarousel(opts){
 
 // ── Inicializar carruseles ──
 var toursCarousel=initCarousel({track:'toursTrack',dots:'toursDots',prev:'toursPrev',next:'toursNext',pause:'toursPause',interval:2700});
+var visitadosCarousel=initCarousel({track:'visitadosTrack',dots:'visitadosDots',prev:'visitadosPrev',next:'visitadosNext',pause:'visitadosPause',interval:2500});
 var tiktokCarousel=initCarousel({track:'tiktokTrack',dots:'tiktokDots',prev:'tiktokPrev',next:'tiktokNext',pause:'tiktokPause',interval:4200});
 var testiCarousel=initCarousel({track:'carouselTrack',dots:'carouselDots',prev:'carouselPrev',next:'carouselNext',pause:'carouselPause',interval:3500});
 

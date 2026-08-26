@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ometeotl — Autogestión y calendario de tareas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Firebase (compat build: no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+  :root{
+    --navy:#081c24;
+    --navy-2:#0f2a36;
+    --navy-3:#132f3d;
+    --gold:#f1c232;
+    --gold-dim:#8a6f1f;
+    --gold-2:#ffdd7a;
+    --ink:#eef3f2;
+    --muted:#93a7a3;
+    --line:#1c3945;
+    --success:#3ecf8e;
+    --danger:#ef6461;
+    --radius:16px;
+    /* 5 colores de etiqueta para tareas */
+    --c-gold:#f1c232;
+    --c-verde:#3ecf8e;
+    --c-rojo:#ef6461;
+    --c-azul:#5b9bf0;
+    --c-morado:#b487f2;
+    /* estados de tarea */
+    --st-pendiente:#6b7f7a;
+    --st-inicio:#5b9bf0;
+    --st-proceso:#f1c232;
+    --st-cumplido:#3ecf8e;
+    /* superficies "glass" premium */
+    --glass-bg:linear-gradient(155deg, rgba(255,255,255,.07), rgba(255,255,255,.015));
+    --glass-bg-strong:linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+    --glass-border:rgba(255,255,255,.09);
+    --glass-shadow:0 8px 32px rgba(2,10,14,.45);
+    --gold-gradient:linear-gradient(135deg, #ffe9a8 0%, #f1c232 55%, #c99312 100%);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 620px at 8% -8%, rgba(241,194,50,.14), transparent 55%),
+      radial-gradient(900px 700px at 108% 12%, rgba(91,155,240,.13), transparent 55%),
+      radial-gradient(1000px 800px at 50% 120%, rgba(180,135,242,.10), transparent 55%),
+      linear-gradient(160deg, #081c24 0%, #06151b 55%, #050f14 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Space Grotesk',sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif;}
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,button{font-size:15px;}
+  ::selection{background:var(--gold);color:var(--navy);}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* ---------- TOPBAR ---------- */
+  #topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 26px;border-bottom:1px solid var(--glass-border);
+    background:var(--glass-bg);
+    backdrop-filter:blur(22px) saturate(140%);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
+    position:sticky;top:0;z-index:40;
+  }
+  .topbar-brand{display:flex;align-items:center;gap:9px;}
+  .topbar-brand .ring{width:24px;height:24px;border-radius:50%;border:2.5px solid var(--gold);position:relative;flex-shrink:0;
+    box-shadow:0 0 14px rgba(241,194,50,.45);}
+  .topbar-brand .ring::after{content:"";position:absolute;inset:0;margin:auto;width:6px;height:6px;border-radius:50%;background:var(--gold-gradient);}
+  .topbar-brand span{font-weight:800;font-size:16px;background:var(--gold-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  .profile-wrap{position:relative;}
+  .profile-btn{
+    width:38px;height:38px;border-radius:50%;border:1.5px solid var(--glass-border);background:var(--glass-bg);
+    backdrop-filter:blur(10px);
+    color:var(--muted);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .profile-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+  .profile-btn.logged-in{background:var(--gold-gradient);color:var(--navy);border-color:var(--gold);box-shadow:0 4px 16px rgba(241,194,50,.35);}
+
+  .auth-dropdown{
+    position:absolute;top:48px;right:0;width:320px;
+    background:linear-gradient(165deg, rgba(15,42,54,.92), rgba(8,28,36,.92));
+    backdrop-filter:blur(24px) saturate(140%);
+    -webkit-backdrop-filter:blur(24px) saturate(140%);
+    border:1px solid var(--glass-border);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--glass-shadow), 0 0 0 1px rgba(241,194,50,.04) inset;z-index:50;
+  }
+  .auth-dropdown.hidden{display:none;}
+
+  .auth-sub{color:var(--muted);font-size:12.5px;margin:0 0 18px;line-height:1.5;}
+  .tabs{display:flex;background:var(--navy-3);border-radius:10px;padding:4px;margin-bottom:18px;}
+  .tabs button{
+    flex:1;padding:8px 0;border:none;background:transparent;color:var(--muted);
+    border-radius:8px;font-weight:600;font-size:12.5px;transition:all .15s ease;
+  }
+  .tabs button.active{background:var(--gold);color:var(--navy);}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;letter-spacing:.02em;}
+  .field input{
+    width:100%;padding:10px 11px;border-radius:9px;border:1px solid var(--line);
+    background:var(--navy);color:var(--ink);
+  }
+  .field input::placeholder{color:#5a716c;}
+  .btn-primary{
+    width:100%;padding:11px;border:none;border-radius:9px;
+    background:var(--gold-gradient);color:var(--navy);font-weight:700;font-size:13.5px;
+    margin-top:4px;transition:transform .1s ease, filter .15s ease, box-shadow .15s ease;
+    box-shadow:0 6px 18px rgba(241,194,50,.25);
+  }
+  .btn-primary:hover{filter:brightness(1.08);box-shadow:0 8px 22px rgba(241,194,50,.35);}
+  .btn-primary:active{transform:scale(.98);}
+  .btn-primary[disabled]{opacity:.55;cursor:default;}
+  .divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:11px;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line);}
+  .btn-google{
+    width:100%;padding:10px;border-radius:9px;border:1px solid var(--line);background:var(--navy);
+    color:var(--ink);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  .btn-google:hover{border-color:var(--gold);}
+  .btn-google svg{flex-shrink:0;}
+  .auth-error{color:var(--danger);font-size:12px;margin-top:12px;min-height:14px;line-height:1.4;}
+  .auth-foot{text-align:center;color:var(--muted);font-size:10.5px;margin-top:16px;line-height:1.5;}
+
+  .account-box{display:flex;flex-direction:column;gap:4px;}
+  .account-email{font-size:13.5px;font-weight:600;word-break:break-all;}
+  .account-hint{font-size:11.5px;color:var(--muted);margin-bottom:14px;}
+  .logout-btn{
+    padding:10px 12px;border:1px solid var(--line);background:transparent;
+    color:var(--muted);border-radius:9px;font-size:12.5px;font-weight:600;
+  }
+  .logout-btn:hover{color:var(--danger);border-color:var(--danger);}
+
+  /* ---------- APP BODY (sidebar + main) ---------- */
+  #app-body{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 63px);}
+  @media (max-width:760px){ #app-body{grid-template-columns:72px 1fr;} }
+
+  aside{
+    background:var(--glass-bg);
+    backdrop-filter:blur(20px) saturate(130%);
+    -webkit-backdrop-filter:blur(20px) saturate(130%);
+    border-right:1px solid var(--glass-border);
+    padding:22px 16px;
+    display:flex;flex-direction:column;
+  }
+  nav.side-nav{display:flex;flex-direction:column;gap:4px;}
+  .nav-btn{
+    display:flex;align-items:center;gap:11px;padding:10px 12px;border:none;background:transparent;
+    color:var(--muted);border-radius:9px;font-weight:600;font-size:13.5px;text-align:left;
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-btn .ico{width:18px;flex-shrink:0;text-align:center;}
+  .nav-btn:hover{background:rgba(255,255,255,.06);color:var(--ink);}
+  .nav-btn.active{background:var(--gold-gradient);color:var(--navy);box-shadow:0 4px 14px rgba(241,194,50,.3);}
+  @media (max-width:760px){ .nav-btn span.label{display:none;} .nav-btn{justify-content:center;} }
+
+  .streak-box{
+    margin-top:auto;padding-top:20px;border-top:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .streak-ring{position:relative;width:76px;height:76px;}
+  .streak-ring svg{transform:rotate(-90deg);}
+  .streak-ring .pct{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;font-family:'Sora',sans-serif;
+  }
+  .streak-label{font-size:10.5px;color:var(--muted);text-align:center;letter-spacing:.03em;}
+  @media (max-width:760px){ .streak-label{display:none;} }
+
+  main{padding:30px 36px;max-width:920px;}
+  @media (max-width:760px){ main{padding:22px 18px;} }
+  .view{display:none;}
+  .view.active{display:block;}
+
+  .top-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;flex-wrap:wrap;gap:14px;}
+  .top-row h1{font-size:24px;margin:0 0 4px;}
+  .top-row .sub{color:var(--muted);font-size:13px;margin:0;}
+
+  .guest-banner{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    background:linear-gradient(135deg, rgba(241,194,50,.12), rgba(241,194,50,.03));
+    backdrop-filter:blur(14px);
+    border:1px solid var(--gold-dim);border-radius:12px;
+    padding:14px 18px;margin-bottom:22px;font-size:13px;color:var(--ink);
+  }
+  .guest-banner button{
+    padding:8px 16px;border:none;border-radius:8px;background:var(--gold-gradient);color:var(--navy);font-weight:700;font-size:12.5px;white-space:nowrap;
+  }
+
+  /* Quick add */
+  .quick-add{
+    background:var(--glass-bg);backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);
+    border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--glass-shadow);
+    padding:16px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;
+  }
+  .quick-add input[type=text]{flex:2;min-width:160px;}
+  .quick-add input,.quick-add select{
+    padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:rgba(8,28,36,.65);color:var(--ink);
+  }
+  .quick-add select{flex:1;min-width:120px;}
+  .quick-add button{
+    padding:10px 18px;border:none;border-radius:8px;background:var(--gold-gradient);color:var(--navy);font-weight:700;
+    box-shadow:0 6px 16px rgba(241,194,50,.25);transition:filter .15s ease,transform .1s ease;
+  }
+  .quick-add button:hover{filter:brightness(1.06);}
+  .quick-add button:active{transform:scale(.97);}
+
+  /* Goal list */
+  .goal-group{margin-bottom:22px;}
+  .goal-group h3{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;font-family:'Space Grotesk';font-weight:600;}
+  .goal-item{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;
+    background:var(--glass-bg);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
+    border:1px solid var(--glass-border);border-radius:12px;margin-bottom:8px;
+    box-shadow:0 4px 18px rgba(2,10,14,.28);transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .goal-item:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(2,10,14,.4);}
+  .goal-check{
+    width:22px;height:22px;border-radius:50%;border:2px solid var(--gold-dim);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;background:transparent;
+  }
+  .goal-check.done{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:800;font-size:13px;}
+  .goal-title{flex:1;font-size:14px;}
+  .goal-item.done .goal-title{color:var(--muted);text-decoration:line-through;}
+  .goal-cat{font-size:11px;color:var(--gold);background:rgba(241,194,50,.1);padding:3px 9px;border-radius:20px;white-space:nowrap;}
+  .goal-del{border:none;background:transparent;color:var(--muted);font-size:16px;padding:4px 6px;}
+  .goal-del:hover{color:var(--danger);}
+  .empty-state{color:var(--muted);font-size:13.5px;padding:26px 0;text-align:center;line-height:1.6;}
+
+  /* Calendar */
+  .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .cal-header button{background:var(--glass-bg);backdrop-filter:blur(10px);border:1px solid var(--glass-border);color:var(--ink);border-radius:8px;padding:6px 12px;font-weight:700;}
+  .cal-header h2{margin:0;font-size:16px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .cal-dow{font-size:10.5px;color:var(--muted);text-align:center;padding-bottom:4px;text-transform:uppercase;letter-spacing:.05em;}
+  .cal-day{
+    aspect-ratio:1/1;border-radius:10px;background:var(--glass-bg);backdrop-filter:blur(12px);border:1px solid var(--glass-border);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    font-size:12.5px;color:var(--ink);position:relative;transition:transform .12s ease;
+  }
+  .cal-day.empty{background:transparent;border:none;}
+  .cal-day.today{border-color:var(--gold);box-shadow:0 0 0 1px rgba(241,194,50,.25) inset;}
+  .cal-day .dots{display:flex;gap:2px;}
+  .cal-day .dot{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);}
+  .cal-day .dot.done{background:var(--success);}
+  .cal-day.selected{background:var(--gold-gradient);color:var(--navy);box-shadow:0 6px 18px rgba(241,194,50,.3);}
+  .cal-day.selected .dot{background:var(--navy);}
+  .cal-day.selected .dot.done{background:var(--navy-2);}
+  .cal-day button{all:unset;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;}
+
+  .day-panel{margin-top:22px;}
+  .day-panel h3{font-size:13.5px;color:var(--muted);margin:0 0 12px;font-weight:600;}
+
+  .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+  .stat-card{
+    flex:1;min-width:130px;background:var(--glass-bg);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
+    border:1px solid var(--glass-border);border-radius:12px;box-shadow:var(--glass-shadow);
+    padding:16px 18px;
+  }
+  .stat-card .num{font-family:'Sora';font-weight:800;font-size:26px;background:var(--gold-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat-card .lbl{font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+  /* ---------- ESTADO DE TAREA (pendiente / inicio / proceso / cumplido) ---------- */
+  .status-btn{
+    flex-shrink:0;border:none;border-radius:20px;padding:5px 10px;
+    font-size:10.5px;font-weight:700;letter-spacing:.02em;white-space:nowrap;
+    display:flex;align-items:center;gap:6px;color:var(--navy);
+    transition:filter .15s ease;
+  }
+  .status-btn:hover{filter:brightness(1.1);}
+  .status-btn .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .status-btn[data-status="pendiente"]{background:rgba(147,167,163,.16);color:var(--muted);backdrop-filter:blur(6px);}
+  .status-btn[data-status="inicio"]{background:linear-gradient(135deg, rgba(91,155,240,.32), rgba(91,155,240,.1));color:#dbe9ff;}
+  .status-btn[data-status="proceso"]{background:linear-gradient(135deg, rgba(241,194,50,.35), rgba(241,194,50,.1));color:#3a2c04;}
+  .status-btn[data-status="cumplido"]{background:linear-gradient(135deg, rgba(62,207,142,.4), rgba(62,207,142,.12));color:#093b26;}
+
+  /* ---------- ACENTO DE COLOR EN CADA TAREA ---------- */
+  .goal-item{border-left:3px solid var(--line);}
+  .goal-item[data-color="gold"]{border-left-color:var(--c-gold);}
+  .goal-item[data-color="verde"]{border-left-color:var(--c-verde);}
+  .goal-item[data-color="rojo"]{border-left-color:var(--c-rojo);}
+  .goal-item[data-color="azul"]{border-left-color:var(--c-azul);}
+  .goal-item[data-color="morado"]{border-left-color:var(--c-morado);}
+
+  .goal-item{flex-wrap:wrap;}
+  .goal-main-row{display:flex;align-items:center;gap:12px;width:100%;}
+  .goal-title{flex:1;font-size:14px;min-width:120px;}
+  .goal-item.done .goal-title{color:var(--muted);text-decoration:line-through;}
+
+  .goal-meta-row{display:flex;align-items:center;gap:8px;width:100%;margin-top:2px;flex-wrap:wrap;}
+  .reminder-badge{
+    font-size:10.5px;color:var(--gold);background:rgba(241,194,50,.08);
+    border:1px solid var(--gold-dim);border-radius:20px;padding:3px 9px;display:flex;align-items:center;gap:5px;
+  }
+  .notes-toggle{
+    font-size:10.5px;color:var(--muted);background:transparent;border:1px solid var(--line);
+    border-radius:20px;padding:3px 9px;
+  }
+  .notes-toggle:hover{color:var(--ink);border-color:var(--muted);}
+  .notes-toggle.has-notes{color:var(--gold);border-color:var(--gold-dim);}
+
+  /* ---------- SELECTOR DE COLOR (5 puntos) ---------- */
+  .color-picker{display:flex;gap:6px;align-items:center;}
+  .color-swatch{
+    width:16px;height:16px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;
+  }
+  .color-swatch[data-color="gold"]{background:var(--c-gold);}
+  .color-swatch[data-color="verde"]{background:var(--c-verde);}
+  .color-swatch[data-color="rojo"]{background:var(--c-rojo);}
+  .color-swatch[data-color="azul"]{background:var(--c-azul);}
+  .color-swatch[data-color="morado"]{background:var(--c-morado);}
+  .color-swatch.selected{border-color:var(--ink);}
+
+  /* ---------- EDITOR DE NOTAS POR BLOQUES (estilo Notion) ---------- */
+  .notes-panel{
+    width:100%;margin-top:10px;padding-top:12px;border-top:1px dashed var(--line);display:none;
+  }
+  .notes-panel.open{display:block;}
+  .note-block{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+  .note-block-type{
+    flex-shrink:0;display:flex;gap:2px;background:var(--navy);border:1px solid var(--line);
+    border-radius:7px;padding:2px;
+  }
+  .note-block-type button{
+    border:none;background:transparent;color:var(--muted);border-radius:5px;
+    font-size:10.5px;font-weight:700;padding:3px 6px;line-height:1.4;
+  }
+  .note-block-type button.active{background:var(--gold);color:var(--navy);}
+  .note-block-input{
+    flex:1;background:transparent;border:none;border-bottom:1px solid transparent;color:var(--ink);
+    padding:3px 2px;font-family:inherit;resize:none;overflow:hidden;
+  }
+  .note-block-input:focus{border-bottom-color:var(--line);}
+  .note-block-input.type-heading1{font-family:'Sora';font-weight:800;font-size:17px;}
+  .note-block-input.type-heading2{font-family:'Sora';font-weight:700;font-size:15px;}
+  .note-block-input.type-heading3{font-family:'Sora';font-weight:700;font-size:13.5px;color:var(--gold);}
+  .note-block-input.type-paragraph{font-size:13px;color:var(--ink);}
+  .note-block-input.type-bulleted{font-size:13px;}
+  .note-block-input.type-checklist{font-size:13px;}
+  .note-block-prefix{color:var(--gold);font-size:13px;padding-top:3px;flex-shrink:0;}
+  .note-block-check{flex-shrink:0;margin-top:5px;width:14px;height:14px;accent-color:var(--gold);}
+  .note-block-del{flex-shrink:0;border:none;background:transparent;color:var(--muted);font-size:13px;padding:2px 5px;}
+  .note-block-del:hover{color:var(--danger);}
+  .note-add-block{
+    margin-top:4px;border:1px dashed var(--line);background:transparent;color:var(--muted);
+    border-radius:7px;padding:5px 10px;font-size:11.5px;
+  }
+  .note-add-block:hover{color:var(--gold);border-color:var(--gold-dim);}
+
+  /* ---------- RECORDATORIO (fecha/hora) EN TARJETA ---------- */
+  .reminder-field{display:flex;align-items:center;gap:6px;}
+  .reminder-field input[type=datetime-local]{
+    padding:6px 8px;border-radius:7px;border:1px solid var(--line);background:var(--navy);
+    color:var(--ink);font-size:11.5px;
+  }
+  .notif-banner{
+    background:linear-gradient(135deg, rgba(91,155,240,.14), rgba(91,155,240,.03));
+    backdrop-filter:blur(14px);
+    border:1px solid #2a4f78;border-radius:12px;
+    padding:12px 16px;margin-bottom:18px;font-size:12.5px;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  .notif-banner button{
+    padding:7px 14px;border:none;border-radius:8px;
+    background:linear-gradient(135deg, #7db2f7, var(--st-inicio));color:#fff;font-weight:700;font-size:12px;
+  }
+  .notif-banner.hidden{display:none;}
+
+  /* ---------- EXPORTAR RECORDATORIO (WhatsApp / Correo / Calendario / Alarma) ---------- */
+  .export-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+  .export-btn{
+    font-size:10px;font-weight:700;padding:4px 9px;border-radius:20px;border:1px solid var(--glass-border);
+    background:var(--glass-bg);backdrop-filter:blur(8px);color:var(--muted);display:flex;align-items:center;gap:5px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .export-btn:hover{color:var(--ink);border-color:var(--gold-dim);}
+
+  /* ---------- DASHBOARD ---------- */
+  .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px;}
+  @media (max-width:760px){ .dash-grid{grid-template-columns:repeat(2,1fr);} }
+  .dash-card{
+    background:var(--glass-bg-strong);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--glass-shadow);
+    padding:18px 20px;
+  }
+  .dash-card .num{font-family:'Sora';font-weight:800;font-size:28px;background:var(--gold-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .dash-card .lbl{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .dash-panel{
+    background:var(--glass-bg);backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);
+    border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--glass-shadow);
+    padding:22px;margin-bottom:22px;
+  }
+  .dash-panel h3{margin:0 0 14px;font-size:14px;}
+  .breakdown-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12.5px;}
+  .breakdown-row .lbl{width:110px;flex-shrink:0;color:var(--muted);}
+  .breakdown-bar-track{flex:1;height:8px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;}
+  .breakdown-bar-fill{height:100%;border-radius:6px;background:var(--gold-gradient);}
+  .breakdown-row .val{width:34px;text-align:right;flex-shrink:0;color:var(--ink);font-weight:600;}
+  .reco-list{display:flex;flex-direction:column;gap:10px;}
+  .reco-item{
+    display:flex;gap:10px;padding:12px 14px;background:rgba(241,194,50,.05);
+    border:1px solid var(--gold-dim);border-radius:10px;font-size:13px;line-height:1.5;
+  }
+  .reco-item .reco-ico{flex-shrink:0;font-size:16px;}
+  .reflect-box textarea{
+    width:100%;min-height:90px;border-radius:10px;border:1px solid var(--line);background:rgba(8,28,36,.6);
+    color:var(--ink);padding:12px;font-family:inherit;font-size:13px;resize:vertical;
+  }
+  .reflect-save{
+    margin-top:10px;padding:9px 18px;border:none;border-radius:8px;background:var(--gold-gradient);color:var(--navy);font-weight:700;font-size:12.5px;
+  }
+  .reflect-saved-note{font-size:11px;color:var(--muted);margin-top:8px;}
+</style>
+</head>
+<body>
+
+<!-- =================== TOPBAR =================== -->
+<div id="topbar">
+  <div class="topbar-brand"><div class="ring"></div><span>Ometeotl</span></div>
+  <div class="profile-wrap">
+    <button class="profile-btn" id="profile-btn" aria-label="Cuenta">?</button>
+
+    <div class="auth-dropdown hidden" id="auth-dropdown">
+      <!-- Logged-out content -->
+      <div id="dropdown-guest">
+        <p class="auth-sub">Inicia sesión para que tus metas se guarden en tu cuenta. Nadie más puede verlas.</p>
+        <div class="tabs">
+          <button id="tab-login" class="active" type="button">Iniciar sesión</button>
+          <button id="tab-register" type="button">Crear cuenta</button>
+        </div>
+        <form id="auth-form">
+          <div class="field">
+            <label for="auth-email">Correo</label>
+            <input id="auth-email" type="email" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="auth-pass">Contraseña</label>
+            <input id="auth-pass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password" minlength="6">
+          </div>
+          <button type="submit" class="btn-primary" id="auth-submit">Entrar</button>
+        </form>
+        <div class="divider">o</div>
+        <button class="btn-google" id="google-signin-btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.84 2.09-1.8 2.73v2.27h2.91c1.7-1.57 2.69-3.88 2.69-6.64z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.91-2.27c-.81.54-1.84.86-3.05.86-2.34 0-4.33-1.58-5.04-3.71H.96v2.34C2.44 15.98 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.96 10.71c-.18-.54-.28-1.11-.28-1.71s.1-1.17.28-1.71V4.96H.96A8.99 8.99 0 0 0 0 9c0 1.45.35 2.83.96 4.04l3-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l3 2.33C4.67 5.16 6.66 3.58 9 3.58z"/></svg>
+          Continuar con Google
+        </button>
+        <p class="auth-error" id="auth-error"></p>
+        <p class="auth-foot">Tus metas se guardan en tu cuenta y solo tú puedes verlas al iniciar sesión.</p>
+      </div>
+
+      <!-- Logged-in content -->
+      <div id="dropdown-account" style="display:none;">
+        <div class="account-box">
+          <span class="account-email" id="account-email"></span>
+          <span class="account-hint">Sesión iniciada</span>
+        </div>
+        <button class="logout-btn" id="logout-btn" style="width:100%;">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== APP BODY =================== -->
+<div id="app-body">
+  <aside>
+    <nav class="side-nav">
+      <button class="nav-btn active" data-view="hoy"><span class="ico">●</span><span class="label">Hoy</span></button>
+      <button class="nav-btn" data-view="calendario"><span class="ico">▦</span><span class="label">Calendario</span></button>
+      <button class="nav-btn" data-view="metas"><span class="ico">☰</span><span class="label">Todas mis metas</span></button>
+      <button class="nav-btn" data-view="dashboard"><span class="ico">◈</span><span class="label">Dashboard</span></button>
+    </nav>
+    <div class="streak-box">
+      <div class="streak-ring">
+        <svg width="76" height="76">
+          <circle cx="38" cy="38" r="32" stroke="#1c3945" stroke-width="7" fill="none"/>
+          <circle id="streak-arc" cx="38" cy="38" r="32" stroke="#f1c232" stroke-width="7" fill="none"
+                  stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="201"/>
+        </svg>
+        <div class="pct" id="streak-pct">0%</div>
+      </div>
+      <div class="streak-label">Cumplimiento<br>últimos 7 días</div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HOY -->
+    <section class="view active" id="view-hoy">
+      <div class="top-row">
+        <div><h1 id="hoy-title">Hoy</h1><p class="sub" id="hoy-date"></p></div>
+      </div>
+      <div class="guest-banner" id="guest-banner">
+        <span>Estás viendo el modo de invitado — tus metas no se guardan todavía.</span>
+        <button id="guest-banner-btn">Iniciar sesión</button>
+      </div>
+      <div class="notif-banner hidden" id="notif-banner">
+        <span>Activa las notificaciones para recibir tus recordatorios mientras Ometeotl está abierto en el navegador.</span>
+        <button id="notif-enable-btn">Activar notificaciones</button>
+      </div>
+      <form class="quick-add" id="quick-add-form">
+        <input type="text" id="qa-title" placeholder="¿Qué quieres lograr hoy?" required>
+        <select id="qa-cat">
+          <option value="General">General</option>
+          <option value="Trabajo">Trabajo</option>
+          <option value="Salud">Salud</option>
+          <option value="Finanzas">Finanzas</option>
+          <option value="Personal">Personal</option>
+        </select>
+        <select id="qa-repeat">
+          <option value="none">No se repite</option>
+          <option value="daily">Repetir 30 días</option>
+          <option value="weekly">Repetir 12 semanas</option>
+        </select>
+        <div class="color-picker" id="qa-color-picker" data-selected="gold">
+          <button type="button" class="color-swatch selected" data-color="gold" aria-label="Dorado"></button>
+          <button type="button" class="color-swatch" data-color="verde" aria-label="Verde"></button>
+          <button type="button" class="color-swatch" data-color="rojo" aria-label="Rojo"></button>
+          <button type="button" class="color-swatch" data-color="azul" aria-label="Azul"></button>
+          <button type="button" class="color-swatch" data-color="morado" aria-label="Morado"></button>
+        </div>
+        <div class="reminder-field">
+          <input type="datetime-local" id="qa-reminder" aria-label="Recordatorio (fecha y hora)">
+        </div>
+        <button type="submit">Agregar</button>
+      </form>
+      <div id="hoy-list"></div>
+    </section>
+
+    <!-- CALENDARIO -->
+    <section class="view" id="view-calendario">
+      <div class="top-row"><div><h1>Calendario</h1><p class="sub">Los puntos verdes muestran días donde cumpliste todas tus metas.</p></div></div>
+      <div class="cal-header">
+        <button id="cal-prev">←</button>
+        <h2 id="cal-month-label"></h2>
+        <button id="cal-next">→</button>
+      </div>
+      <div class="cal-grid" id="cal-dow-row"></div>
+      <div class="cal-grid" id="cal-grid" style="margin-top:6px;"></div>
+      <div class="day-panel">
+        <h3 id="day-panel-title">Selecciona un día</h3>
+        <div id="day-panel-list"></div>
+      </div>
+    </section>
+
+    <!-- METAS -->
+    <section class="view" id="view-metas">
+      <div class="top-row"><div><h1>Todas mis metas</h1><p class="sub" id="metas-sub"></p></div></div>
+      <div class="stat-row" id="metas-stats"></div>
+      <div id="metas-list"></div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="view" id="view-dashboard">
+      <div class="top-row"><div><h1>Dashboard</h1><p class="sub">Tu proceso en números, de dónde saco tus recomendaciones y un espacio para reflexionar.</p></div></div>
+      <div class="dash-grid" id="dash-cards"></div>
+      <div class="dash-panel">
+        <h3>Cumplimiento por estado</h3>
+        <div id="dash-status-breakdown"></div>
+      </div>
+      <div class="dash-panel">
+        <h3>Dónde se te va el tiempo (por categoría)</h3>
+        <div id="dash-cat-breakdown"></div>
+      </div>
+      <div class="dash-panel">
+        <h3>3 recomendaciones de esta semana</h3>
+        <div class="reco-list" id="dash-recos"></div>
+      </div>
+      <div class="dash-panel">
+        <h3>¿En qué sientes que se te fue el tiempo esta semana?</h3>
+        <div class="reflect-box">
+          <textarea id="dash-reflect-input" placeholder="Escribe libremente: qué te distrajo, qué sí funcionó, qué vas a cambiar la próxima semana..."></textarea>
+          <button class="reflect-save" id="dash-reflect-save">Guardar reflexión</button>
+          <p class="reflect-saved-note" id="dash-reflect-note"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* =========================================================
+   1) CONFIGURA TU PROYECTO DE FIREBASE AQUÍ
+   Instrucciones completas en SETUP.md
+   ========================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyAlkxxNd3bW31QwllXezJf8QgxCDoufmMk",
+  authDomain: "ometeotl-4e214.firebaseapp.com",
+  projectId: "ometeotl-4e214",
+  storageBucket: "ometeotl-4e214.firebasestorage.app",
+  messagingSenderId: "893214191106",
+  appId: "1:893214191106:web:4b36c587510837ad69c11b"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* ---------------- PROFILE DROPDOWN ---------------- */
+const profileBtn = document.getElementById('profile-btn');
+const authDropdown = document.getElementById('auth-dropdown');
+const dropdownGuest = document.getElementById('dropdown-guest');
+const dropdownAccount = document.getElementById('dropdown-account');
+
+profileBtn.onclick = (e) => {
+  e.stopPropagation();
+  authDropdown.classList.toggle('hidden');
+};
+document.addEventListener('click', (e) => {
+  if (!authDropdown.contains(e.target) && e.target !== profileBtn) {
+    authDropdown.classList.add('hidden');
+  }
+});
+document.getElementById('guest-banner-btn').onclick = () => {
+  authDropdown.classList.remove('hidden');
+};
+
+/* ---------------- AUTH UI (email/password) ---------------- */
+const tabLogin = document.getElementById('tab-login');
+const tabRegister = document.getElementById('tab-register');
+const authForm = document.getElementById('auth-form');
+const authSubmit = document.getElementById('auth-submit');
+const authError = document.getElementById('auth-error');
+let mode = 'login';
+
+tabLogin.onclick = () => setMode('login');
+tabRegister.onclick = () => setMode('register');
+function setMode(m){
+  mode = m;
+  tabLogin.classList.toggle('active', m === 'login');
+  tabRegister.classList.toggle('active', m === 'register');
+  authSubmit.textContent = m === 'login' ? 'Entrar' : 'Crear cuenta';
+  authError.textContent = '';
+}
+
+authForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  authError.textContent = '';
+  authSubmit.disabled = true;
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-pass').value;
+  try {
+    if (mode === 'login') {
+      await auth.signInWithEmailAndPassword(email, pass);
+    } else {
+      await auth.createUserWithEmailAndPassword(email, pass);
+    }
+    authDropdown.classList.add('hidden');
+  } catch (err) {
+    authError.textContent = traducirError(err.code);
+  } finally {
+    authSubmit.disabled = false;
+  }
+});
+
+document.getElementById('google-signin-btn').onclick = async () => {
+  authError.textContent = '';
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithPopup(provider);
+    authDropdown.classList.add('hidden');
+  } catch (err) {
+    authError.textContent = traducirError(err.code);
+  }
+};
+
+function traducirError(code){
+  const map = {
+    'auth/email-already-in-use': 'Ese correo ya tiene una cuenta. Prueba iniciar sesión.',
+    'auth/invalid-email': 'El correo no es válido.',
+    'auth/weak-password': 'La contraseña necesita al menos 6 caracteres.',
+    'auth/missing-password': 'Escribe tu contraseña.',
+    'auth/user-not-found': 'No hay cuenta con ese correo.',
+    'auth/wrong-password': 'Contraseña incorrecta.',
+    'auth/invalid-credential': 'Correo o contraseña incorrectos.',
+    'auth/popup-closed-by-user': 'Cerraste la ventana de Google antes de terminar.',
+    'auth/too-many-requests': 'Demasiados intentos. Espera un momento e intenta de nuevo.'
+  };
+  return map[code] || 'Algo salió mal. Intenta de nuevo.';
+}
+
+document.getElementById('logout-btn').onclick = () => { auth.signOut(); authDropdown.classList.add('hidden'); };
+
+/* ---------------- APP STATE ---------------- */
+let currentUser = null;
+let goalsCache = [];
+let selectedDate = todayStr();
+let calCursor = new Date();
+let unsubscribeGoals = null;
+
+function todayStr(d = new Date()){
+  return d.toISOString().slice(0,10);
+}
+function fmtLongDate(str){
+  const d = new Date(str + 'T00:00:00');
+  return d.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long' });
+}
+
+auth.onAuthStateChanged(user => {
+  currentUser = user;
+  const guestBanner = document.getElementById('guest-banner');
+  const quickAddBtn = document.querySelector('#quick-add-form button[type=submit]');
+
+  if (user) {
+    profileBtn.textContent = (user.email || 'U').charAt(0).toUpperCase();
+    profileBtn.classList.add('logged-in');
+    dropdownGuest.style.display = 'none';
+    dropdownAccount.style.display = 'block';
+    document.getElementById('account-email').textContent = user.email || user.displayName || 'Tu cuenta';
+    guestBanner.style.display = 'none';
+    if (quickAddBtn) quickAddBtn.disabled = false;
+    listenGoals();
+  } else {
+    profileBtn.textContent = '?';
+    profileBtn.classList.remove('logged-in');
+    dropdownGuest.style.display = 'block';
+    dropdownAccount.style.display = 'none';
+    guestBanner.style.display = 'flex';
+    if (unsubscribeGoals) { unsubscribeGoals(); unsubscribeGoals = null; }
+    goalsCache = [];
+    renderAll();
+  }
+});
+
+/* ---------------- FIRESTORE: metas del usuario ---------------- */
+function goalsRef(){
+  return db.collection('users').doc(currentUser.uid).collection('goals');
+}
+
+function listenGoals(){
+  if (unsubscribeGoals) unsubscribeGoals();
+  unsubscribeGoals = goalsRef().orderBy('date', 'asc').onSnapshot(snap => {
+    goalsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderAll();
+  });
+}
+
+async function addGoal(title, category, date, repeat, color, reminderAt){
+  if (!currentUser) { authDropdown.classList.remove('hidden'); return; }
+  const batch = db.batch();
+  const groupId = Date.now().toString(36);
+  const dates = [date];
+  if (repeat === 'daily') {
+    for (let i = 1; i < 30; i++) {
+      const d = new Date(date + 'T00:00:00');
+      d.setDate(d.getDate() + i);
+      dates.push(todayStr(d));
+    }
+  } else if (repeat === 'weekly') {
+    for (let i = 1; i < 12; i++) {
+      const d = new Date(date + 'T00:00:00');
+      d.setDate(d.getDate() + i * 7);
+      dates.push(todayStr(d));
+    }
+  }
+  dates.forEach(dt => {
+    const ref = goalsRef().doc();
+    batch.set(ref, {
+      title, category, date: dt, completed: false, status: 'pendiente',
+      color: color || 'gold',
+      notes: [],
+      reminderAt: reminderAt || null,
+      reminderNotified: false,
+      groupId, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  });
+  await batch.commit();
+}
+
+/* Ciclo de estado: pendiente -> inicio -> proceso -> cumplido -> pendiente */
+const STATUS_ORDER = ['pendiente', 'inicio', 'proceso', 'cumplido'];
+const STATUS_LABEL = { pendiente:'Pendiente', inicio:'Inicio', proceso:'En proceso', cumplido:'Cumplido' };
+
+function cycleStatus(id, currentStatus){
+  if (!currentUser) return;
+  const idx = STATUS_ORDER.indexOf(currentStatus || 'pendiente');
+  const next = STATUS_ORDER[(idx + 1) % STATUS_ORDER.length];
+  goalsRef().doc(id).update({ status: next, completed: next === 'cumplido' });
+}
+
+function setGoalColor(id, color){
+  if (!currentUser) return;
+  goalsRef().doc(id).update({ color });
+}
+
+function setGoalReminder(id, reminderAt){
+  if (!currentUser) return;
+  goalsRef().doc(id).update({ reminderAt: reminderAt || null, reminderNotified: false });
+}
+
+function saveGoalNotes(id, notes){
+  if (!currentUser) return;
+  goalsRef().doc(id).update({ notes });
+}
+
+function deleteGoal(id){
+  if (!currentUser) return;
+  goalsRef().doc(id).delete();
+}
+
+/* ---------------- NAV ---------------- */
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('view-' + btn.dataset.view).classList.add('active');
+  };
+});
+
+/* ---------------- SELECTOR DE COLOR (captura rápida) ---------------- */
+const qaColorPicker = document.getElementById('qa-color-picker');
+qaColorPicker.querySelectorAll('.color-swatch').forEach(sw => {
+  sw.onclick = () => {
+    qaColorPicker.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+    sw.classList.add('selected');
+    qaColorPicker.dataset.selected = sw.dataset.color;
+  };
+});
+
+/* ---------------- QUICK ADD (vista Hoy) ---------------- */
+document.getElementById('quick-add-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const title = document.getElementById('qa-title').value.trim();
+  const cat = document.getElementById('qa-cat').value;
+  const repeat = document.getElementById('qa-repeat').value;
+  const color = qaColorPicker.dataset.selected || 'gold';
+  const reminderInput = document.getElementById('qa-reminder');
+  const reminderAt = reminderInput.value ? new Date(reminderInput.value).toISOString() : null;
+  if (!title) return;
+  if (!currentUser) { authDropdown.classList.remove('hidden'); return; }
+  await addGoal(title, cat, todayStr(), repeat, color, reminderAt);
+  document.getElementById('qa-title').value = '';
+  reminderInput.value = '';
+});
+
+/* ---------------- RENDER: Hoy ---------------- */
+function renderHoy(){
+  document.getElementById('hoy-date').textContent = capitalize(fmtLongDate(todayStr()));
+  const list = goalsCache.filter(g => g.date === todayStr());
+  const container = document.getElementById('hoy-list');
+  container.innerHTML = '';
+  if (!currentUser) {
+    container.innerHTML = '<p class="empty-state">Inicia sesión (ícono de arriba a la derecha) para empezar a agregar y guardar tus metas de hoy.</p>';
+    return;
+  }
+  if (list.length === 0) {
+    container.innerHTML = '<p class="empty-state">Todavía no tienes metas para hoy. Agrega la primera arriba — algo concreto que puedas marcar como hecho antes de dormir.</p>';
+    return;
+  }
+  container.appendChild(renderGoalGroup(list));
+}
+
+function renderGoalGroup(list){
+  const wrap = document.createElement('div');
+  list.forEach(g => wrap.appendChild(goalItemEl(g)));
+  return wrap;
+}
+
+function goalItemEl(g){
+  const status = g.status || (g.completed ? 'cumplido' : 'pendiente');
+  const color = g.color || 'gold';
+  const notes = Array.isArray(g.notes) ? g.notes : [];
+  const el = document.createElement('div');
+  el.className = 'goal-item' + (status === 'cumplido' ? ' done' : '');
+  el.dataset.color = color;
+
+  const reminderLabel = g.reminderAt ? fmtReminder(g.reminderAt) : '';
+
+  el.innerHTML = `
+    <div class="goal-main-row">
+      <button class="status-btn" data-status="${status}" aria-label="Cambiar estado"><span class="dot"></span>${STATUS_LABEL[status]}</button>
+      <span class="goal-title">${escapeHtml(g.title)}</span>
+      <span class="goal-cat">${escapeHtml(g.category || 'General')}</span>
+      <button class="goal-del" aria-label="Eliminar">✕</button>
+    </div>
+    <div class="goal-meta-row">
+      <div class="color-picker">
+        ${['gold','verde','rojo','azul','morado'].map(c => `<button type="button" class="color-swatch${c===color?' selected':''}" data-color="${c}" aria-label="Color ${c}"></button>`).join('')}
+      </div>
+      <button type="button" class="reminder-badge" style="${g.reminderAt ? '' : 'opacity:.6;'}">⏰ ${g.reminderAt ? escapeHtml(reminderLabel) : 'Poner recordatorio'}</button>
+      <input type="datetime-local" class="reminder-edit" style="display:none;" value="${g.reminderAt ? toLocalInputValue(g.reminderAt) : ''}">
+      <button type="button" class="notes-toggle${notes.length ? ' has-notes' : ''}">${notes.length ? '📝 Notas (' + notes.length + ')' : '📝 Agregar nota'}</button>
+    </div>
+    ${g.reminderAt ? `<div class="export-row">
+      <button type="button" class="export-btn" data-export="whatsapp">💬 WhatsApp</button>
+      <button type="button" class="export-btn" data-export="correo">✉️ Correo</button>
+      <button type="button" class="export-btn" data-export="gcal">📅 Google Calendar</button>
+      <button type="button" class="export-btn" data-export="ics">⏱ Descargar .ics (alarma)</button>
+    </div>` : ''}
+    <div class="notes-panel"></div>
+  `;
+
+  el.querySelector('.status-btn').onclick = () => cycleStatus(g.id, status);
+  el.querySelector('.goal-del').onclick = () => { if (confirm('¿Eliminar esta meta?')) deleteGoal(g.id); };
+
+  el.querySelectorAll('.color-picker .color-swatch').forEach(sw => {
+    sw.onclick = () => setGoalColor(g.id, sw.dataset.color);
+  });
+
+  const reminderBadge = el.querySelector('.reminder-badge');
+  const reminderEdit = el.querySelector('.reminder-edit');
+  reminderBadge.title = 'Click para cambiar el recordatorio';
+  reminderBadge.onclick = () => { reminderBadge.style.display = 'none'; reminderEdit.style.display = 'inline-block'; reminderEdit.focus(); };
+  reminderEdit.onblur = () => { if (!reminderEdit.value) { reminderBadge.style.display = 'inline-flex'; reminderEdit.style.display = 'none'; } };
+  reminderEdit.onchange = () => {
+    const iso = reminderEdit.value ? new Date(reminderEdit.value).toISOString() : null;
+    setGoalReminder(g.id, iso);
+  };
+
+  const notesPanel = el.querySelector('.notes-panel');
+  const notesToggle = el.querySelector('.notes-toggle');
+  notesToggle.onclick = () => {
+    notesPanel.classList.toggle('open');
+    if (notesPanel.classList.contains('open')) renderNotesPanel(g, notesPanel);
+  };
+
+  el.querySelectorAll('.export-btn').forEach(btn => {
+    btn.onclick = () => handleExport(btn.dataset.export, g);
+  });
+
+  return el;
+}
+
+/* ---------------- EXPORTAR RECORDATORIO: WhatsApp / Correo / Google Calendar / .ics ----------------
+   Todo esto corre en el navegador del usuario (no requiere servidor). Abre la app
+   correspondiente ya con el mensaje armado, o descarga un archivo .ics que cualquier
+   calendario (Google, Apple, Outlook, Android) puede importar como alarma. */
+function handleExport(kind, g){
+  const when = g.reminderAt ? new Date(g.reminderAt) : new Date();
+  const text = `Recordatorio Ometeotl: "${g.title}" (${g.category || 'General'}) — ${fmtReminder(g.reminderAt || when.toISOString())}`;
+
+  if (kind === 'whatsapp') {
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  } else if (kind === 'correo') {
+    const subject = encodeURIComponent('Recordatorio: ' + g.title);
+    const body = encodeURIComponent(text);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  } else if (kind === 'gcal') {
+    const start = icsDate(when);
+    const end = icsDate(new Date(when.getTime() + 30 * 60000));
+    const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      `&text=${encodeURIComponent(g.title)}` +
+      `&dates=${start}/${end}` +
+      `&details=${encodeURIComponent('Creado en Ometeotl · ' + (g.category || 'General'))}`;
+    window.open(url, '_blank');
+  } else if (kind === 'ics') {
+    downloadIcs(g, when);
+  }
+}
+
+function icsDate(d){
+  return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+function downloadIcs(g, when){
+  const start = icsDate(when);
+  const end = icsDate(new Date(when.getTime() + 30 * 60000));
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Ometeotl//ES',
+    'BEGIN:VEVENT',
+    'UID:' + (g.id || Date.now()) + '@ometeotl',
+    'DTSTAMP:' + icsDate(new Date()),
+    'DTSTART:' + start,
+    'DTEND:' + end,
+    'SUMMARY:' + (g.title || 'Recordatorio Ometeotl'),
+    'DESCRIPTION:Creado en Ometeotl · ' + (g.category || 'General'),
+    'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Recordatorio', 'TRIGGER:-PT0M', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (g.title || 'recordatorio').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.ics';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function fmtReminder(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('es-MX', { day:'numeric', month:'short' }) + ' · ' +
+         d.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+}
+function toLocalInputValue(iso){
+  const d = new Date(iso);
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+/* ---------------- NOTAS POR BLOQUES (estilo Notion: convertir texto) ---------------- */
+const BLOCK_TYPES = [
+  { type:'paragraph', label:'Texto' },
+  { type:'heading1',  label:'H1' },
+  { type:'heading2',  label:'H2' },
+  { type:'heading3',  label:'H3' },
+  { type:'bulleted',  label:'•' },
+  { type:'checklist', label:'☑' },
+];
+
+function renderNotesPanel(g, panel){
+  const notes = Array.isArray(g.notes) ? JSON.parse(JSON.stringify(g.notes)) : [];
+  panel.innerHTML = '';
+  notes.forEach((block, idx) => panel.appendChild(noteBlockEl(g, notes, block, idx)));
+  const addBtn = document.createElement('button');
+  addBtn.type = 'button';
+  addBtn.className = 'note-add-block';
+  addBtn.textContent = '+ Agregar bloque';
+  addBtn.onclick = () => {
+    notes.push({ type:'paragraph', text:'', checked:false });
+    saveGoalNotes(g.id, notes);
+    g.notes = notes;
+    renderNotesPanel(g, panel);
+  };
+  panel.appendChild(addBtn);
+}
+
+function noteBlockEl(g, notes, block, idx){
+  const row = document.createElement('div');
+  row.className = 'note-block';
+
+  const typeSwitcher = document.createElement('div');
+  typeSwitcher.className = 'note-block-type';
+  BLOCK_TYPES.forEach(bt => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = bt.label;
+    if (bt.type === block.type) b.classList.add('active');
+    b.onclick = () => {
+      notes[idx].type = bt.type;
+      saveGoalNotes(g.id, notes);
+      g.notes = notes;
+      const panel = row.closest('.notes-panel');
+      renderNotesPanel(g, panel);
+    };
+    typeSwitcher.appendChild(b);
+  });
+  row.appendChild(typeSwitcher);
+
+  if (block.type === 'checklist') {
+    const chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.className = 'note-block-check';
+    chk.checked = !!block.checked;
+    chk.onchange = () => { notes[idx].checked = chk.checked; saveGoalNotes(g.id, notes); g.notes = notes; };
+    row.appendChild(chk);
+  } else if (block.type === 'bulleted') {
+    const prefix = document.createElement('span');
+    prefix.className = 'note-block-prefix';
+    prefix.textContent = '•';
+    row.appendChild(prefix);
+  }
+
+  const input = document.createElement('textarea');
+  input.className = 'note-block-input type-' + block.type;
+  input.rows = 1;
+  input.value = block.text || '';
+  input.placeholder = block.type.startsWith('heading') ? 'Encabezado…' : 'Escribe aquí…';
+  input.oninput = () => { input.style.height = 'auto'; input.style.height = input.scrollHeight + 'px'; };
+  input.onblur = () => { notes[idx].text = input.value; saveGoalNotes(g.id, notes); g.notes = notes; };
+  row.appendChild(input);
+
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'note-block-del';
+  del.textContent = '✕';
+  del.onclick = () => {
+    notes.splice(idx, 1);
+    saveGoalNotes(g.id, notes);
+    g.notes = notes;
+    renderNotesPanel(g, row.closest('.notes-panel'));
+  };
+  row.appendChild(del);
+
+  return row;
+}
+
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+function escapeHtml(s){
+  const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+}
+
+/* ---------------- RENDER: Calendario ---------------- */
+const DOW = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+document.getElementById('cal-dow-row').innerHTML = DOW.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+document.getElementById('cal-prev').onclick = () => { calCursor.setMonth(calCursor.getMonth() - 1); renderCalendar(); };
+document.getElementById('cal-next').onclick = () => { calCursor.setMonth(calCursor.getMonth() + 1); renderCalendar(); };
+
+function renderCalendar(){
+  const year = calCursor.getFullYear();
+  const month = calCursor.getMonth();
+  document.getElementById('cal-month-label').textContent =
+    capitalize(calCursor.toLocaleDateString('es-MX', { month:'long', year:'numeric' }));
+
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  for (let i = 0; i < firstDow; i++) {
+    grid.innerHTML += '<div class="cal-day empty"></div>';
+  }
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const dayGoals = goalsCache.filter(g => g.date === dateStr);
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' + (dateStr === todayStr() ? ' today' : '') + (dateStr === selectedDate ? ' selected' : '');
+    const dotsHtml = dayGoals.slice(0,4).map(g => `<span class="dot ${g.completed ? 'done' : ''}"></span>`).join('');
+    cell.innerHTML = `<button><span>${day}</span><span class="dots">${dotsHtml}</span></button>`;
+    cell.querySelector('button').onclick = () => { selectedDate = dateStr; renderCalendar(); renderDayPanel(); };
+    grid.appendChild(cell);
+  }
+  renderDayPanel();
+}
+
+function renderDayPanel(){
+  document.getElementById('day-panel-title').textContent = capitalize(fmtLongDate(selectedDate));
+  const list = goalsCache.filter(g => g.date === selectedDate);
+  const container = document.getElementById('day-panel-list');
+  container.innerHTML = '';
+  if (!currentUser) {
+    container.innerHTML = '<p class="empty-state">Inicia sesión para ver y guardar metas por día.</p>';
+    return;
+  }
+  if (list.length === 0) {
+    container.innerHTML = '<p class="empty-state">No hay metas registradas para este día.</p>';
+    return;
+  }
+  container.appendChild(renderGoalGroup(list));
+}
+
+/* ---------------- RENDER: Todas mis metas ---------------- */
+function renderMetas(){
+  if (!currentUser) {
+    document.getElementById('metas-sub').textContent = '';
+    document.getElementById('metas-stats').innerHTML = '';
+    document.getElementById('metas-list').innerHTML = '<p class="empty-state">Inicia sesión para ver el historial completo de tus metas.</p>';
+    return;
+  }
+  const total = goalsCache.length;
+  const done = goalsCache.filter(g => g.completed).length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('metas-sub').textContent = `${total} metas registradas en total`;
+  document.getElementById('metas-stats').innerHTML = `
+    <div class="stat-card"><div class="num">${total}</div><div class="lbl">Metas totales</div></div>
+    <div class="stat-card"><div class="num">${done}</div><div class="lbl">Cumplidas</div></div>
+    <div class="stat-card"><div class="num">${pct}%</div><div class="lbl">Cumplimiento general</div></div>
+  `;
+  const byDate = {};
+  goalsCache.forEach(g => { (byDate[g.date] = byDate[g.date] || []).push(g); });
+  const dates = Object.keys(byDate).sort().reverse();
+  const container = document.getElementById('metas-list');
+  container.innerHTML = '';
+  if (dates.length === 0) {
+    container.innerHTML = '<p class="empty-state">Todavía no has agregado ninguna meta. Empieza desde la vista "Hoy".</p>';
+    return;
+  }
+  dates.forEach(date => {
+    const group = document.createElement('div');
+    group.className = 'goal-group';
+    group.innerHTML = `<h3>${capitalize(fmtLongDate(date))}</h3>`;
+    group.appendChild(renderGoalGroup(byDate[date]));
+    container.appendChild(group);
+  });
+}
+
+/* ---------------- RACHA (últimos 7 días) ---------------- */
+function renderStreak(){
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(todayStr(d));
+  }
+  let goodDays = 0;
+  if (currentUser) {
+    days.forEach(dateStr => {
+      const dayGoals = goalsCache.filter(g => g.date === dateStr);
+      if (dayGoals.length > 0 && dayGoals.every(g => g.completed)) goodDays++;
+    });
+  }
+  const pct = Math.round((goodDays / 7) * 100);
+  const circumference = 2 * Math.PI * 32;
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('streak-arc').style.strokeDasharray = circumference;
+  document.getElementById('streak-arc').style.strokeDashoffset = offset;
+  document.getElementById('streak-pct').textContent = pct + '%';
+}
+
+/* ---------------- RECORDATORIOS LOCALES (Notification API) ----------------
+   Estos recordatorios sólo se disparan mientras Ometeotl está abierto en el
+   navegador (pestaña activa o en segundo plano). Para recibirlos aunque la
+   app esté cerrada (push real + WhatsApp + correo), ver SETUP-recordatorios.md
+   y el Cloud Function incluido. */
+const notifBanner = document.getElementById('notif-banner');
+const notifEnableBtn = document.getElementById('notif-enable-btn');
+
+function refreshNotifBanner(){
+  if (!currentUser) { notifBanner.classList.add('hidden'); return; }
+  if (!('Notification' in window)) { notifBanner.classList.add('hidden'); return; }
+  if (Notification.permission === 'default') {
+    notifBanner.classList.remove('hidden');
+  } else {
+    notifBanner.classList.add('hidden');
+  }
+}
+notifEnableBtn.onclick = async () => {
+  if (!('Notification' in window)) return;
+  await Notification.requestPermission();
+  refreshNotifBanner();
+};
+
+async function checkDueReminders(){
+  if (!currentUser || !('Notification' in window) || Notification.permission !== 'granted') return;
+  const now = Date.now();
+  const due = goalsCache.filter(g => g.reminderAt && !g.reminderNotified && new Date(g.reminderAt).getTime() <= now);
+  for (const g of due) {
+    new Notification('Ometeotl — ' + g.title, {
+      body: 'Recordatorio: ' + (g.category || 'General') + ' · ' + STATUS_LABEL[g.status || 'pendiente'],
+      icon: undefined
+    });
+    try { await goalsRef().doc(g.id).update({ reminderNotified: true }); } catch (e) { /* noop */ }
+  }
+}
+setInterval(checkDueReminders, 30000);
+
+/* ---------------- DASHBOARD: proceso, cuantificable, 3 recomendaciones, reflexión ---------------- */
+function renderDashboard(){
+  const cardsEl = document.getElementById('dash-cards');
+  const statusEl = document.getElementById('dash-status-breakdown');
+  const catEl = document.getElementById('dash-cat-breakdown');
+  const recoEl = document.getElementById('dash-recos');
+
+  if (!currentUser) {
+    cardsEl.innerHTML = '';
+    statusEl.innerHTML = '';
+    catEl.innerHTML = '';
+    recoEl.innerHTML = '<p class="empty-state">Inicia sesión para ver tu dashboard.</p>';
+    return;
+  }
+
+  const total = goalsCache.length;
+  const cumplido = goalsCache.filter(g => (g.status || (g.completed?'cumplido':'pendiente')) === 'cumplido').length;
+  const proceso = goalsCache.filter(g => (g.status || 'pendiente') === 'proceso').length;
+  const pendiente = goalsCache.filter(g => (g.status || 'pendiente') === 'pendiente').length;
+  const pct = total ? Math.round((cumplido/total)*100) : 0;
+
+  cardsEl.innerHTML = `
+    <div class="dash-card"><div class="num">${total}</div><div class="lbl">Tareas registradas</div></div>
+    <div class="dash-card"><div class="num">${pct}%</div><div class="lbl">Cumplimiento general</div></div>
+    <div class="dash-card"><div class="num">${proceso}</div><div class="lbl">En proceso ahora</div></div>
+    <div class="dash-card"><div class="num">${pendiente}</div><div class="lbl">Pendientes sin arrancar</div></div>
+  `;
+
+  const statusCounts = { pendiente:0, inicio:0, proceso:0, cumplido:0 };
+  goalsCache.forEach(g => { const s = g.status || (g.completed?'cumplido':'pendiente'); statusCounts[s] = (statusCounts[s]||0) + 1; });
+  statusEl.innerHTML = STATUS_ORDER.map(s => {
+    const v = statusCounts[s] || 0;
+    const p = total ? Math.round((v/total)*100) : 0;
+    return `<div class="breakdown-row"><span class="lbl">${STATUS_LABEL[s]}</span><div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width:${p}%;"></div></div><span class="val">${v}</span></div>`;
+  }).join('');
+
+  const catCounts = {};
+  goalsCache.forEach(g => { const c = g.category || 'General'; catCounts[c] = (catCounts[c]||0) + 1; });
+  const catEntries = Object.entries(catCounts).sort((a,b) => b[1]-a[1]);
+  const maxCat = catEntries.length ? catEntries[0][1] : 1;
+  catEl.innerHTML = catEntries.length
+    ? catEntries.map(([cat, v]) => `<div class="breakdown-row"><span class="lbl">${escapeHtml(cat)}</span><div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width:${Math.round((v/maxCat)*100)}%;"></div></div><span class="val">${v}</span></div>`).join('')
+    : '<p class="empty-state">Sin datos todavía.</p>';
+
+  recoEl.innerHTML = buildRecomendaciones(catEntries, statusCounts, total).map(r =>
+    `<div class="reco-item"><span class="reco-ico">${r.icon}</span><span>${r.text}</span></div>`
+  ).join('');
+
+  loadReflection();
+}
+
+function buildRecomendaciones(catEntries, statusCounts, total){
+  const recos = [];
+  if (total === 0) {
+    return [{ icon:'✨', text:'Todavía no tienes tareas registradas — agrega tus pendientes desde "Hoy" para que el dashboard empiece a darte recomendaciones reales.' }];
+  }
+  if (statusCounts.pendiente > statusCounts.cumplido) {
+    recos.push({ icon:'⚠️', text:`Tienes ${statusCounts.pendiente} tareas que ni siquiera has arrancado. Elige máximo 3 para hoy y muévelas a "Inicio" antes de agregar una nueva.` });
+  }
+  if (catEntries.length) {
+    const [topCat, topCount] = catEntries[0];
+    recos.push({ icon:'⏳', text:`La categoría "${topCat}" concentra ${topCount} de tus ${total} tareas — revisa si de verdad necesitas tantos frentes ahí o si conviene agrupar/delegar.` });
+  }
+  if (statusCounts.proceso > 4) {
+    recos.push({ icon:'🎯', text:`Tienes ${statusCounts.proceso} tareas "en proceso" al mismo tiempo. Cierra al menos una antes de abrir la siguiente — el multitasking real no existe.` });
+  }
+  if (recos.length < 3) {
+    recos.push({ icon:'📌', text:'Usa los recordatorios con fecha y hora en tus tareas críticas (pagos, facturas, citas) y expórtalos a tu calendario o WhatsApp para no depender solo de la app abierta.' });
+  }
+  return recos.slice(0, 3);
+}
+
+/* Reflexión semanal — un documento por semana (lunes de esa semana como id) */
+function weekIdFor(d = new Date()){
+  const day = d.getDay();
+  const diffToMonday = (day === 0 ? -6 : 1) - day;
+  const monday = new Date(d);
+  monday.setDate(d.getDate() + diffToMonday);
+  return todayStr(monday);
+}
+function reflectionRef(){
+  return db.collection('users').doc(currentUser.uid).collection('reflections').doc(weekIdFor());
+}
+async function loadReflection(){
+  const input = document.getElementById('dash-reflect-input');
+  const note = document.getElementById('dash-reflect-note');
+  try {
+    const doc = await reflectionRef().get();
+    if (doc.exists) {
+      input.value = doc.data().text || '';
+      note.textContent = 'Última actualización de esta semana guardada.';
+    } else {
+      input.value = '';
+      note.textContent = '';
+    }
+  } catch (e) { /* noop */ }
+}
+document.getElementById('dash-reflect-save').onclick = async () => {
+  if (!currentUser) { authDropdown.classList.remove('hidden'); return; }
+  const input = document.getElementById('dash-reflect-input');
+  const note = document.getElementById('dash-reflect-note');
+  await reflectionRef().set({ text: input.value, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+  note.textContent = 'Guardado ✓';
+};
+
+function renderAll(){
+  renderHoy();
+  renderCalendar();
+  renderMetas();
+  renderStreak();
+  renderDashboard();
+  refreshNotifBanner();
+  checkDueReminders();
+}
+
+renderAll();
+</script>
+</body>
+</html>

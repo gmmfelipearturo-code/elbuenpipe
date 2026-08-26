@@ -555,14 +555,21 @@ authForm.addEventListener('submit', async (e) => {
 
 document.getElementById('google-signin-btn').onclick = async () => {
   authError.textContent = '';
-  try {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    await auth.signInWithPopup(provider);
-    authDropdown.classList.add('hidden');
-  } catch (err) {
-    authError.textContent = traducirError(err.code);
-  }
+  const provider = new firebase.auth.GoogleAuthProvider();
+  // signInWithRedirect en vez de signInWithPopup: más confiable en GitHub Pages,
+  // donde bloqueadores de popup o restricciones de cookies de terceros del
+  // navegador pueden hacer fallar el popup con "The requested action is invalid".
+  await auth.signInWithRedirect(provider);
 };
+
+// Captura el resultado cuando Google te regresa a la página tras el redirect.
+auth.getRedirectResult().then((result) => {
+  if (result && result.user) {
+    authDropdown.classList.add('hidden');
+  }
+}).catch((err) => {
+  authError.textContent = traducirError(err.code);
+});
 
 function traducirError(code){
   const map = {

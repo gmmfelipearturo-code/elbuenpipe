@@ -375,9 +375,10 @@ section{padding:88px 5%}
 
 /* ═══════════ SOCIAL GLASS BUTTONS ═══════════ */
 .tt-social-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.social-btns-row{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin:0 auto 3rem;max-width:900px}
 .tt-social-btn{
   position:relative;display:inline-flex;align-items:center;gap:.55rem;
-  padding:.6rem 1.15rem .6rem .6rem;border-radius:100px;text-decoration:none;
+  padding:.6rem 1.15rem .6rem .6rem;border-radius:16px;text-decoration:none;
   background:rgba(255,255,255,.06);
   backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
   border:1px solid rgba(255,255,255,.16);
@@ -386,9 +387,14 @@ section{padding:88px 5%}
   overflow:hidden;
 }
 .tt-social-btn::before{
-  content:'';position:absolute;inset:0;border-radius:100px;opacity:0;
+  content:'';position:absolute;inset:0;border-radius:16px;opacity:0;
   transition:opacity .3s;z-index:0;
 }
+/* variante para fondos claros (ej. sección Galería) */
+.social-btns-row.on-light .tt-social-btn{background:rgba(10,20,35,.05);border-color:rgba(10,20,35,.12);box-shadow:0 4px 14px rgba(10,20,35,.08)}
+.social-btns-row.on-light .tt-social-btn:hover{border-color:rgba(10,20,35,.25)}
+.social-btns-row.on-light .tt-social-btn .tt-social-ic{background:rgba(10,20,35,.08)}
+.social-btns-row.on-light .tt-social-btn .tt-social-label{color:#0a1423}
 .tt-social-btn:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(255,255,255,.35)}
 .tt-social-btn:hover::before{opacity:1}
 .tt-social-btn .tt-social-ic{
@@ -413,11 +419,15 @@ section{padding:88px 5%}
 .tt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
 .tt-carousel-wrap{max-width:340px;margin:0 auto}
 
-/* ═══════════ TIKTOK + INSTAGRAM — layout de dos columnas en escritorio ═══════════ */
+/* ═══════════ TIKTOK — carrusel centrado en escritorio ═══════════
+   Nota: el ancho se mantiene acotado (~360px) a propósito, también en escritorio.
+   El iframe oficial de TikTok muestra su propio panel blanco de "me gusta/comentarios"
+   cuando el contenedor es más ancho que ~325px; limitando el ancho forzamos el modo
+   compacto (solo video) y de paso queda centrado. */
 .tt-content-grid{display:block}
 @media(min-width:901px){
-  .tt-content-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:2.5rem;align-items:start}
-  .tt-content-grid .tt-carousel-wrap{max-width:100%;margin:0}
+  .tt-content-grid{display:flex;justify-content:center}
+  .tt-content-grid .tt-carousel-wrap{max-width:360px;margin:0 auto}
 }
 
 /* ═══════════ PANEL INSTAGRAM ═══════════ */
@@ -485,6 +495,24 @@ section{padding:88px 5%}
 .gi-ov{position:absolute;inset:0;background:rgba(255,107,53,.65);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:#fff;font-size:1.8rem}
 .gi:hover .gi-ov{opacity:1}
 .gi.tall{grid-row:span 2}.gi.wide{grid-column:span 2}
+.gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gal-carousel-wrap{max-width:980px;margin:0 auto}
+
+/* ═══════════ LIGHTBOX DE GALERÍA ═══════════ */
+.lightbox-modal{position:fixed;inset:0;background:rgba(5,8,15,.92);display:none;align-items:center;justify-content:center;z-index:9999;padding:2rem;backdrop-filter:blur(4px)}
+.lightbox-modal.open{display:flex}
+.lightbox-modal img{max-width:88vw;max-height:82vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+.lightbox-close{position:absolute;top:1.2rem;right:1.5rem;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.22)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-nav:hover{background:rgba(255,255,255,.22)}
+.lightbox-prev{left:1rem}
+.lightbox-next{right:1rem}
+.lightbox-counter{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:.8rem;font-weight:600;letter-spacing:.5px}
+@media(max-width:600px){
+  .lightbox-nav{width:42px;height:42px;font-size:1.3rem}
+  .lightbox-close{width:38px;height:38px;top:.8rem;right:.8rem}
+}
 .g1{background:linear-gradient(135deg,#FF6B35,#FF4757)}
 .g2{background:linear-gradient(135deg,#1E90FF,#0A3D62)}
 .g3{background:linear-gradient(135deg,#A8E063,#4CAF50)}
@@ -987,26 +1015,26 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
       <h2 class="sec-title" style="color:#fff">EN TIKTOK</h2>
       <p class="sec-sub">Los mejores momentos de nuestros viajes — en video.</p>
     </div>
-    <div class="tt-social-row">
-      <a href="https://www.tiktok.com/@travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn tiktok" aria-label="TikTok Travel Friend Ship">
-        <span class="tt-social-ic">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
-        </span>
-        <span class="tt-social-label">TikTok</span>
-      </a>
-      <a href="https://www.instagram.com/travelfriendship.mx/" target="_blank" rel="noopener" class="tt-social-btn instagram" aria-label="Instagram Travel Friend Ship">
-        <span class="tt-social-ic">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="#fff" stroke="none"/></svg>
-        </span>
-        <span class="tt-social-label">Instagram</span>
-      </a>
-      <a href="https://www.facebook.com/travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn facebook" aria-label="Facebook Travel Friend Ship">
-        <span class="tt-social-ic">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.44C16.2 4.4 15.3 4.3 14.26 4.3c-2.19 0-3.68 1.34-3.68 3.79v2.35H8.02v2.96h2.56V21h2.92z"/></svg>
-        </span>
-        <span class="tt-social-label">Facebook</span>
-      </a>
-    </div>
+  </div>
+  <div class="social-btns-row">
+    <a href="https://www.tiktok.com/@travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn tiktok" aria-label="TikTok Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+      </span>
+      <span class="tt-social-label">TikTok</span>
+    </a>
+    <a href="https://www.instagram.com/travelfriendship.mx/" target="_blank" rel="noopener" class="tt-social-btn instagram" aria-label="Instagram Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="#fff" stroke="none"/></svg>
+      </span>
+      <span class="tt-social-label">Instagram</span>
+    </a>
+    <a href="https://www.facebook.com/travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn facebook" aria-label="Facebook Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.44C16.2 4.4 15.3 4.3 14.26 4.3c-2.19 0-3.68 1.34-3.68 3.79v2.35H8.02v2.96h2.56V21h2.92z"/></svg>
+      </span>
+      <span class="tt-social-label">Facebook</span>
+    </a>
   </div>
   <div class="tt-content-grid">
   <div class="carousel-wrap tt-carousel-wrap">
@@ -1094,15 +1122,79 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
   <div class="sec-eyebrow">📷 Momentos reales</div>
   <h2 class="sec-title">GALERÍA DE<br>NUESTROS TOURS</h2>
   <p class="sec-sub">Imágenes capturadas durante nuestras aventuras. Cada foto, una historia.</p>
-  <div class="gallery-grid">
-    <div class="gi g1 tall"><span>🏔️</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g2"><span>🌅</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g3"><span>🌸</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g4 wide"><span>🎊</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g5"><span>🍹</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g6 tall"><span>🌊</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g7"><span>🏛️</span><div class="gi-ov">🔍</div></div>
-    <div class="gi g8 wide"><span>🎭</span><div class="gi-ov">🔍</div></div>
+  <div class="social-btns-row on-light">
+    <a href="https://www.tiktok.com/@travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn tiktok" aria-label="TikTok Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#0a1423"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+      </span>
+      <span class="tt-social-label">TikTok</span>
+    </a>
+    <a href="https://www.instagram.com/travelfriendship.mx/" target="_blank" rel="noopener" class="tt-social-btn instagram" aria-label="Instagram Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#0a1423" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="#0a1423" stroke="none"/></svg>
+      </span>
+      <span class="tt-social-label">Instagram</span>
+    </a>
+    <a href="https://www.facebook.com/travelfriendship.mx" target="_blank" rel="noopener" class="tt-social-btn facebook" aria-label="Facebook Travel Friend Ship">
+      <span class="tt-social-ic">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#0a1423"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.44C16.2 4.4 15.3 4.3 14.26 4.3c-2.19 0-3.68 1.34-3.68 3.79v2.35H8.02v2.96h2.56V21h2.92z"/></svg>
+      </span>
+      <span class="tt-social-label">Facebook</span>
+    </a>
+  </div>
+  <div class="gal-carousel-wrap">
+  <div class="carousel-wrap" id="galCarouselWrap">
+    <div class="carousel-track" id="galleryTrack">
+      <div class="cs active">
+      <div class="gallery-grid">
+        <div class="gi tall"><img src="https://i.ibb.co/v4Qdqd5G/4951774281142570030-119.jpg" alt="Foto del tour 1" loading="lazy" data-idx="0" onclick="openLightbox(0)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/ynJwLLLg/4951774281142570031-119.jpg" alt="Foto del tour 2" loading="lazy" data-idx="1" onclick="openLightbox(1)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/F2Y8NKT/4951774281142570029-119.jpg" alt="Foto del tour 3" loading="lazy" data-idx="2" onclick="openLightbox(2)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/Q7BnNpvk/4951774281142570028-119.jpg" alt="Foto del tour 4" loading="lazy" data-idx="3" onclick="openLightbox(3)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/hx3rVVf6/4951774281142570026-119.jpg" alt="Foto del tour 5" loading="lazy" data-idx="4" onclick="openLightbox(4)"><div class="gi-ov">🔍</div></div>
+        <div class="gi tall"><img src="https://i.ibb.co/pB5LYFNb/4951774281142570024-119.jpg" alt="Foto del tour 6" loading="lazy" data-idx="5" onclick="openLightbox(5)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/zWGDmGYf/4951774281142570025-119.jpg" alt="Foto del tour 7" loading="lazy" data-idx="6" onclick="openLightbox(6)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/xSpjWd7N/4951774281142570049-119.jpg" alt="Foto del tour 8" loading="lazy" data-idx="7" onclick="openLightbox(7)"><div class="gi-ov">🔍</div></div>
+      </div>
+      </div>
+      <div class="cs">
+      <div class="gallery-grid">
+        <div class="gi tall"><img src="https://i.ibb.co/DDtq7YzV/4951774281142570050-121.jpg" alt="Foto del tour 9" loading="lazy" data-idx="8" onclick="openLightbox(8)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/Kj6nRXwC/4951774281142570048-119.jpg" alt="Foto del tour 10" loading="lazy" data-idx="9" onclick="openLightbox(9)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/fz8cwfmM/4951774281142570047-119.jpg" alt="Foto del tour 11" loading="lazy" data-idx="10" onclick="openLightbox(10)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/6cyqRx0p/4951774281142570046-119.jpg" alt="Foto del tour 12" loading="lazy" data-idx="11" onclick="openLightbox(11)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/pr3g9YS6/4951774281142570045-119.jpg" alt="Foto del tour 13" loading="lazy" data-idx="12" onclick="openLightbox(12)"><div class="gi-ov">🔍</div></div>
+        <div class="gi tall"><img src="https://i.ibb.co/3YrfcdD7/4951774281142570044-119.jpg" alt="Foto del tour 14" loading="lazy" data-idx="13" onclick="openLightbox(13)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/SwT7Yvsk/4951774281142570043-119.jpg" alt="Foto del tour 15" loading="lazy" data-idx="14" onclick="openLightbox(14)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/tTc6f05s/4951774281142570042-119.jpg" alt="Foto del tour 16" loading="lazy" data-idx="15" onclick="openLightbox(15)"><div class="gi-ov">🔍</div></div>
+      </div>
+      </div>
+      <div class="cs">
+      <div class="gallery-grid">
+        <div class="gi tall"><img src="https://i.ibb.co/C3t9PSLp/4951774281142570041-119.jpg" alt="Foto del tour 17" loading="lazy" data-idx="16" onclick="openLightbox(16)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/Ps7gDS8K/4951774281142570040-119.jpg" alt="Foto del tour 18" loading="lazy" data-idx="17" onclick="openLightbox(17)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/prxp2vVP/4951774281142570039-119.jpg" alt="Foto del tour 19" loading="lazy" data-idx="18" onclick="openLightbox(18)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/tT9LvThL/4951774281142570038-119.jpg" alt="Foto del tour 20" loading="lazy" data-idx="19" onclick="openLightbox(19)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/yBgN4D93/4951774281142570037-119.jpg" alt="Foto del tour 21" loading="lazy" data-idx="20" onclick="openLightbox(20)"><div class="gi-ov">🔍</div></div>
+        <div class="gi tall"><img src="https://i.ibb.co/GNYMJjz/4951774281142570036-121.jpg" alt="Foto del tour 22" loading="lazy" data-idx="21" onclick="openLightbox(21)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/wNvz73pF/4951774281142570034-119.jpg" alt="Foto del tour 23" loading="lazy" data-idx="22" onclick="openLightbox(22)"><div class="gi-ov">🔍</div></div>
+        <div class="gi wide"><img src="https://i.ibb.co/BKj8cBps/4951774281142570035-120.jpg" alt="Foto del tour 24" loading="lazy" data-idx="23" onclick="openLightbox(23)"><div class="gi-ov">🔍</div></div>
+      </div>
+      </div>
+      <div class="cs">
+      <div class="gallery-grid">
+        <div class="gi tall"><img src="https://i.ibb.co/bMyw9hLf/4951774281142570033-119.jpg" alt="Foto del tour 25" loading="lazy" data-idx="24" onclick="openLightbox(24)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/8DtvsyVn/4951774281142570032-121.jpg" alt="Foto del tour 26" loading="lazy" data-idx="25" onclick="openLightbox(25)"><div class="gi-ov">🔍</div></div>
+      </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="cb" id="galleryPrev" aria-label="Anterior">‹</button>
+      <div class="cdots" id="galleryDots"></div>
+      <button class="cb" id="galleryNext" aria-label="Siguiente">›</button>
+    </div>
+    <button class="cpause" id="galleryPause">⏸ Pausar</button>
+  </div>
   </div>
 </section>
 
@@ -1547,6 +1639,40 @@ var toursCarousel=initCarousel({track:'toursTrack',dots:'toursDots',prev:'toursP
 var visitadosCarousel=initCarousel({track:'visitadosTrack',dots:'visitadosDots',prev:'visitadosPrev',next:'visitadosNext',pause:'visitadosPause',interval:2500});
 var tiktokCarousel=initCarousel({track:'tiktokTrack',dots:'tiktokDots',prev:'tiktokPrev',next:'tiktokNext',pause:'tiktokPause',interval:4200});
 var testiCarousel=initCarousel({track:'carouselTrack',dots:'carouselDots',prev:'carouselPrev',next:'carouselNext',pause:'carouselPause',interval:3500});
+var galleryCarousel=initCarousel({track:'galleryTrack',dots:'galleryDots',prev:'galleryPrev',next:'galleryNext',pause:'galleryPause',interval:4500});
+
+// ── Lightbox de galería ──
+var galleryPhotos=["https://i.ibb.co/v4Qdqd5G/4951774281142570030-119.jpg","https://i.ibb.co/ynJwLLLg/4951774281142570031-119.jpg","https://i.ibb.co/F2Y8NKT/4951774281142570029-119.jpg","https://i.ibb.co/Q7BnNpvk/4951774281142570028-119.jpg","https://i.ibb.co/hx3rVVf6/4951774281142570026-119.jpg","https://i.ibb.co/pB5LYFNb/4951774281142570024-119.jpg","https://i.ibb.co/zWGDmGYf/4951774281142570025-119.jpg","https://i.ibb.co/xSpjWd7N/4951774281142570049-119.jpg","https://i.ibb.co/DDtq7YzV/4951774281142570050-121.jpg","https://i.ibb.co/Kj6nRXwC/4951774281142570048-119.jpg","https://i.ibb.co/fz8cwfmM/4951774281142570047-119.jpg","https://i.ibb.co/6cyqRx0p/4951774281142570046-119.jpg","https://i.ibb.co/pr3g9YS6/4951774281142570045-119.jpg","https://i.ibb.co/3YrfcdD7/4951774281142570044-119.jpg","https://i.ibb.co/SwT7Yvsk/4951774281142570043-119.jpg","https://i.ibb.co/tTc6f05s/4951774281142570042-119.jpg","https://i.ibb.co/C3t9PSLp/4951774281142570041-119.jpg","https://i.ibb.co/Ps7gDS8K/4951774281142570040-119.jpg","https://i.ibb.co/prxp2vVP/4951774281142570039-119.jpg","https://i.ibb.co/tT9LvThL/4951774281142570038-119.jpg","https://i.ibb.co/yBgN4D93/4951774281142570037-119.jpg","https://i.ibb.co/GNYMJjz/4951774281142570036-121.jpg","https://i.ibb.co/wNvz73pF/4951774281142570034-119.jpg","https://i.ibb.co/BKj8cBps/4951774281142570035-120.jpg","https://i.ibb.co/bMyw9hLf/4951774281142570033-119.jpg","https://i.ibb.co/8DtvsyVn/4951774281142570032-121.jpg"];
+var lbIdx=0;
+var lbModal=document.getElementById('lightboxModal');
+var lbImg=document.getElementById('lightboxImg');
+var lbCounter=document.getElementById('lightboxCounter');
+function openLightbox(i){
+  lbIdx=i;
+  updateLightbox();
+  lbModal.classList.add('open');
+  document.body.style.overflow='hidden';
+  if(galleryCarousel)galleryCarousel.stopA();
+}
+function closeLightbox(){
+  lbModal.classList.remove('open');
+  document.body.style.overflow='';
+}
+function lbNext(){lbIdx=(lbIdx+1)%galleryPhotos.length;updateLightbox();}
+function lbPrev(){lbIdx=(lbIdx-1+galleryPhotos.length)%galleryPhotos.length;updateLightbox();}
+function updateLightbox(){
+  lbImg.src=galleryPhotos[lbIdx];
+  if(lbCounter)lbCounter.textContent=(lbIdx+1)+' / '+galleryPhotos.length;
+}
+if(lbModal){
+  lbModal.addEventListener('click',function(e){if(e.target===lbModal)closeLightbox();});
+  document.addEventListener('keydown',function(e){
+    if(!lbModal.classList.contains('open'))return;
+    if(e.key==='Escape')closeLightbox();
+    if(e.key==='ArrowRight')lbNext();
+    if(e.key==='ArrowLeft')lbPrev();
+  });
+}
 
 // ── Filtro por mes ──
 (function(){
@@ -1577,5 +1703,14 @@ var testiCarousel=initCarousel({track:'carouselTrack',dots:'carouselDots',prev:'
   },{passive:true});
 })();
 </script>
+<!-- ══ LIGHTBOX GALERÍA ══ -->
+<div class="lightbox-modal" id="lightboxModal">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lbPrev()" aria-label="Foto anterior">‹</button>
+  <img id="lightboxImg" src="" alt="Foto del tour ampliada">
+  <button class="lightbox-nav lightbox-next" onclick="lbNext()" aria-label="Foto siguiente">›</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
 </body>
 </html>

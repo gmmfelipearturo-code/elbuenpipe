@@ -489,13 +489,14 @@ section{padding:88px 5%}
 
 /* ═══════════ GALERÍA ═══════════ */
 .gal-sec{background:linear-gradient(135deg,#fff,#f5f9ff)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:10px;border-radius:20px;overflow:hidden}
-.gi{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:3rem;transition:transform .3s}
+/* Masonry real: cada foto conserva su proporción (vertical u horizontal),
+   sin recortes ni marcos forzados — el alto de cada celda lo define la propia imagen. */
+.gallery-grid{columns:4 200px;column-gap:10px}
+.gi{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 10px;border-radius:10px;overflow:hidden;position:relative;cursor:pointer;transition:transform .3s;line-height:0}
 .gi:hover{transform:scale(.98)}
 .gi-ov{position:absolute;inset:0;background:rgba(255,107,53,.65);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:#fff;font-size:1.8rem}
 .gi:hover .gi-ov{opacity:1}
-.gi.tall{grid-row:span 2}.gi.wide{grid-column:span 2}
-.gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gi img{width:100%;height:auto;display:block}
 .gal-carousel-wrap{max-width:980px;margin:0 auto}
 
 /* ═══════════ LIGHTBOX DE GALERÍA ═══════════ */
@@ -571,8 +572,7 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){
   section{padding:64px 5%}
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .gi.wide{grid-column:span 1}
+  .gallery-grid{columns:2 150px}
   .hero-badge-spin{display:none}
   .hero-stats{gap:1.5rem}
 }
@@ -1147,43 +1147,43 @@ footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-s
     <div class="carousel-track" id="galleryTrack">
       <div class="cs active">
       <div class="gallery-grid">
-        <div class="gi tall"><img src="https://i.ibb.co/v4Qdqd5G/4951774281142570030-119.jpg" alt="Foto del tour 1" loading="lazy" data-idx="0" onclick="openLightbox(0)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/v4Qdqd5G/4951774281142570030-119.jpg" alt="Foto del tour 1" loading="lazy" data-idx="0" onclick="openLightbox(0)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/ynJwLLLg/4951774281142570031-119.jpg" alt="Foto del tour 2" loading="lazy" data-idx="1" onclick="openLightbox(1)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/F2Y8NKT/4951774281142570029-119.jpg" alt="Foto del tour 3" loading="lazy" data-idx="2" onclick="openLightbox(2)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/Q7BnNpvk/4951774281142570028-119.jpg" alt="Foto del tour 4" loading="lazy" data-idx="3" onclick="openLightbox(3)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/Q7BnNpvk/4951774281142570028-119.jpg" alt="Foto del tour 4" loading="lazy" data-idx="3" onclick="openLightbox(3)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/hx3rVVf6/4951774281142570026-119.jpg" alt="Foto del tour 5" loading="lazy" data-idx="4" onclick="openLightbox(4)"><div class="gi-ov">🔍</div></div>
-        <div class="gi tall"><img src="https://i.ibb.co/pB5LYFNb/4951774281142570024-119.jpg" alt="Foto del tour 6" loading="lazy" data-idx="5" onclick="openLightbox(5)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/pB5LYFNb/4951774281142570024-119.jpg" alt="Foto del tour 6" loading="lazy" data-idx="5" onclick="openLightbox(5)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/zWGDmGYf/4951774281142570025-119.jpg" alt="Foto del tour 7" loading="lazy" data-idx="6" onclick="openLightbox(6)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/xSpjWd7N/4951774281142570049-119.jpg" alt="Foto del tour 8" loading="lazy" data-idx="7" onclick="openLightbox(7)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/xSpjWd7N/4951774281142570049-119.jpg" alt="Foto del tour 8" loading="lazy" data-idx="7" onclick="openLightbox(7)"><div class="gi-ov">🔍</div></div>
       </div>
       </div>
       <div class="cs">
       <div class="gallery-grid">
-        <div class="gi tall"><img src="https://i.ibb.co/DDtq7YzV/4951774281142570050-121.jpg" alt="Foto del tour 9" loading="lazy" data-idx="8" onclick="openLightbox(8)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/DDtq7YzV/4951774281142570050-121.jpg" alt="Foto del tour 9" loading="lazy" data-idx="8" onclick="openLightbox(8)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/Kj6nRXwC/4951774281142570048-119.jpg" alt="Foto del tour 10" loading="lazy" data-idx="9" onclick="openLightbox(9)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/fz8cwfmM/4951774281142570047-119.jpg" alt="Foto del tour 11" loading="lazy" data-idx="10" onclick="openLightbox(10)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/6cyqRx0p/4951774281142570046-119.jpg" alt="Foto del tour 12" loading="lazy" data-idx="11" onclick="openLightbox(11)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/6cyqRx0p/4951774281142570046-119.jpg" alt="Foto del tour 12" loading="lazy" data-idx="11" onclick="openLightbox(11)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/pr3g9YS6/4951774281142570045-119.jpg" alt="Foto del tour 13" loading="lazy" data-idx="12" onclick="openLightbox(12)"><div class="gi-ov">🔍</div></div>
-        <div class="gi tall"><img src="https://i.ibb.co/3YrfcdD7/4951774281142570044-119.jpg" alt="Foto del tour 14" loading="lazy" data-idx="13" onclick="openLightbox(13)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/3YrfcdD7/4951774281142570044-119.jpg" alt="Foto del tour 14" loading="lazy" data-idx="13" onclick="openLightbox(13)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/SwT7Yvsk/4951774281142570043-119.jpg" alt="Foto del tour 15" loading="lazy" data-idx="14" onclick="openLightbox(14)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/tTc6f05s/4951774281142570042-119.jpg" alt="Foto del tour 16" loading="lazy" data-idx="15" onclick="openLightbox(15)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/tTc6f05s/4951774281142570042-119.jpg" alt="Foto del tour 16" loading="lazy" data-idx="15" onclick="openLightbox(15)"><div class="gi-ov">🔍</div></div>
       </div>
       </div>
       <div class="cs">
       <div class="gallery-grid">
-        <div class="gi tall"><img src="https://i.ibb.co/C3t9PSLp/4951774281142570041-119.jpg" alt="Foto del tour 17" loading="lazy" data-idx="16" onclick="openLightbox(16)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/C3t9PSLp/4951774281142570041-119.jpg" alt="Foto del tour 17" loading="lazy" data-idx="16" onclick="openLightbox(16)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/Ps7gDS8K/4951774281142570040-119.jpg" alt="Foto del tour 18" loading="lazy" data-idx="17" onclick="openLightbox(17)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/prxp2vVP/4951774281142570039-119.jpg" alt="Foto del tour 19" loading="lazy" data-idx="18" onclick="openLightbox(18)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/tT9LvThL/4951774281142570038-119.jpg" alt="Foto del tour 20" loading="lazy" data-idx="19" onclick="openLightbox(19)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/tT9LvThL/4951774281142570038-119.jpg" alt="Foto del tour 20" loading="lazy" data-idx="19" onclick="openLightbox(19)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/yBgN4D93/4951774281142570037-119.jpg" alt="Foto del tour 21" loading="lazy" data-idx="20" onclick="openLightbox(20)"><div class="gi-ov">🔍</div></div>
-        <div class="gi tall"><img src="https://i.ibb.co/GNYMJjz/4951774281142570036-121.jpg" alt="Foto del tour 22" loading="lazy" data-idx="21" onclick="openLightbox(21)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/GNYMJjz/4951774281142570036-121.jpg" alt="Foto del tour 22" loading="lazy" data-idx="21" onclick="openLightbox(21)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/wNvz73pF/4951774281142570034-119.jpg" alt="Foto del tour 23" loading="lazy" data-idx="22" onclick="openLightbox(22)"><div class="gi-ov">🔍</div></div>
-        <div class="gi wide"><img src="https://i.ibb.co/BKj8cBps/4951774281142570035-120.jpg" alt="Foto del tour 24" loading="lazy" data-idx="23" onclick="openLightbox(23)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/BKj8cBps/4951774281142570035-120.jpg" alt="Foto del tour 24" loading="lazy" data-idx="23" onclick="openLightbox(23)"><div class="gi-ov">🔍</div></div>
       </div>
       </div>
       <div class="cs">
       <div class="gallery-grid">
-        <div class="gi tall"><img src="https://i.ibb.co/bMyw9hLf/4951774281142570033-119.jpg" alt="Foto del tour 25" loading="lazy" data-idx="24" onclick="openLightbox(24)"><div class="gi-ov">🔍</div></div>
+        <div class="gi"><img src="https://i.ibb.co/bMyw9hLf/4951774281142570033-119.jpg" alt="Foto del tour 25" loading="lazy" data-idx="24" onclick="openLightbox(24)"><div class="gi-ov">🔍</div></div>
         <div class="gi"><img src="https://i.ibb.co/8DtvsyVn/4951774281142570032-121.jpg" alt="Foto del tour 26" loading="lazy" data-idx="25" onclick="openLightbox(25)"><div class="gi-ov">🔍</div></div>
       </div>
       </div>

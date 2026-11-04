@@ -3,500 +3,535 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taxco · Itinerario · Travel Friend Ship</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png"/>
-<link rel="apple-touch-icon" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png"/>
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<meta name="theme-color" content="#06182A">
+<title>Taxco · 6 de Diciembre · Itinerario · Travel Friend Ship</title>
+<meta name="description" content="Tour de un día a Taxco, Guerrero. Salida el 6 de diciembre a las 7:00 am desde Ecatepec. Aparta tu lugar por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/v4PGCmPh/logo-tfs2.png">
+<script>document.documentElement.className+=' js';</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Inter',sans-serif;overflow-x:hidden;background:var(--paper);color:var(--ink);min-height:100vh}
+a,button{touch-action:manipulation;cursor:pointer}
+html{scroll-behavior:smooth;overflow-x:hidden;scroll-padding-top:80px}
+body{font-family:'Outfit',system-ui,sans-serif;overflow-x:hidden;min-height:100vh;background:#06182A;color:var(--text);line-height:1.5}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
+/* ═══════════ TOKENS (mismos colores de index.html) ═══════════ */
 :root{
-  --paper:#F3F2EE;--ink:#15141A;--ink-soft:rgba(21,20,26,.62);--ink-faint:rgba(21,20,26,.36);
-  --line:rgba(21,20,26,.14);--line-soft:rgba(21,20,26,.08);
-  --silver:#B9BEC7;--panel:#EAE8E2;--panel-dark:#1B1A20;
-  --accent:#26346B;--accent-2:#4A5FA5;--wa:#25D366;
-  --white:#fff;
+  --fire:#FF6B35;--coral:#FF4757;--sky:#1E90FF;--ocean:#0A3D62;--lime:#A8E063;--gold:#FFD700;--wa:#25D366;--wa-d:#128C3A;
+  --abyss:#06182A;--night:#0B2540;--cream:#FFF4E2;--sand:#FFE3BF;--ink:#2a1d14;
+  --text:#EAF2FA;--soft:rgba(234,242,250,.7);--faint:rgba(234,242,250,.45);
+  --line:rgba(255,255,255,.13);--glass:rgba(255,255,255,.055);
+  --nav-h:66px;
+  --cobble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='52'%3E%3Crect width='84' height='52' fill='%2321140f'/%3E%3Crect x='2' y='2' width='36' height='22' rx='8' fill='%23564438'/%3E%3Crect x='42' y='2' width='38' height='22' rx='8' fill='%23634e40'/%3E%3Crect x='-18' y='28' width='36' height='22' rx='8' fill='%234a3b31'/%3E%3Crect x='22' y='28' width='38' height='22' rx='8' fill='%23564438'/%3E%3Crect x='64' y='28' width='36' height='22' rx='8' fill='%23634e40'/%3E%3C/svg%3E");
 }
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
-/* ── PROGRESS BAR ── */
-#pgbar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;width:0%;pointer-events:none;transition:width .1s}
+/* ═══════════ PROGRESO ═══════════ */
+#pgbar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--fire),var(--coral),var(--sky),var(--lime));z-index:10001;width:0%;pointer-events:none;transition:width .1s}
 
-/* ── NAV ── */
-nav#main-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;
-  padding:0 6%;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(243,242,238,.86);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line-soft);
-}
-.nav-logo{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;letter-spacing:.5px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.55rem}
-.nav-logo-img{height:26px;width:26px;object-fit:contain;border-radius:50%;flex-shrink:0}
-.nav-links{display:flex;gap:0;list-style:none;align-items:center}
-.nav-links li{position:relative}
-.nav-links a{color:var(--ink-soft);text-decoration:none;font-size:.78rem;letter-spacing:.3px;font-weight:500;transition:color .2s;padding:.5rem .9rem;display:flex;align-items:center;gap:.45rem}
-.nav-links a:hover,.nav-links a.active{color:var(--ink)}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0;transform:scale(.4);transition:opacity .25s,transform .25s}
-.nav-links a.active .nav-dot{opacity:1;transform:scale(1)}
-.nav-pay-btn{background:var(--ink);color:var(--paper);font-size:.74rem;font-weight:600;letter-spacing:.3px;padding:.6rem 1.2rem;text-decoration:none;transition:background .2s,transform .2s;border-radius:2px}
-.nav-pay-btn:hover{background:var(--accent);transform:translateY(-1px)}
-
-/* ── MOB NAV ── */
-.mob-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:1000;height:56px;background:var(--paper);border-bottom:1px solid var(--line-soft);padding:0 16px;align-items:center;justify-content:space-between}
-.mn-logo{font-family:'Fraunces',serif;font-size:.95rem;font-weight:600;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
-.mn-logo-img{height:26px;width:26px;object-fit:contain;border-radius:50%}
-.mn-pay{background:var(--ink);color:var(--paper);font-size:.72rem;font-weight:600;padding:.5rem .95rem;text-decoration:none;border-radius:2px}
+/* ═══════════ NAV ═══════════ */
+nav#main-nav{position:fixed;top:4px;left:0;right:0;z-index:1000;height:var(--nav-h);padding:0 5%;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,24,42,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+nav#main-nav.scrolled{border-bottom-color:rgba(255,215,0,.28);box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:.55rem;white-space:nowrap}
+.nav-logo img{height:34px;width:auto;display:block}
+.nav-logo span{color:var(--fire)}.nav-logo em{color:var(--lime);font-style:normal}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
+.nav-links a{color:rgba(255,255,255,.78);text-decoration:none;font-size:.88rem;font-weight:500;position:relative;transition:color .2s;padding:.3rem 0}
+.nav-links a::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1.5px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.btn-fire{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:linear-gradient(135deg,var(--fire),var(--coral));color:#fff;font-weight:700;font-size:.86rem;padding:.7rem 1.4rem;border-radius:100px;text-decoration:none;border:0;box-shadow:0 6px 22px rgba(255,107,53,.38);transition:transform .2s,box-shadow .2s;min-height:44px;font-family:inherit}
+.btn-fire:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,107,53,.5)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:rgba(255,255,255,.07);color:#fff;font-weight:600;font-size:.86rem;padding:.7rem 1.4rem;border-radius:100px;text-decoration:none;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);transition:background .2s,transform .2s,border-color .2s;min-height:44px;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,.14);border-color:var(--gold);transform:translateY(-2px)}
+.mob-nav{display:none}
 @media(max-width:768px){
-  .mob-nav{display:flex}
   nav#main-nav{display:none}
-  body{padding-top:56px}
+  .mob-nav{display:flex;position:fixed;top:4px;left:0;right:0;z-index:1000;height:56px;padding:0 16px;align-items:center;justify-content:space-between;background:rgba(6,24,42,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .mob-nav .nav-logo{font-size:1.25rem;letter-spacing:2px}.mob-nav .nav-logo img{height:28px}
+  .mob-nav .btn-fire{padding:.5rem 1.05rem;font-size:.78rem;min-height:40px}
+  body{padding-bottom:72px}
 }
 
-/* ── HERO ── */
-.hero{
-  min-height:88vh;position:relative;background:var(--paper);
-  display:flex;flex-direction:column;justify-content:center;
-  overflow:hidden;padding:150px 6% 40px;
-}
-.hero-line-art{position:absolute;inset:-6% -4%;pointer-events:none;z-index:0;opacity:.55;will-change:transform}
-.hero-line-art svg{width:100%;height:100%}
-.hero-line-art path{transition:transform .4s cubic-bezier(.2,.7,.2,1)}
-/* Dynamic background: on devices without a hover/mouse (phones, tablets) the
-   silhouette drifts continuously on its own instead of relying on mousemove,
-   so the hero still feels alive on mobile. Desktop keeps the JS parallax. */
-@media(hover:none){
-  .hero-line-art path{transition:none}
-  #mtn1{animation:driftMtn1 15s ease-in-out infinite}
-  #mtn2{animation:driftMtn2 19s ease-in-out infinite}
-}
-@keyframes driftMtn1{0%,100%{transform:translateX(-16px)}50%{transform:translateX(16px)}}
-@keyframes driftMtn2{0%,100%{transform:translateX(12px)}50%{transform:translateX(-12px)}}
-.hero-grid{position:relative;z-index:2;max-width:1080px;margin:0 auto;width:100%;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:end}
-.hero-index{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-faint);letter-spacing:2px;writing-mode:vertical-rl;text-transform:uppercase}
-.hero-eyebrow{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.4rem}
-.hero-eyebrow::before{content:'';width:26px;height:1px;background:var(--accent)}
-.hero h1{font-family:'Fraunces',serif;font-optical-sizing:auto;font-weight:600;font-size:clamp(3.2rem,10vw,7.5rem);color:var(--ink);line-height:.86;letter-spacing:-.02em}
-.hero h1 em{font-style:italic;font-weight:400;color:var(--accent)}
-.hero-sub{font-size:clamp(.95rem,1.6vw,1.1rem);color:var(--ink-soft);margin:1.3rem 0 1.9rem;max-width:460px;line-height:1.55}
-.hero-meta{display:flex;gap:2.2rem;flex-wrap:wrap;margin-bottom:2rem;font-family:'IBM Plex Mono',monospace}
-.hero-meta div{display:flex;flex-direction:column;gap:.25rem}
-.hero-meta span:first-child{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-faint)}
-.hero-meta span:last-child{font-size:.92rem;color:var(--ink)}
+/* ═══════════ HERO — Taxco amanece ═══════════ */
+@keyframes skyShift{0%{background-position:0% 0%}100%{background-position:0% 100%}}
+@keyframes sunRise{0%{transform:translateY(46%);opacity:.45}100%{transform:translateY(-14%);opacity:1}}
+@keyframes cloudDrift{0%{transform:translateX(-30vw)}100%{transform:translateX(130vw)}}
+@keyframes ridgeDrift{0%,100%{transform:translateX(-14px)}50%{transform:translateX(14px)}}
+@keyframes winGlow{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes sheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes drive{from{transform:translateX(-300px)}to{transform:translateX(calc(100vw + 80px))}}
+@keyframes driveRev{from{transform:translateX(calc(100vw + 80px))}to{transform:translateX(-300px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes headGlow{0%,100%{opacity:.25}50%{opacity:.6}}
+
+.hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;
+  padding:calc(var(--nav-h) + 56px) 5% 0;
+  background:linear-gradient(180deg,#04122a 0%,#0A3D62 26%,#2C6E9E 46%,#FF8A4C 68%,#FFC27A 86%,#FFE7B5 100%);
+  background-size:100% 280%;animation:skyShift 38s ease-in-out infinite alternate}
+.sun{position:absolute;right:20%;bottom:30%;width:min(30vw,280px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#FFF6CF 0%,#FFD36B 34%,rgba(255,107,53,.38) 60%,transparent 72%);animation:sunRise 38s ease-in-out infinite alternate;z-index:0}
+.cloud{position:absolute;height:54px;width:280px;border-radius:50%;background:rgba(255,255,255,.14);filter:blur(16px);z-index:0;animation:cloudDrift 70s linear infinite}
+.cloud.c1{top:22%;animation-delay:-12s}.cloud.c2{top:34%;width:340px;animation-duration:95s;animation-delay:-48s;opacity:.7}
+.scene{position:absolute;left:0;right:0;bottom:0;height:min(72vh,640px);z-index:1}
+.scene-svg{width:100%;height:100%;display:block}
+.far1{animation:ridgeDrift 26s ease-in-out infinite}.far2{animation:ridgeDrift 34s ease-in-out infinite reverse}
+.lw{fill:#FFD27A;animation:winGlow 5s ease-in-out infinite}
+.hero-shade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(4,18,36,.78) 0%,rgba(4,18,36,.46) 42%,rgba(4,18,36,0) 72%),linear-gradient(180deg,rgba(4,18,36,.35),transparent 30%)}
+.hero-grid{position:relative;z-index:4;max-width:1180px;width:100%;margin:0 auto;padding-bottom:150px}
+.hero-copy{max-width:600px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.82rem;font-weight:600;color:var(--gold);letter-spacing:.4px;padding:.4rem .95rem;border:1px solid rgba(255,215,0,.4);border-radius:100px;background:rgba(6,24,42,.4);backdrop-filter:blur(8px);margin-bottom:1.3rem}
+.hero h1{display:inline-block;padding:0 .06em .04em 0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(5rem,17vw,11rem);line-height:.82;letter-spacing:.02em;
+  background:linear-gradient(100deg,#fff 0%,#FFE9A8 30%,var(--gold) 48%,var(--fire) 70%,#fff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sheen 9s linear infinite;filter:drop-shadow(0 6px 24px rgba(0,0,0,.35))}
+.hero-tag{font-family:'Caveat',cursive;font-size:clamp(1.9rem,4.4vw,2.8rem);color:var(--gold);margin:.3rem 0 .9rem;text-shadow:0 2px 14px rgba(0,0,0,.45);line-height:1}
+.hero-sub{font-size:clamp(.98rem,1.7vw,1.12rem);color:rgba(255,255,255,.88);max-width:470px;margin-bottom:1.6rem;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.8rem}
+.hm{background:rgba(6,24,42,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:.7rem 1rem;min-width:150px}
+.hm b{display:block;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.6rem;letter-spacing:1px;color:#fff;line-height:1.05}
+.hm span{font-size:.76rem;color:var(--soft)}
 .hero-btns{display:flex;gap:.7rem;flex-wrap:wrap}
-@media(max-width:640px){.hero-grid{grid-template-columns:1fr}.hero-index{display:none}}
+@media(max-width:768px){
+  .hero{padding-top:calc(56px + 44px)}
+  .hero-grid{padding-bottom:300px}
+  .hm{min-width:0;flex:1 1 140px}
+  .hero-shade{background:linear-gradient(180deg,rgba(4,18,36,.72) 0%,rgba(4,18,36,.4) 55%,rgba(4,18,36,0) 78%)}
+  .sun{right:6%;bottom:36%}
+  .scene{height:340px}
+}
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.82rem;letter-spacing:.2px;padding:.85rem 1.5rem;text-decoration:none;border:1px solid var(--ink);cursor:pointer;transition:all .22s;min-height:46px;border-radius:2px;font-family:'Inter',sans-serif}
-.btn-solid{background:var(--ink);color:var(--paper)}
-.btn-solid:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
-.btn-line{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn-line:hover{border-color:var(--ink);transform:translateY(-2px)}
-.btn-wa{background:var(--wa);color:#fff;border-color:var(--wa)}
-.btn-wa:hover{filter:brightness(1.08);transform:translateY(-2px)}
-.btn-sm{font-size:.72rem;padding:.6rem 1rem;min-height:40px}
-.btn-cal{background:transparent;color:var(--ink);border:1px dashed var(--line)}
-.btn-cal:hover{border-color:var(--accent);color:var(--accent)}
+/* ═══════════ CALLE EMPEDRADA + BOCHOS ═══════════ */
+.street{position:absolute;left:0;right:0;bottom:0;height:112px;z-index:3;overflow:hidden;
+  background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,0) 55%),var(--cobble);background-size:auto,84px 52px;border-top:3px solid #E2CDA8;box-shadow:0 -10px 24px rgba(0,0,0,.28)}
+.street::before{content:'';position:absolute;left:0;right:0;top:0;height:9px;background:repeating-linear-gradient(90deg,#CDB48C 0 46px,#8E7656 46px 50px);opacity:.9}
+.street.slim{position:relative;height:96px;z-index:2}
+.vocho{position:absolute;bottom:14px;left:0;width:176px;animation:drive 30s linear infinite;will-change:transform}
+.vocho.v2{width:132px;bottom:48px;animation-duration:44s;animation-delay:-16s;opacity:.92}
+.vocho.rev{animation-name:driveRev}
+.vocho.rev .vocho-in{transform:scaleX(-1)}
+.vocho-in{animation:bob .5s ease-in-out infinite}
+.vocho-in svg{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.wh{transform-box:fill-box;transform-origin:center;animation:spin .7s linear infinite}
+.hl{animation:headGlow 1.6s ease-in-out infinite}
+.vocho.rev .wh{animation-direction:reverse}
+@media(max-width:768px){.street{height:88px}.vocho{width:128px}.vocho.v2{width:96px;bottom:40px}}
 
-/* ── SECTIONS ── */
-section{padding:100px 6%;position:relative;z-index:1}
-.sec-head{max-width:1080px;margin:0 auto 3rem;display:grid;grid-template-columns:auto 1fr;gap:1.6rem;align-items:start}
-.sec-num{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--ink-faint);padding-top:.35rem}
-.sec-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.9rem,4vw,2.9rem);color:var(--ink);line-height:1;letter-spacing:-.01em}
-.sec-sub{color:var(--ink-soft);font-size:.9rem;line-height:1.65;max-width:480px;margin-top:.7rem}
-.sec-inner{max-width:1080px;margin:0 auto;padding-left:calc(1.6rem + 32px)}
-@media(max-width:640px){.sec-head{grid-template-columns:1fr}.sec-inner{padding-left:0}section{padding:70px 6%}}
+/* ═══════════ SECCIONES ═══════════ */
+@keyframes glowDrift{0%{background-position:0% 0%,100% 100%}100%{background-position:100% 60%,0% 30%}}
+section{position:relative;padding:92px 5%}
+.sec-anim{isolation:isolate}
+.sec-anim::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(42% 55% at 15% 25%,var(--g1,rgba(255,107,53,.2)),transparent 70%),radial-gradient(46% 60% at 85% 75%,var(--g2,rgba(30,144,255,.18)),transparent 70%);
+  background-size:150% 150%;background-repeat:no-repeat;animation:glowDrift 24s ease-in-out infinite alternate}
+.wrap{max-width:1080px;margin:0 auto}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.8rem,7vw,4.6rem);line-height:.95;letter-spacing:1.5px;color:#fff}
+.sec-title i{font-style:normal;color:var(--fire)}
+.sec-sub{color:var(--soft);font-size:1rem;max-width:520px;margin:.9rem 0 2.4rem}
+.sep{position:relative;display:block;height:90px;margin-top:-89px;z-index:3;pointer-events:none;line-height:0}
+.sep svg{width:100%;height:100%;display:block}
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.visible{opacity:1;transform:none}
+@media(max-width:768px){section{padding:68px 5%}}
 
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* info strip */
+.strip{background:var(--abyss);padding:34px 5%}
+.strip-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.cell{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:1.1rem 1.2rem}
+.cell small{display:block;font-size:.78rem;color:var(--faint);margin-bottom:.15rem}
+.cell b{display:block;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:2rem;letter-spacing:1px;color:var(--gold);line-height:1.05}
+.cell span{font-size:.8rem;color:var(--soft)}
+@media(max-width:720px){.strip-grid{grid-template-columns:repeat(2,1fr)}}
 
-/* ── INFO STRIP ── */
-.info-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);max-width:1080px;margin:0 auto}
-.info-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.info-cell{padding:1.5rem 1.2rem;border-left:1px solid var(--line)}
-.info-cell:first-child{border-left:none}
-.info-cell .ic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.5rem}
-.info-cell .ic-val{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;color:var(--ink);line-height:1.1}
-.info-cell .ic-sub{font-size:.72rem;color:var(--ink-soft);margin-top:.2rem}
-@media(max-width:680px){.info-grid{grid-template-columns:repeat(2,1fr)}.info-cell:nth-child(3){border-left:none}}
-
-/* ── ACORDEÓN (usado por Itinerario y Cancelación) ── */
-.acc{max-width:1080px;border-top:1px solid var(--line)}
-.acc-item{border-bottom:1px solid var(--line)}
-.acc-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.3rem .2rem;cursor:pointer}
-.acc-head h3{font-size:.94rem;font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
-.acc-icon{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;color:var(--ink-faint);transition:transform .3s;flex-shrink:0}
-.acc-item.open .acc-icon{transform:rotate(45deg);color:var(--accent)}
+/* itinerario — línea de tiempo */
+.itin{background:linear-gradient(165deg,#0A3D62 0%,#0B2540 48%,#06182A 100%);--g1:rgba(255,107,53,.18);--g2:rgba(30,144,255,.2)}
+.tl{position:relative;padding-left:30px;max-width:860px}
+.tl::before{content:'';position:absolute;left:8px;top:14px;bottom:14px;width:2px;background:linear-gradient(180deg,var(--gold),var(--fire),var(--coral));border-radius:2px;opacity:.75}
+.acc-item{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:18px;margin-bottom:.65rem;transition:background .25s,border-color .25s}
+.acc-item::before{content:'';position:absolute;left:-28px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--abyss);border:2px solid var(--gold);transition:background .25s,box-shadow .25s}
+.acc-item.open{background:rgba(255,255,255,.09);border-color:rgba(255,215,0,.4)}
+.acc-item.open::before{background:var(--gold);box-shadow:0 0 0 6px rgba(255,215,0,.18)}
+.acc-head{width:100%;display:flex;align-items:center;gap:1rem;padding:1.05rem 1.2rem;background:none;border:0;color:inherit;font-family:inherit;text-align:left}
+.t-badge{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:1px;color:var(--gold);min-width:86px;line-height:1}
+.acc-head h3{flex:1;font-size:1rem;font-weight:600;color:#fff}
+.acc-icon{font-size:1.5rem;color:var(--faint);transition:transform .3s,color .3s;line-height:1;flex-shrink:0}
+.acc-item.open .acc-icon{transform:rotate(45deg);color:var(--fire)}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.acc-item.open .acc-body{max-height:900px}
-.acc-body-inner{padding:0 .2rem 1.8rem}
-.itin-time-badge{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--accent);font-weight:600;flex-shrink:0;min-width:64px}
-.itin-actions{display:flex;gap:.7rem;justify-content:flex-start;flex-wrap:wrap;margin-top:2.2rem}
+.acc-item.open .acc-body{max-height:1100px}
+.acc-in{padding:0 1.2rem 1.3rem calc(1.2rem + 86px + 1rem);color:var(--soft);font-size:.94rem}
+.itin-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2rem}
+@media(max-width:560px){.t-badge{min-width:68px;font-size:1.3rem}.acc-in{padding-left:1.2rem}.acc-head{gap:.7rem;padding:.95rem 1rem}}
 
-/* ── INCLUYE ── */
-.inc-list{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);max-width:1080px}
-.inc-item{display:flex;align-items:baseline;gap:.8rem;padding:1rem .2rem;border-bottom:1px solid var(--line-soft);font-size:.88rem;color:var(--ink)}
-.inc-item:nth-child(odd){border-right:1px solid var(--line-soft)}
-.inc-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-faint);flex-shrink:0}
-.inc-note{color:var(--ink-soft);font-size:.78rem;margin-top:1.2rem;max-width:480px}
-@media(max-width:600px){.inc-list{grid-template-columns:1fr}.inc-item:nth-child(odd){border-right:none}}
+/* incluye — muros de cantera */
+.inc{background:var(--cream);color:var(--ink);--g1:rgba(255,107,53,.16);--g2:rgba(255,215,0,.22)}
+.inc .sec-title{color:var(--ocean)}.inc .sec-sub{color:rgba(42,29,20,.72)}
+.inc-list{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.inc-item{display:flex;align-items:center;gap:.9rem;background:#fff;border-radius:18px;padding:1rem 1.2rem;font-weight:500;font-size:.96rem;box-shadow:0 8px 24px rgba(120,70,20,.1);border:1px solid rgba(255,107,53,.12)}
+.inc-ck{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--fire),var(--gold));display:flex;align-items:center;justify-content:center;color:#fff}
+.inc-ck svg{width:17px;height:17px}
+.inc-note{font-size:.84rem;color:rgba(42,29,20,.65);margin-top:1.1rem}
+.inc .btn-fire{margin-top:1.6rem}
+@media(max-width:640px){.inc-list{grid-template-columns:1fr}}
 
-/* ── PAGO ── */
-.pago-sec{background:var(--panel-dark);color:var(--paper)}
-.pago-sec .sec-title,.pago-sec .sec-num{color:var(--paper)}
-.pago-sec .sec-sub{color:rgba(243,242,238,.55)}
-.pay-toggle{display:inline-flex;border:1px solid rgba(243,242,238,.25);border-radius:100px;padding:3px;margin-bottom:2.2rem}
-.pay-toggle button{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.5px;background:none;border:none;color:rgba(243,242,238,.55);padding:.5rem 1.1rem;border-radius:100px;cursor:pointer;transition:.25s}
-.pay-toggle button.active{background:var(--paper);color:var(--panel-dark)}
-.pago-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(243,242,238,.16);max-width:1080px}
-@media(max-width:680px){.pago-grid{grid-template-columns:1fr}}
-.pago-card{padding:2.2rem 1.6rem;border-right:1px solid rgba(243,242,238,.16);opacity:.35;transition:opacity .35s;position:relative}
-.pago-card:last-child{border-right:none}
-.pago-card.active{opacity:1}
-@media(max-width:680px){.pago-card{border-right:none;border-bottom:1px solid rgba(243,242,238,.16)}}
-.pago-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent-2);margin-bottom:.9rem}
-.pago-num{font-family:'Fraunces',serif;font-weight:600;font-size:3rem;color:var(--paper);line-height:1;margin-bottom:.6rem}
-.pago-num sup{font-size:1rem;color:rgba(243,242,238,.5);font-family:'IBM Plex Mono',monospace}
-.pago-desc{color:rgba(243,242,238,.55);font-size:.82rem;line-height:1.6;margin-bottom:1.3rem;max-width:320px}
-.pago-fallback{font-size:.72rem;color:rgba(243,242,238,.4);text-decoration:underline;margin-top:.7rem;display:inline-block}
-.pago-fallback:hover{color:var(--paper)}
-.trust-row{display:flex;gap:1.4rem;flex-wrap:wrap;margin:2rem auto 0;max-width:1080px;font-family:'IBM Plex Mono',monospace;color:rgba(243,242,238,.35);font-size:.66rem;letter-spacing:.3px}
+/* reserva */
+.rsv{background:#06182A;--g1:rgba(255,107,53,.22);--g2:rgba(30,144,255,.2)}
+.qty{display:inline-flex;align-items:center;gap:1rem;background:var(--glass);border:1px solid var(--line);border-radius:100px;padding:.45rem .5rem .45rem 1.3rem;margin-bottom:1.4rem}
+.qty-l{font-size:.94rem;font-weight:500;color:var(--soft)}
+.qty-c{display:flex;align-items:center;gap:.2rem}
+.qty button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:1.4rem;line-height:1;font-family:inherit;transition:background .2s,transform .15s}
+.qty button:hover{background:var(--fire);border-color:var(--fire)}
+.qty button:active{transform:scale(.92)}
+.qty output{min-width:3rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);line-height:1}
+.pay-toggle{display:flex;flex-wrap:wrap;gap:.3rem;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:100px;padding:4px;margin-bottom:1.6rem;width:max-content;max-width:100%}
+.pay-toggle button{font-family:'Outfit',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.3px;background:none;border:0;color:var(--soft);padding:.75rem 1.5rem;border-radius:100px;transition:.25s;min-height:46px}
+.pay-toggle button.active{background:linear-gradient(135deg,var(--fire),var(--coral));color:#fff;box-shadow:0 6px 20px rgba(255,107,53,.4)}
+.pago-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.pcard{position:relative;background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:2rem 1.7rem;opacity:.5;transform:scale(.985);transition:opacity .35s,transform .35s,border-color .35s,box-shadow .35s}
+.pcard:hover{opacity:.85}
+.pcard.active{opacity:1;transform:none;border-color:rgba(255,215,0,.55);box-shadow:0 18px 60px rgba(255,107,53,.2);background:rgba(255,255,255,.08)}
+.p-tag{display:inline-block;font-size:.76rem;font-weight:700;color:var(--abyss);background:var(--gold);border-radius:100px;padding:.25rem .8rem;margin-bottom:.9rem}
+.p-lbl{font-size:.9rem;color:var(--soft);margin-bottom:.2rem}
+.p-num{font-family:'Bebas Neue',sans-serif;font-size:4.4rem;line-height:1;color:#fff;letter-spacing:1px}
+.p-num small{font-family:'Outfit',sans-serif;font-size:.9rem;color:var(--faint);margin-left:.4rem;letter-spacing:0}
+.p-total{margin:.5rem 0 .9rem;font-size:.95rem;color:var(--gold);font-weight:600}
+.p-desc{color:var(--soft);font-size:.9rem;margin-bottom:1.4rem;max-width:340px}
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;background:var(--wa);color:#fff;font-weight:800;font-size:.95rem;padding:.95rem 1.2rem;border-radius:100px;text-decoration:none;min-height:50px;box-shadow:0 8px 28px rgba(37,211,102,.4);transition:transform .2s,filter .2s}
+.btn-wa:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn-wa svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
+.trust{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:1.6rem;font-size:.84rem;color:var(--faint)}
+@media(max-width:700px){.pago-grid{grid-template-columns:1fr}.pay-toggle{width:100%}.pay-toggle button{flex:1 1 100%;padding:.8rem 1rem}.qty{width:100%;justify-content:space-between}}
 
-/* countdown */
-.mini-cd{margin-top:2.6rem;padding-top:1.8rem;border-top:1px solid rgba(243,242,238,.16);max-width:1080px}
-.mini-cd-lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(243,242,238,.4);margin-bottom:1rem}
-.mini-cd-grid{display:flex;gap:0}
-.mini-cd-block{border-left:1px solid rgba(243,242,238,.16);padding:0 1.6rem 0 0;margin-right:1.6rem}
-.mini-cd-block:first-child{padding-left:0}
-.mini-cd-num{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;color:var(--paper);line-height:1;display:block;font-weight:600}
-.mini-cd-lbl2{color:rgba(243,242,238,.4);font-size:.6rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-top:.3rem}
-.cd-expired{font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;color:var(--paper);margin-top:.6rem}
+/* reloj con segundero */
+.clock{margin-top:2.6rem;background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:26px;padding:1.8rem 1.7rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.6rem}
+.clock-t b{display:block;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.7rem;letter-spacing:1.5px;color:#fff}
+.clock-t span{font-size:.88rem;color:var(--soft)}
+.clock-grid{display:flex;align-items:center;gap:1.1rem}
+.cd{text-align:center;min-width:64px}
+.cd output{display:block;font-family:'Bebas Neue',sans-serif;font-size:3.4rem;line-height:1;color:#fff}
+.cd small{font-size:.74rem;color:var(--faint);letter-spacing:.5px}
+.cd-sec{position:relative;width:96px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cd-sec svg{position:absolute;inset:0;width:100%;height:100%}
+.cd-sec output{position:relative;color:var(--fire);font-size:2.5rem;z-index:1}
+.cd-sec small{position:relative;z-index:1;margin-top:-2px}
+@keyframes pop{0%{transform:scale(1.18)}100%{transform:scale(1)}}
+.cd-sec output.pop{animation:pop .25s ease-out}
+.cd-done{display:none;font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);letter-spacing:1px}
+.cal{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font-size:.88rem;font-weight:600;color:#fff;text-decoration:none;padding:.7rem 1.3rem;border:1px dashed rgba(255,215,0,.55);border-radius:100px;transition:background .2s,transform .2s}
+.cal:hover{background:rgba(255,215,0,.12);transform:translateY(-2px)}
+@media(max-width:560px){.clock-grid{gap:.5rem;width:100%;justify-content:space-between}.cd{min-width:0}.cd output{font-size:2.6rem}.cd-sec{width:84px;height:84px}.cd-sec output{font-size:2rem}}
 
-/* ── CANCELACIÓN ── */
-.cancel-sec{background:var(--paper)}
-.deslinde-box{border:1px solid var(--line);border-left:2px solid var(--ink);padding:1.2rem 1.4rem;margin-bottom:1.4rem;background:var(--panel)}
-.deslinde-box h4{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;margin-bottom:.6rem;letter-spacing:.5px;text-transform:uppercase}
-.deslinde-box p{font-size:.8rem;color:var(--ink-soft);line-height:1.65}
+/* políticas */
+.pol{background:linear-gradient(180deg,#06182A,#0B2540);--g1:rgba(255,215,0,.1);--g2:rgba(255,71,87,.12)}
+.pol .acc-item{margin-bottom:0}
+.pol .acc-item::before{display:none}
+.pol .acc-in{padding:0 1.4rem 1.6rem}
+.deslinde{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;background:rgba(255,255,255,.05);padding:1.2rem 1.4rem;margin-bottom:1.6rem}
+.deslinde h4{color:var(--gold);font-size:.96rem;margin-bottom:.6rem}
+.deslinde p{font-size:.88rem;color:var(--soft);line-height:1.7}
+.pol h4.sub{color:#fff;font-size:1rem;margin:0 0 1rem}
 .cancel-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
-.cancel-list li{display:flex;align-items:flex-start;gap:.7rem;font-size:.86rem;color:var(--ink-soft);line-height:1.55}
-.cancel-list li::before{content:'—';color:var(--ink-faint);flex-shrink:0}
-.cancel-list li b{color:var(--ink)}
+.cancel-list li{display:flex;gap:.7rem;font-size:.92rem;color:var(--soft)}
+.cancel-list li::before{content:'';flex-shrink:0;width:8px;height:8px;margin-top:.5rem;border-radius:50%;background:var(--fire)}
+.cancel-list b{color:#fff}
 
-/* ── FOOTER ── */
-footer{background:var(--ink);color:rgba(243,242,238,.5);padding:64px 6% 30px}
-.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem;max-width:1080px;margin-left:auto;margin-right:auto}
-.f-logo-img{height:38px;width:38px;object-fit:contain;border-radius:50%;display:block;margin-bottom:1rem}
-.footer-brand p{line-height:1.65;max-width:250px;font-size:.82rem}
-.footer-col h4{color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.1rem}
+/* footer */
+footer{background:#070a10;color:rgba(255,255,255,.5);padding:64px 5% 32px;font-size:.85rem}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2rem;margin:0 auto 2.5rem;max-width:1080px}
+.f-logo{display:block;height:42px;width:auto;margin-bottom:.9rem}
+.footer-brand p{line-height:1.65;max-width:260px}
+.footer-col h4{color:var(--gold);font-size:.74rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.2rem}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.footer-col ul li a{color:rgba(243,242,238,.5);text-decoration:none;font-size:.8rem;transition:color .2s}
-.footer-col ul li a:hover{color:var(--paper)}
-.footer-div{border:none;border-top:1px solid rgba(243,242,238,.1);margin-bottom:1.4rem;max-width:1080px;margin-left:auto;margin-right:auto}
-.footer-copy{text-align:center;font-size:.7rem;color:rgba(243,242,238,.28);line-height:1.9;max-width:1080px;margin:0 auto}
-.footer-copy a{color:rgba(243,242,238,.42);text-decoration:underline}
+.footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.footer-col ul li a:hover{color:var(--fire)}
+.footer-div{border:0;border-top:1px solid rgba(255,255,255,.08);margin:0 auto 1.4rem;max-width:1080px}
+.footer-copy{text-align:center;font-size:.76rem;color:rgba(255,255,255,.3);line-height:1.9;max-width:1080px;margin:0 auto}
+.footer-copy a{color:rgba(255,255,255,.45)}
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
 
-/* ── WA FLOAT ── */
-.wa-float{position:fixed;bottom:28px;right:24px;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.wa-popup{background:#fff;border:1px solid var(--line);width:260px;overflow:hidden;transform:scale(.9) translateY(10px);transform-origin:bottom right;opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.4,.64,1),opacity .25s;border-radius:2px}
-.wa-popup.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
-.wa-ph{background:var(--ink);padding:14px 16px;display:flex;align-items:center;gap:10px}
-.wa-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.wa-pi{flex:1}.wa-pn{color:#fff;font-weight:600;font-size:.82rem}
-.wa-ps{color:rgba(255,255,255,.6);font-size:.65rem;display:flex;align-items:center;gap:4px;font-family:'IBM Plex Mono',monospace}
-.wa-od{width:5px;height:5px;border-radius:50%;background:#a8e063;display:inline-block;animation:odp 2s infinite}
-@keyframes odp{0%,100%{opacity:1}50%{opacity:.4}}
-.wa-xb{background:none;border:none;color:rgba(255,255,255,.7);font-size:1rem;cursor:pointer;padding:4px;min-width:30px;min-height:30px;display:flex;align-items:center;justify-content:center}
-.wa-pb{padding:14px}
-.wa-bubble{background:var(--panel);border-radius:4px;padding:10px 12px;font-size:.78rem;color:var(--ink);line-height:1.5;margin-bottom:12px}
-.wa-link{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--wa);color:#fff;font-weight:600;font-size:.82rem;padding:10px;text-decoration:none;min-height:42px;border-radius:2px}
-.wa-fab{width:48px;height:48px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 18px rgba(0,0,0,.25);border:none;cursor:pointer}
-@media(max-width:768px){.wa-float{display:none}}
+/* ═══════════ NOTIFICACIÓN: PREMIACIÓN ═══════════ */
+@keyframes promoBorder{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes trophy{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.12)}}
+@keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.45)}50%{box-shadow:0 6px 36px rgba(37,211,102,.75),0 0 0 10px rgba(37,211,102,.1)}}
+.promo{position:fixed;left:20px;bottom:24px;z-index:9995;width:min(370px,calc(100vw - 32px));padding:1.5px;border-radius:24px;
+  background:linear-gradient(120deg,var(--gold),var(--fire),var(--coral),var(--gold));background-size:200% 100%;animation:promoBorder 6s linear infinite;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;transform:translateY(26px) scale(.96);pointer-events:none;visibility:hidden;transition:opacity .4s,transform .4s cubic-bezier(.3,1.3,.5,1),visibility 0s .4s}
+.promo.show{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition-delay:0s}
+.promo-in{position:relative;background:rgba(7,24,42,.97);border-radius:22.5px;padding:1.15rem 1.2rem 1.2rem}
+.promo-top{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem;padding-right:1.6rem}
+.promo-ic{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--fire));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.promo-ic span{display:block;animation:trophy 1.8s ease-in-out infinite}
+.promo h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.55rem;letter-spacing:1px;line-height:1;color:var(--gold)}
+.promo p{font-size:.9rem;color:var(--soft);margin-bottom:1rem}
+.promo-x{position:absolute;top:.6rem;right:.7rem;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.promo-x:hover{background:rgba(255,255,255,.18)}
+.promo .btn-wa{animation:waPulse 2.4s ease-in-out infinite}
+.promo-chip{position:fixed;left:20px;bottom:24px;z-index:9994;display:none;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--fire));color:var(--abyss);font-family:inherit;font-weight:800;font-size:.84rem;padding:.65rem 1.1rem .65rem .85rem;border-radius:100px;border:0;box-shadow:0 8px 26px rgba(255,107,53,.45);min-height:46px}
+.promo-chip.on{display:inline-flex}
+.promo-chip span{animation:trophy 1.8s ease-in-out infinite;display:inline-block}
+@media(max-width:768px){.promo,.promo-chip{left:50%;bottom:84px;margin-left:calc(min(370px,calc(100vw - 32px))/-2)}.promo-chip{margin-left:0;left:16px}
+  .promo-in{padding:.8rem .9rem .9rem}.promo p{display:none}.promo-top{margin-bottom:.65rem}.promo h2{font-size:1.4rem}.promo-ic{width:40px;height:40px;font-size:1.2rem}.promo .btn-wa{min-height:46px;padding:.75rem 1rem}}
 
-/* ── MOB STICKY PAGO ── */
-.mob-pay-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9990;padding:10px 16px;background:rgba(21,20,26,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.1);gap:8px}
-@media(max-width:768px){.mob-pay-sticky{display:flex}}
-.mob-pay-sticky .btn{flex:1;font-size:.76rem;padding:.7rem .5rem;min-height:44px;border-color:transparent}
-.mob-pay-sticky .btn-solid{background:var(--paper);color:var(--ink)}
+/* wa fab + barra móvil */
+.wa-fab{position:fixed;right:22px;bottom:26px;z-index:9990;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;animation:waPulse 2.6s ease-in-out infinite;text-decoration:none}
+.wa-fab svg{width:30px;height:30px;fill:#fff}
+.mob-bar{display:none}
+@media(max-width:768px){
+  .wa-fab{display:none}
+  .mob-bar{display:flex;gap:.6rem;position:fixed;left:0;right:0;bottom:0;z-index:9990;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(6,24,42,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mob-bar .btn-fire{flex:1}
+  .mob-bar .btn-wa{width:52px;flex:none;padding:0;min-height:44px;box-shadow:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .vocho{animation:none!important;left:28%}.vocho.v2{left:62%}
+}
 </style>
 </head>
 <body>
 
-<!-- PROGRESS BAR -->
 <div id="pgbar"></div>
 
-<!-- WA FLOAT DESKTOP -->
-<div class="wa-float" id="waFloat">
-  <div class="wa-popup" id="waPopup">
-    <div class="wa-ph">
-      <div class="wa-av">◆</div>
-      <div class="wa-pi">
-        <div class="wa-pn">Pipe · Tours</div>
-        <div class="wa-ps"><span class="wa-od"></span> En línea ahora</div>
-      </div>
-      <button class="wa-xb" id="waClose">✕</button>
+<!-- NOTIFICACIÓN INTERACTIVA — PREMIACIÓN -->
+<aside class="promo" id="promo" role="complementary" aria-label="Premiación de lugares" aria-hidden="true">
+  <div class="promo-in">
+    <button class="promo-x" id="promoClose" aria-label="Cerrar notificación">✕</button>
+    <div class="promo-top">
+      <div class="promo-ic"><span>🏆</span></div>
+      <h2>Premiación de lugares</h2>
     </div>
-    <div class="wa-pb">
-      <div class="wa-bubble">¿Listo para Taxco? Escríbeme para apartar tu lugar o resolver tus dudas.</div>
-      <a class="wa-link" href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20tengo%20una%20pregunta%20sobre%20el%20Tour%20Taxco">Abrir WhatsApp</a>
-    </div>
+    <p>Este tour tiene dinámica y premiación de lugares. Participa y te explicamos cómo por WhatsApp.</p>
+    <a class="btn-wa" id="promoCta" href="#" rel="noopener" target="_blank">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.1.55 4.1 1.6 5.9L0 24l6.4-1.68a11.8 11.8 0 0 0 5.65 1.44h.005c6.55 0 11.85-5.3 11.85-11.85 0-3.17-1.23-6.15-3.4-8.4zM12.05 21.8h-.004a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.8 1 1.02-3.7-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.47 4.46-9.93 9.94-9.93 2.65 0 5.14 1.03 7.02 2.91a9.87 9.87 0 0 1 2.9 7.03c0 5.48-4.46 9.94-9.93 9.94zm5.45-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg>
+      Conocer la dinámica
+    </a>
   </div>
-  <button class="wa-fab" id="waFab">💬</button>
-</div>
+</aside>
+<button class="promo-chip" id="promoChip" aria-label="Abrir notificación de premiación"><span>🏆</span> Premiación</button>
 
-<!-- MOB STICKY PAGO -->
-<div class="mob-pay-sticky">
-  <a href="https://buy.stripe.com/eVq5kD58pa4a5ep436gbm0b" rel="noopener" class="btn btn-solid btn-sm">Pagar $990</a>
-  <a href="https://wa.me/525523867156?text=Hola.%20Me%20gustaria%20apartar%20mi%20lugar%20con%20%24300%20al%20Tour%20Taxco%205%20de%20Diciembre" class="btn btn-wa btn-sm">Abrir WhatsApp</a>
-</div>
-
-<!-- NAV DESKTOP -->
+<!-- NAV -->
 <nav id="main-nav">
-  <a class="nav-logo" href="https://elbuenpipe.com/tfs/">
-    <img class="nav-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
-    TRAVEL FRIEND SHIP
-  </a>
+  <a class="nav-logo" href="https://elbuenpipe.com/tfs/"><img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship"><span>TRAVEL</span> FRIEND <em>SHIP</em></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#itinerario" data-target="itinerario"><span class="nav-dot"></span>Itinerario</a></li>
-    <li><a href="#incluye" data-target="incluye"><span class="nav-dot"></span>Incluye</a></li>
-    <li><a href="#pagar" data-target="pagar"><span class="nav-dot"></span>Precio</a></li>
+    <li><a href="#itinerario" data-target="itinerario">Itinerario</a></li>
+    <li><a href="#incluye" data-target="incluye">Incluye</a></li>
+    <li><a href="#reservar" data-target="reservar">Reservar</a></li>
+    <li><a href="#politicas" data-target="politicas">Políticas</a></li>
   </ul>
-  <a class="nav-pay-btn" href="#pagar">Pagar mi lugar</a>
+  <a class="btn-fire" href="#reservar">Reservar mi lugar</a>
 </nav>
-
-<!-- MOB NAV -->
 <nav class="mob-nav">
-  <a class="mn-logo" href="https://elbuenpipe.com/tfs/"><img class="mn-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">TFS</a>
-  <a class="mn-pay" href="#pagar">Pagar</a>
+  <a class="nav-logo" href="https://elbuenpipe.com/tfs/"><img src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">TFS</a>
+  <a class="btn-fire" href="#reservar">Reservar</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="inicio">
-  <div class="hero-line-art" id="heroLineArt">
-    <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--silver)" stroke-width="1">
-      <path id="mtn1" d="M-50,500 L120,320 L230,400 L340,260 L430,340 L520,180 L600,300 L690,220 L780,340 L900,250 L1020,380 L1150,300 L1260,500 Z"/>
-      <path id="mtn2" d="M-50,500 L60,420 L180,460 L300,380 L420,440 L540,360 L660,430 L800,370 L920,440 L1050,400 L1260,500 Z" stroke="var(--line)"/>
-    </svg>
-  </div>
+<header class="hero" id="inicio">
+  <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+  <div class="scene"><svg class="scene-svg" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+ <linearGradient id="rg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c4a73"/><stop offset="1" stop-color="#0d2c4b"/></linearGradient>
+ <linearGradient id="rg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d6190"/><stop offset="1" stop-color="#17406a"/></linearGradient>
+ <linearGradient id="warm" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#FFB45E" stop-opacity=".34"/><stop offset=".6" stop-color="#FF6B35" stop-opacity=".06"/><stop offset="1" stop-color="#0A3D62" stop-opacity=".28"/></linearGradient>
+ <radialGradient id="glowC" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD27A" stop-opacity=".55"/><stop offset="1" stop-color="#FF6B35" stop-opacity="0"/></radialGradient>
+ <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000"/><stop offset=".45" stop-color="#fff"/></linearGradient>
+ <mask id="mfade"><rect x="-40" y="0" width="1520" height="560" fill="url(#fadeY)"/></mask>
+ <linearGradient id="haze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB36B" stop-opacity="0"/><stop offset="1" stop-color="#FFB36B" stop-opacity=".35"/></linearGradient>
+</defs>
+<g class="far1"><path d="M-40,218 L-10,226 L20,248 L50,272 L80,282 L110,273 L140,256 L170,246 L200,248 L230,255 L260,254 L290,243 L320,233 L350,237 L380,260 L410,291 L440,313 L470,317 L500,311 L530,308 L560,313 L590,320 L620,316 L650,296 L680,271 L710,256 L740,260 L770,277 L800,290 L830,291 L860,283 L890,280 L920,288 L950,298 L980,298 L1010,279 L1040,249 L1070,224 L1100,216 L1130,223 L1160,230 L1190,228 L1220,222 L1250,224 L1280,241 L1310,267 L1340,286 L1370,286 L1400,271 L1430,256 L1460,252 L1490,258 L1500,600 L-40,600Z" fill="url(#rg1)" opacity=".9"/></g>
+<g class="far2"><path d="M-40,330 L-10,311 L20,295 L50,290 L80,293 L110,296 L140,291 L170,284 L200,285 L230,300 L260,325 L290,345 L320,352 L350,346 L380,339 L410,340 L440,346 L470,348 L500,340 L530,325 L560,315 L590,320 L620,338 L650,356 L680,364 L710,360 L740,355 L770,356 L800,362 L830,363 L860,351 L890,327 L920,304 L950,295 L980,299 L1010,307 L1040,310 L1070,306 L1100,302 L1130,308 L1160,322 L1190,334 L1220,333 L1250,317 L1280,299 L1310,289 L1340,291 L1370,298 L1400,300 L1430,296 L1460,294 L1490,304 L1500,600 L-40,600Z" fill="url(#rg2)" opacity=".95"/></g>
+<ellipse cx="880" cy="190" rx="260" ry="190" fill="url(#glowC)"/>
+<path d="M-40,344 L0,343 L40,341 L80,338 L120,335 L160,331 L200,326 L240,321 L280,314 L320,306 L360,297 L400,286 L440,275 L480,263 L520,251 L560,238 L600,225 L640,213 L680,202 L720,192 L760,184 L800,178 L840,174 L880,173 L920,174 L960,178 L1000,184 L1040,192 L1080,202 L1120,213 L1160,225 L1200,238 L1240,251 L1280,263 L1320,275 L1360,286 L1400,297 L1440,306 L1480,314 L1500,600 L-40,600Z" fill="#6F8BAB"/>
+<rect x="-40" y="294" width="48" height="111" fill="#8DA7C3"/><rect x="-5" y="294" width="13" height="111" fill="#6A86A6" opacity=".55"/><polygon points="-44,297 -44,293 12,284 12,289" fill="#775F7D"/><rect x="7" y="294" width="39" height="110" fill="#8DA7C3"/><rect x="35" y="294" width="11" height="110" fill="#6A86A6" opacity=".55"/><polygon points="3,294 26,285.5305925162268 50,294" fill="#6C6486"/><rect x="45" y="290" width="36" height="111" fill="#7691B1"/><rect x="71" y="290" width="10" height="111" fill="#53708F" opacity=".55"/><polygon points="41,293 41,289 85,281 85,286" fill="#6C6486"/><rect x="76" y="286" width="57" height="113" fill="#7691B1"/><rect x="117" y="286" width="16" height="113" fill="#53708F" opacity=".55"/><polygon points="72,289 72,285 137,281 137,286" fill="#6C6486"/><rect x="133" y="299" width="35" height="95" fill="#7F9CBB"/><rect x="158" y="299" width="10" height="95" fill="#5B7898" opacity=".55"/><polygon points="129,302 129,298 172,294 172,299" fill="#6C6486"/><rect x="166" y="278" width="48" height="112" fill="#7F9CBB"/><rect x="201" y="278" width="13" height="112" fill="#5B7898" opacity=".55"/><polygon points="162,278 190,266.72249599767474 218,278" fill="#6C6486"/><rect x="209" y="277" width="36" height="108" fill="#7691B1"/><rect x="235" y="277" width="10" height="108" fill="#53708F" opacity=".55"/><polygon points="205,280 205,276 249,268 249,273" fill="#775F7D"/><rect x="245" y="275" width="56" height="102" fill="#8DA7C3"/><rect x="285" y="275" width="16" height="102" fill="#6A86A6" opacity=".55"/><polygon points="241,275 273,259.988988007856 305,275" fill="#6C6486"/><rect x="301" y="269" width="52" height="97" fill="#8DA7C3"/><rect x="338" y="269" width="15" height="97" fill="#6A86A6" opacity=".55"/><polygon points="297,269 327,258.1660589320162 357,269" fill="#6C6486"/><rect x="353" y="259" width="55" height="94" fill="#7F9CBB"/><rect x="393" y="259" width="15" height="94" fill="#5B7898" opacity=".55"/><polygon points="349,259 380,252.43929457773322 412,259" fill="#6C6486"/><rect x="403" y="234" width="46" height="107" fill="#7F9CBB"/><rect x="436" y="234" width="13" height="107" fill="#5B7898" opacity=".55"/><polygon points="399,234 426,223.16501043787764 453,234" fill="#6C6486"/><rect x="447" y="235" width="44" height="94" fill="#8DA7C3"/><rect x="479" y="235" width="12" height="94" fill="#6A86A6" opacity=".55"/><polygon points="443,235 469,225.54167481393574 495,235" fill="#6C6486"/><rect x="491" y="221" width="34" height="95" fill="#8DA7C3"/><rect x="515" y="221" width="10" height="95" fill="#6A86A6" opacity=".55"/><polygon points="487,224 487,220 529,215 529,220" fill="#775F7D"/><rect x="524" y="194" width="48" height="110" fill="#7F9CBB"/><rect x="559" y="194" width="13" height="110" fill="#5B7898" opacity=".55"/><polygon points="520,197 520,193 576,185 576,190" fill="#6C6486"/><rect x="572" y="182" width="46" height="107" fill="#7F9CBB"/><rect x="605" y="182" width="13" height="107" fill="#5B7898" opacity=".55"/><polygon points="568,185 568,181 622,174 622,179" fill="#6C6486"/><rect x="614" y="182" width="43" height="94" fill="#7F9CBB"/><rect x="645" y="182" width="12" height="94" fill="#5B7898" opacity=".55"/><polygon points="610,185 610,181 661,173 661,178" fill="#6C6486"/><rect x="653" y="152" width="54" height="112" fill="#7F9CBB"/><rect x="692" y="152" width="15" height="112" fill="#5B7898" opacity=".55"/><polygon points="649,152 680,142.98511576451756 711,152" fill="#6C6486"/><rect x="705" y="141" width="34" height="113" fill="#8DA7C3"/><rect x="729" y="141" width="10" height="113" fill="#6A86A6" opacity=".55"/><polygon points="701,141 722,127.70026187340116 743,141" fill="#775F7D"/><rect x="739" y="134" width="40" height="112" fill="#7691B1"/><rect x="768" y="134" width="11" height="112" fill="#53708F" opacity=".55"/><polygon points="735,137 735,133 783,129 783,134" fill="#6C6486"/><rect x="777" y="132" width="53" height="108" fill="#7F9CBB"/><rect x="815" y="132" width="15" height="108" fill="#5B7898" opacity=".55"/><polygon points="773,135 773,131 834,125 834,130" fill="#775F7D"/><rect x="829" y="137" width="54" height="98" fill="#8DA7C3"/><rect x="868" y="137" width="15" height="98" fill="#6A86A6" opacity=".55"/><polygon points="825,140 825,136 887,130 887,135" fill="#6C6486"/><rect x="882" y="122" width="57" height="114" fill="#7691B1"/><rect x="923" y="122" width="16" height="114" fill="#53708F" opacity=".55"/><polygon points="878,125 878,121 943,113 943,118" fill="#6C6486"/><rect x="935" y="132" width="36" height="107" fill="#7F9CBB"/><rect x="961" y="132" width="10" height="107" fill="#5B7898" opacity=".55"/><polygon points="931,132 953,124.17119137480728 975,132" fill="#6C6486"/><rect x="969" y="128" width="41" height="116" fill="#8DA7C3"/><rect x="999" y="128" width="11" height="116" fill="#6A86A6" opacity=".55"/><polygon points="965,131 965,127 1014,119 1014,124" fill="#775F7D"/><rect x="1006" y="149" width="49" height="103" fill="#7691B1"/><rect x="1041" y="149" width="14" height="103" fill="#53708F" opacity=".55"/><polygon points="1002,149 1030,141.0545439676555 1059,149" fill="#6C6486"/><rect x="1052" y="149" width="51" height="114" fill="#7691B1"/><rect x="1089" y="149" width="14" height="114" fill="#53708F" opacity=".55"/><polygon points="1048,149 1078,138.32676735886093 1107,149" fill="#6C6486"/><rect x="1102" y="184" width="57" height="94" fill="#7F9CBB"/><rect x="1143" y="184" width="16" height="94" fill="#5B7898" opacity=".55"/><polygon points="1098,184 1130,171.27457344391905 1163,184" fill="#775F7D"/><rect x="1159" y="193" width="35" height="99" fill="#8DA7C3"/><rect x="1184" y="193" width="10" height="99" fill="#6A86A6" opacity=".55"/><polygon points="1155,196 1155,192 1198,183 1198,188" fill="#775F7D"/><rect x="1193" y="198" width="36" height="105" fill="#7F9CBB"/><rect x="1219" y="198" width="10" height="105" fill="#5B7898" opacity=".55"/><polygon points="1189,201 1189,197 1233,190 1233,195" fill="#775F7D"/><rect x="1224" y="204" width="50" height="112" fill="#7F9CBB"/><rect x="1260" y="204" width="14" height="112" fill="#5B7898" opacity=".55"/><polygon points="1220,204 1249,196.51945490169163 1278,204" fill="#6C6486"/><rect x="1272" y="228" width="56" height="103" fill="#7F9CBB"/><rect x="1312" y="228" width="16" height="103" fill="#5B7898" opacity=".55"/><polygon points="1268,228 1300,220.25344007903726 1332,228" fill="#6C6486"/><rect x="1323" y="240" width="43" height="104" fill="#7F9CBB"/><rect x="1354" y="240" width="12" height="104" fill="#5B7898" opacity=".55"/><polygon points="1319,240 1344,232.1056112816837 1370,240" fill="#6C6486"/><rect x="1364" y="262" width="57" height="95" fill="#7691B1"/><rect x="1405" y="262" width="16" height="95" fill="#53708F" opacity=".55"/><polygon points="1360,262 1392,249.70949710187176 1425,262" fill="#6C6486"/><rect x="1416" y="272" width="49" height="96" fill="#8DA7C3"/><rect x="1451" y="272" width="14" height="96" fill="#6A86A6" opacity=".55"/><polygon points="1412,275 1412,271 1469,262 1469,267" fill="#6C6486"/><rect x="1461" y="271" width="55" height="106" fill="#8DA7C3"/><rect x="1501" y="271" width="15" height="106" fill="#6A86A6" opacity=".55"/><polygon points="1457,271 1488,263.26033080757236 1520,271" fill="#6C6486"/>
+<path d="M-40,416 L0,415 L40,413 L80,411 L120,408 L160,404 L200,399 L240,393 L280,387 L320,379 L360,370 L400,360 L440,349 L480,338 L520,325 L560,313 L600,301 L640,289 L680,278 L720,269 L760,261 L800,255 L840,251 L880,250 L920,251 L960,255 L1000,261 L1040,269 L1080,278 L1120,289 L1160,301 L1200,313 L1240,325 L1280,338 L1320,349 L1360,360 L1400,370 L1440,379 L1480,387 L1500,600 L-40,600Z" fill="#C9AE8B"/>
+<g><rect x="-40" y="370" width="47" height="108" fill="#F3E4CB"/><rect x="-6" y="370" width="13" height="108" fill="#D6BC9A" opacity=".55"/><polygon points="-44,370 -16,357.529746538775 11,370" fill="#A8472F"/><rect x="-20" y="380" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="3" y="361" width="69" height="114" fill="#F3E4CB"/><rect x="53" y="361" width="19" height="114" fill="#D6BC9A" opacity=".55"/><polygon points="-1,361 38,353.16161568324463 76,361" fill="#A8472F"/><rect x="16" y="373" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect class="lw" x="51" y="373" width="8" height="11" rx="1.5" style="animation-delay:-0.8s"/><rect x="72" y="349" width="54" height="122" fill="#EBD9C0"/><rect x="111" y="349" width="15" height="122" fill="#C9AE8B" opacity=".55"/><polygon points="68,349 99,335.253883043389 130,349" fill="#C4623F"/><rect class="lw" x="82" y="364" width="8" height="11" rx="1.5" style="animation-delay:-2.7s"/><rect x="108" y="364" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="125" y="343" width="50" height="124" fill="#F3E4CB"/><rect x="161" y="343" width="14" height="124" fill="#D6BC9A" opacity=".55"/><polygon points="121,343 150,328.7680585459739 179,343" fill="#A8472F"/><rect class="lw" x="134" y="358" width="8" height="11" rx="1.5" style="animation-delay:-3.6s"/><rect class="lw" x="158" y="358" width="8" height="11" rx="1.5" style="animation-delay:-5.7s"/><rect x="174" y="349" width="53" height="112" fill="#EBD9C0"/><rect x="212" y="349" width="15" height="112" fill="#C9AE8B" opacity=".55"/><polygon points="170,349 200,336.97692266973485 231,349" fill="#A8472F"/><rect class="lw" x="183" y="361" width="8" height="11" rx="1.5" style="animation-delay:-3.2s"/><rect x="210" y="361" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="227" y="346" width="44" height="108" fill="#EBD9C0"/><rect x="259" y="346" width="12" height="108" fill="#C9AE8B" opacity=".55"/><polygon points="223,346 249,331.9679257061871 275,346" fill="#B5533C"/><rect x="245" y="357" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="268" y="325" width="64" height="120" fill="#E3CBA8"/><rect x="314" y="325" width="18" height="120" fill="#BFA17C" opacity=".55"/><polygon points="264,328 264,324 336,317 336,322" fill="#C4623F"/><rect x="280" y="339" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="312" y="339" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="330" y="308" width="44" height="126" fill="#EBD9C0"/><rect x="362" y="308" width="12" height="126" fill="#C9AE8B" opacity=".55"/><polygon points="326,311 326,307 378,303 378,308" fill="#C4623F"/><rect class="lw" x="348" y="324" width="8" height="11" rx="1.5" style="animation-delay:-3.2s"/><rect x="369" y="305" width="41" height="120" fill="#EBD9C0"/><rect x="399" y="305" width="11" height="120" fill="#C9AE8B" opacity=".55"/><polygon points="365,305 390,290.793819116488 414,305" fill="#C4623F"/><rect x="386" y="319" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="408" y="288" width="55" height="124" fill="#EBD9C0"/><rect x="448" y="288" width="15" height="124" fill="#C9AE8B" opacity=".55"/><polygon points="404,288 436,280.49731147106024 467,288" fill="#B5533C"/><rect x="418" y="304" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="445" y="304" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="461" y="278" width="44" height="121" fill="#EBD9C0"/><rect x="493" y="278" width="12" height="121" fill="#C9AE8B" opacity=".55"/><polygon points="457,278 483,263.7113157259774 509,278" fill="#B5533C"/><rect x="479" y="292" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="502" y="282" width="42" height="105" fill="#EBD9C0"/><rect x="532" y="282" width="12" height="105" fill="#C9AE8B" opacity=".55"/><polygon points="498,282 523,269.5268492018586 548,282" fill="#C4623F"/><rect x="519" y="291" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="540" y="262" width="50" height="112" fill="#E3CBA8"/><rect x="576" y="262" width="14" height="112" fill="#BFA17C" opacity=".55"/><polygon points="536,262 565,253.5148512862088 594,262" fill="#B5533C"/><rect x="548" y="273" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect class="lw" x="574" y="273" width="8" height="11" rx="1.5" style="animation-delay:-4.1s"/><rect x="589" y="248" width="40" height="112" fill="#E3CBA8"/><rect x="618" y="248" width="11" height="112" fill="#BFA17C" opacity=".55"/><polygon points="585,251 585,247 633,238 633,243" fill="#A8472F"/><rect x="605" y="260" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="626" y="227" width="60" height="120" fill="#EBD9C0"/><rect x="669" y="227" width="17" height="120" fill="#C9AE8B" opacity=".55"/><polygon points="622,227 656,218.5429070195683 690,227" fill="#B5533C"/><rect x="637" y="241" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="667" y="241" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="684" y="224" width="60" height="108" fill="#E3CBA8"/><rect x="727" y="224" width="17" height="108" fill="#BFA17C" opacity=".55"/><polygon points="680,224 714,211.9371496169711 748,224" fill="#B5533C"/><rect class="lw" x="695" y="235" width="8" height="11" rx="1.5" style="animation-delay:-3.1s"/><rect class="lw" x="725" y="235" width="8" height="11" rx="1.5" style="animation-delay:-2.5s"/><rect x="744" y="196" width="53" height="125" fill="#EBD9C0"/><rect x="782" y="196" width="15" height="125" fill="#C9AE8B" opacity=".55"/><polygon points="740,196 770,188.98148610801422 801,196" fill="#C4623F"/><rect class="lw" x="753" y="211" width="8" height="11" rx="1.5" style="animation-delay:-7.1s"/><rect class="lw" x="780" y="211" width="8" height="11" rx="1.5" style="animation-delay:-1.3s"/><rect x="793" y="186" width="68" height="128" fill="#F3E4CB"/><rect x="842" y="186" width="19" height="128" fill="#D6BC9A" opacity=".55"/><polygon points="789,189 789,185 865,181 865,186" fill="#A8472F"/><rect class="lw" x="806" y="202" width="8" height="11" rx="1.5" style="animation-delay:-5.0s"/><rect x="840" y="202" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="857" y="196" width="50" height="116" fill="#E3CBA8"/><rect x="893" y="196" width="14" height="116" fill="#BFA17C" opacity=".55"/><polygon points="853,196 882,185.00307828810958 911,196" fill="#A8472F"/><rect class="lw" x="866" y="209" width="8" height="11" rx="1.5" style="animation-delay:-7.6s"/><rect x="890" y="209" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="906" y="187" width="59" height="127" fill="#EBD9C0"/><rect x="948" y="187" width="17" height="127" fill="#C9AE8B" opacity=".55"/><polygon points="902,187 936,172.3540450458504 969,187" fill="#A8472F"/><rect x="917" y="203" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect class="lw" x="946" y="203" width="8" height="11" rx="1.5" style="animation-delay:-1.0s"/><rect x="965" y="222" width="64" height="100" fill="#E3CBA8"/><rect x="1011" y="222" width="18" height="100" fill="#BFA17C" opacity=".55"/><polygon points="961,225 961,221 1033,212 1033,217" fill="#B5533C"/><rect x="977" y="231" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1009" y="231" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1029" y="234" width="71" height="102" fill="#E3CBA8"/><rect x="1080" y="234" width="20" height="102" fill="#BFA17C" opacity=".55"/><polygon points="1025,237 1025,233 1104,229 1104,234" fill="#B5533C"/><rect x="1043" y="243" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1078" y="243" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1097" y="246" width="57" height="107" fill="#F3E4CB"/><rect x="1138" y="246" width="16" height="107" fill="#D6BC9A" opacity=".55"/><polygon points="1093,246 1126,236.5934606266535 1158,246" fill="#C4623F"/><rect x="1107" y="256" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1136" y="256" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1151" y="266" width="60" height="103" fill="#EBD9C0"/><rect x="1194" y="266" width="17" height="103" fill="#C9AE8B" opacity=".55"/><polygon points="1147,269 1147,265 1215,261 1215,266" fill="#C4623F"/><rect class="lw" x="1162" y="275" width="8" height="11" rx="1.5" style="animation-delay:-7.0s"/><rect class="lw" x="1192" y="275" width="8" height="11" rx="1.5" style="animation-delay:-1.7s"/><rect x="1210" y="263" width="40" height="121" fill="#F3E4CB"/><rect x="1239" y="263" width="11" height="121" fill="#D6BC9A" opacity=".55"/><polygon points="1206,263 1230,251.36374719659761 1254,263" fill="#C4623F"/><rect x="1226" y="278" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1247" y="270" width="47" height="127" fill="#E3CBA8"/><rect x="1281" y="270" width="13" height="127" fill="#BFA17C" opacity=".55"/><polygon points="1243,273 1243,269 1298,262 1298,267" fill="#A8472F"/><rect x="1266" y="286" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1291" y="297" width="41" height="112" fill="#E3CBA8"/><rect x="1321" y="297" width="11" height="112" fill="#BFA17C" opacity=".55"/><polygon points="1287,300 1287,296 1336,286 1336,291" fill="#C4623F"/><rect x="1308" y="309" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1327" y="304" width="53" height="116" fill="#EBD9C0"/><rect x="1365" y="304" width="15" height="116" fill="#C9AE8B" opacity=".55"/><polygon points="1323,304 1354,295.38844925397996 1384,304" fill="#A8472F"/><rect x="1336" y="317" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1363" y="317" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1379" y="315" width="60" height="119" fill="#F3E4CB"/><rect x="1422" y="315" width="17" height="119" fill="#D6BC9A" opacity=".55"/><polygon points="1375,318 1375,314 1443,308 1443,313" fill="#B5533C"/><rect class="lw" x="1390" y="329" width="8" height="11" rx="1.5" style="animation-delay:-0.9s"/><rect x="1420" y="329" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1438" y="337" width="45" height="108" fill="#F3E4CB"/><rect x="1470" y="337" width="13" height="108" fill="#D6BC9A" opacity=".55"/><polygon points="1434,340 1434,336 1487,328 1487,333" fill="#B5533C"/><rect class="lw" x="1456" y="348" width="8" height="11" rx="1.5" style="animation-delay:-7.1s"/><rect x="1482" y="341" width="52" height="112" fill="#E3CBA8"/><rect x="1519" y="341" width="15" height="112" fill="#BFA17C" opacity=".55"/><polygon points="1478,341 1508,334.4845056893672 1538,341" fill="#A8472F"/><rect x="1491" y="353" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect class="lw" x="1517" y="353" width="8" height="11" rx="1.5" style="animation-delay:-7.4s"/></g>
+<g><path d="M926 186 Q926 110 970 110 Q1014 110 1014 186Z" fill="#3E9C9A"/><path d="M938 186 Q948 132 970 110" stroke="#F2C14E" stroke-width="2" fill="none" opacity=".8"/><path d="M954 186 Q959 132 970 110" stroke="#F2C14E" stroke-width="2" fill="none" opacity=".8"/><path d="M970 186 Q970 132 970 110" stroke="#F2C14E" stroke-width="2" fill="none" opacity=".8"/><path d="M986 186 Q981 132 970 110" stroke="#F2C14E" stroke-width="2" fill="none" opacity=".8"/><path d="M1002 186 Q992 132 970 110" stroke="#F2C14E" stroke-width="2" fill="none" opacity=".8"/><rect x="964" y="82" width="12" height="30" fill="#F6D6BE"/><path d="M962 82 Q970 66 978 82Z" fill="#D39A7B"/><path d="M970 66 V54 M965 59 H975" stroke="#D39A7B" stroke-width="2"/><rect x="780" y="186" width="236" height="96" fill="#EBBB9C"/><rect x="784" y="130" width="42" height="152" fill="#EBBB9C"/><rect x="815" y="130" width="11" height="152" fill="#D39A7B" opacity=".5"/><rect x="788" y="72" width="34" height="60" fill="#F6D6BE"/><path d="M796 122 V92 Q805 80 814 92 V122Z" fill="#33201c"/><path d="M786 72 Q805 20 824 72Z" fill="#D39A7B"/><path d="M805 26 V10 M799 16 H811" stroke="#D39A7B" stroke-width="2.4"/><rect x="790" y="156" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><rect x="790" y="186" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><rect x="790" y="216" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><rect x="934" y="130" width="42" height="152" fill="#EBBB9C"/><rect x="965" y="130" width="11" height="152" fill="#D39A7B" opacity=".5"/><rect x="938" y="72" width="34" height="60" fill="#F6D6BE"/><path d="M946 122 V92 Q955 80 964 92 V122Z" fill="#33201c"/><path d="M936 72 Q955 20 974 72Z" fill="#D39A7B"/><path d="M955 26 V10 M949 16 H961" stroke="#D39A7B" stroke-width="2.4"/><rect x="940" y="156" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><rect x="940" y="186" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><rect x="940" y="216" width="6" height="14" rx="3" fill="#33201c" opacity=".6"/><path d="M830 282 V154 Q830 142 850 136 Q880 92 910 136 Q930 142 930 154 V282Z" fill="#F6D6BE"/><path d="M862 282 V234 Q880 206 898 234 V282Z" fill="#33201c"/><path d="M871 186 H889 V210 H871Z" fill="#33201c" opacity=".8"/><circle class="lw" cx="880" cy="164" r="8" style="animation-delay:-2s"/><path d="M846 278 V162" stroke="#D39A7B" stroke-width="3"/><path d="M914 278 V162" stroke="#D39A7B" stroke-width="3"/></g>
+<path d="M-40,492 L0,490 L40,488 L80,485 L120,482 L160,477 L200,472 L240,465 L280,458 L320,449 L360,438 L400,427 L440,414 L480,401 L520,387 L560,373 L600,359 L640,345 L680,332 L720,321 L760,312 L800,306 L840,301 L880,300 L920,301 L960,306 L1000,312 L1040,321 L1080,332 L1120,345 L1160,359 L1200,373 L1240,387 L1280,401 L1320,414 L1360,427 L1400,438 L1440,449 L1480,458 L1500,600 L-40,600Z" fill="#8B4A36"/>
+<g><rect x="-40" y="413" width="59" height="140" fill="#EDC890"/><rect x="2" y="413" width="17" height="140" fill="#C79A62" opacity=".55"/><polygon points="-44,416 -44,412 23,406 23,411" fill="#B84A33"/><rect class="lw" x="-29" y="432" width="8" height="11" rx="1.5" style="animation-delay:-0.2s"/><rect x="-30" y="445" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="0" y="432" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="-1" y="445" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M-31 483 V466 Q-25 457 -19 466 V483Z" fill="#2a1814"/><rect x="15" y="432" width="82" height="117" fill="#F8E5C8"/><rect x="74" y="432" width="23" height="117" fill="#CDA878" opacity=".55"/><polygon points="11,432 56,423.934878377221 101,432" fill="#C8553D"/><rect x="25" y="445" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="24" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="52" y="445" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="51" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="79" y="445" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="78" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M27 479 V462 Q33 453 39 462 V479Z" fill="#2a1814"/><rect x="97" y="406" width="60" height="137" fill="#FFF1DC"/><rect x="140" y="406" width="17" height="137" fill="#D9B98A" opacity=".55"/><polygon points="93,406 127,393.95114931765886 161,406" fill="#C8553D"/><rect class="lw" x="108" y="425" width="8" height="11" rx="1.5" style="animation-delay:-3.2s"/><rect x="107" y="438" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="138" y="425" width="8" height="11" rx="1.5" style="animation-delay:-3.4s"/><rect x="137" y="438" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M106 473 V456 Q112 447 118 456 V473Z" fill="#2a1814"/><rect x="157" y="416" width="64" height="119" fill="#FBE9D0"/><rect x="203" y="416" width="18" height="119" fill="#D2B083" opacity=".55"/><polygon points="153,419 153,415 225,408 225,413" fill="#D9663E"/><rect class="lw" x="169" y="430" width="8" height="11" rx="1.5" style="animation-delay:-1.8s"/><rect x="168" y="443" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="201" y="430" width="8" height="11" rx="1.5" style="animation-delay:-4.6s"/><rect x="200" y="443" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M167 465 V448 Q173 439 179 448 V465Z" fill="#2a1814"/><rect x="221" y="389" width="92" height="133" fill="#F8E5C8"/><rect x="287" y="389" width="26" height="133" fill="#CDA878" opacity=".55"/><polygon points="217,392 217,388 317,381 317,386" fill="#B84A33"/><rect class="lw" x="232" y="407" width="8" height="11" rx="1.5" style="animation-delay:-8.2s"/><rect x="231" y="420" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="263" y="407" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="262" y="420" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="294" y="407" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="293" y="420" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="310" y="377" width="60" height="129" fill="#EDC890"/><rect x="353" y="377" width="17" height="129" fill="#C79A62" opacity=".55"/><polygon points="306,377 340,367.64432502096236 374,377" fill="#D9663E"/><rect x="321" y="393" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="320" y="406" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="351" y="393" width="8" height="11" rx="1.5" style="animation-delay:-3.1s"/><rect x="350" y="406" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M319 436 V419 Q325 410 331 419 V436Z" fill="#2a1814"/><rect x="370" y="376" width="74" height="111" fill="#F8E5C8"/><rect x="423" y="376" width="21" height="111" fill="#CDA878" opacity=".55"/><polygon points="366,376 407,364.8131607479951 448,376" fill="#D9663E"/><rect x="378" y="387" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="403" y="387" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="428" y="387" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><path d="M381 417 V400 Q387 391 393 400 V417Z" fill="#2a1814"/><rect x="441" y="350" width="65" height="115" fill="#FBE9D0"/><rect x="488" y="350" width="18" height="115" fill="#D2B083" opacity=".55"/><polygon points="437,350 474,343.2346032444034 510,350" fill="#B84A33"/><rect class="lw" x="453" y="363" width="8" height="11" rx="1.5" style="animation-delay:-2.1s"/><rect x="452" y="376" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="486" y="363" width="8" height="11" rx="1.5" style="animation-delay:-4.5s"/><rect x="485" y="376" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="501" y="334" width="76" height="108" fill="#FFF1DC"/><rect x="556" y="334" width="21" height="108" fill="#D9B98A" opacity=".55"/><polygon points="497,334 539,323.216959455654 581,334" fill="#D9663E"/><rect class="lw" x="510" y="345" width="8" height="11" rx="1.5" style="animation-delay:-4.9s"/><rect class="lw" x="535" y="345" width="8" height="11" rx="1.5" style="animation-delay:-4.7s"/><rect x="560" y="345" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><path d="M512 372 V355 Q518 346 524 355 V372Z" fill="#2a1814"/><rect x="574" y="277" width="56" height="143" fill="#FFF1DC"/><rect x="614" y="277" width="16" height="143" fill="#D9B98A" opacity=".55"/><polygon points="570,277 602,267.86175014495427 634,277" fill="#D9663E"/><rect x="584" y="297" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="583" y="310" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="612" y="297" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="611" y="310" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="626" y="251" width="91" height="146" fill="#FFF1DC"/><rect x="692" y="251" width="25" height="146" fill="#D9B98A" opacity=".55"/><polygon points="622,251 672,237.01380794641898 721,251" fill="#D9663E"/><rect x="637" y="272" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="636" y="285" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="668" y="272" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="666" y="285" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="698" y="272" width="8" height="11" rx="1.5" style="animation-delay:-2.6s"/><rect x="697" y="285" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M640 327 V310 Q646 301 652 310 V327Z" fill="#2a1814"/><rect x="713" y="251" width="70" height="126" fill="#FFF1DC"/><rect x="763" y="251" width="20" height="126" fill="#D9B98A" opacity=".55"/><polygon points="709,254 709,250 787,244 787,249" fill="#C8553D"/><rect x="726" y="267" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="726" y="280" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="762" y="267" width="8" height="11" rx="1.5" style="animation-delay:-6.2s"/><rect x="760" y="280" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M724 307 V290 Q730 281 736 290 V307Z" fill="#2a1814"/><rect x="781" y="254" width="77" height="111" fill="#EDC890"/><rect x="836" y="254" width="22" height="111" fill="#C79A62" opacity=".55"/><polygon points="777,254 820,244.2209056645063 862,254" fill="#C8553D"/><rect class="lw" x="790" y="266" width="8" height="11" rx="1.5" style="animation-delay:-8.8s"/><rect class="lw" x="816" y="266" width="8" height="11" rx="1.5" style="animation-delay:-4.7s"/><rect x="841" y="266" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="855" y="239" width="61" height="123" fill="#FFF1DC"/><rect x="899" y="239" width="17" height="123" fill="#D9B98A" opacity=".55"/><polygon points="851,239 886,226.02683836152335 920,239" fill="#C8553D"/><rect class="lw" x="866" y="254" width="8" height="11" rx="1.5" style="animation-delay:-0.5s"/><rect x="865" y="267" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="897" y="254" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="896" y="267" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M864 292 V275 Q870 266 876 275 V292Z" fill="#2a1814"/><rect x="913" y="231" width="60" height="134" fill="#FBE9D0"/><rect x="956" y="231" width="17" height="134" fill="#D2B083" opacity=".55"/><polygon points="909,234 909,230 977,224 977,229" fill="#B84A33"/><rect x="924" y="249" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="923" y="262" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="954" y="249" width="8" height="11" rx="1.5" style="animation-delay:-6.7s"/><rect x="953" y="262" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="972" y="260" width="70" height="116" fill="#F8E5C8"/><rect x="1022" y="260" width="20" height="116" fill="#CDA878" opacity=".55"/><polygon points="968,260 1007,251.8009591860436 1046,260" fill="#D9663E"/><rect class="lw" x="986" y="273" width="8" height="11" rx="1.5" style="animation-delay:-4.6s"/><rect x="984" y="286" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1020" y="273" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1020" y="286" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M982 306 V289 Q988 280 994 289 V306Z" fill="#2a1814"/><rect x="1038" y="250" width="88" height="145" fill="#F8E5C8"/><rect x="1101" y="250" width="25" height="145" fill="#CDA878" opacity=".55"/><polygon points="1034,253 1034,249 1130,242 1130,247" fill="#B84A33"/><rect class="lw" x="1049" y="271" width="8" height="11" rx="1.5" style="animation-delay:-2.2s"/><rect x="1048" y="284" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1078" y="271" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1077" y="284" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1107" y="271" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1106" y="284" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1126" y="314" width="92" height="111" fill="#FFF1DC"/><rect x="1192" y="314" width="26" height="111" fill="#D9B98A" opacity=".55"/><polygon points="1122,314 1172,302.7629262533727 1222,314" fill="#D9663E"/><rect x="1137" y="325" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect class="lw" x="1168" y="325" width="8" height="11" rx="1.5" style="animation-delay:-4.9s"/><rect class="lw" x="1199" y="325" width="8" height="11" rx="1.5" style="animation-delay:-0.8s"/><path d="M1140 355 V338 Q1146 329 1152 338 V355Z" fill="#2a1814"/><rect x="1214" y="321" width="67" height="131" fill="#FBE9D0"/><rect x="1262" y="321" width="19" height="131" fill="#D2B083" opacity=".55"/><polygon points="1210,321 1248,308.65125314400325 1285,321" fill="#D9663E"/><rect class="lw" x="1227" y="338" width="8" height="11" rx="1.5" style="animation-delay:-6.7s"/><rect x="1226" y="351" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1260" y="338" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1259" y="351" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M1224 382 V365 Q1230 356 1236 365 V382Z" fill="#2a1814"/><rect x="1281" y="356" width="80" height="121" fill="#FBE9D0"/><rect x="1339" y="356" width="22" height="121" fill="#D2B083" opacity=".55"/><polygon points="1277,356 1321,344.7352972313292 1365,356" fill="#D9663E"/><rect class="lw" x="1290" y="370" width="8" height="11" rx="1.5" style="animation-delay:-1.4s"/><rect x="1289" y="383" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1317" y="370" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1316" y="383" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1344" y="370" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1343" y="383" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M1293 407 V390 Q1299 381 1305 390 V407Z" fill="#2a1814"/><rect x="1355" y="362" width="63" height="135" fill="#EDC890"/><rect x="1400" y="362" width="18" height="135" fill="#C79A62" opacity=".55"/><polygon points="1351,362 1386,353.63961074756725 1422,362" fill="#B84A33"/><rect class="lw" x="1367" y="380" width="8" height="11" rx="1.5" style="animation-delay:-4.9s"/><rect x="1366" y="393" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1398" y="380" width="8" height="11" rx="1.5" style="animation-delay:-5.1s"/><rect x="1397" y="393" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1415" y="405" width="71" height="108" fill="#FFF1DC"/><rect x="1466" y="405" width="20" height="108" fill="#D9B98A" opacity=".55"/><polygon points="1411,408 1411,404 1490,398 1490,403" fill="#D9663E"/><rect x="1429" y="416" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1464" y="416" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><path d="M1426 443 V426 Q1432 417 1438 426 V443Z" fill="#2a1814"/><rect x="1480" y="401" width="72" height="126" fill="#F8E5C8"/><rect x="1532" y="401" width="20" height="126" fill="#CDA878" opacity=".55"/><polygon points="1476,404 1476,400 1556,392 1556,397" fill="#C8553D"/><rect class="lw" x="1488" y="416" width="8" height="11" rx="1.5" style="animation-delay:-8.2s"/><rect x="1487" y="429" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1512" y="416" width="8" height="11" rx="1.5" style="animation-delay:-4.0s"/><rect x="1511" y="429" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1536" y="416" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1535" y="429" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/></g>
+<g><rect x="-40" y="479" width="87" height="152" fill="#EDC890"/><rect x="23" y="479" width="24" height="152" fill="#C79A62" opacity=".55"/><polygon points="-44,479 4,467.36884132166574 51,479" fill="#D9663E"/><rect x="-30" y="502" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="-30" y="515" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="-0" y="502" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="-2" y="515" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="28" y="502" width="8" height="11" rx="1.5" style="animation-delay:-0.8s"/><rect x="28" y="515" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="47" y="478" width="93" height="149" fill="#F3D3A6"/><rect x="114" y="478" width="26" height="149" fill="#C9A06A" opacity=".55"/><polygon points="43,481 43,477 144,469 144,474" fill="#C8553D"/><rect class="lw" x="58" y="500" width="8" height="11" rx="1.5" style="animation-delay:-7.5s"/><rect x="58" y="513" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="90" y="500" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="88" y="513" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="120" y="500" width="8" height="11" rx="1.5" style="animation-delay:-6.8s"/><rect x="120" y="513" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="136" y="483" width="71" height="138" fill="#FFF1DC"/><rect x="187" y="483" width="20" height="138" fill="#D9B98A" opacity=".55"/><polygon points="132,486 132,482 211,476 211,481" fill="#B84A33"/><rect x="150" y="502" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="149" y="515" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="185" y="502" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="184" y="515" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="206" y="452" width="107" height="158" fill="#EDC890"/><rect x="283" y="452" width="30" height="158" fill="#C79A62" opacity=".55"/><polygon points="202,452 260,443.7498016106331 317,452" fill="#B84A33"/><rect class="lw" x="215" y="476" width="8" height="11" rx="1.5" style="animation-delay:-0.9s"/><rect x="214" y="489" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="242" y="476" width="8" height="11" rx="1.5" style="animation-delay:-0.2s"/><rect x="241" y="489" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="269" y="476" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="268" y="489" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="296" y="476" width="8" height="11" rx="1.5" style="animation-delay:-7.3s"/><rect x="295" y="489" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M222 540 V523 Q228 514 234 523 V540Z" fill="#2a1814"/><rect x="310" y="435" width="101" height="157" fill="#EDC890"/><rect x="383" y="435" width="28" height="157" fill="#C79A62" opacity=".55"/><polygon points="306,435 360,421.79203957011146 415,435" fill="#D9663E"/><rect x="319" y="459" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="318" y="472" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="344" y="459" width="8" height="11" rx="1.5" style="animation-delay:-1.2s"/><rect x="343" y="472" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="369" y="459" width="8" height="11" rx="1.5" style="animation-delay:-7.2s"/><rect x="368" y="472" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="394" y="459" width="8" height="11" rx="1.5" style="animation-delay:-5.6s"/><rect x="393" y="472" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M325 522 V505 Q331 496 337 505 V522Z" fill="#2a1814"/><rect x="406" y="425" width="70" height="148" fill="#FFF1DC"/><rect x="456" y="425" width="20" height="148" fill="#D9B98A" opacity=".55"/><polygon points="402,428 402,424 480,415 480,420" fill="#D9663E"/><rect class="lw" x="420" y="447" width="8" height="11" rx="1.5" style="animation-delay:-6.4s"/><rect x="418" y="460" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="454" y="447" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="454" y="460" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M416 503 V486 Q422 477 428 486 V503Z" fill="#2a1814"/><rect x="470" y="416" width="79" height="139" fill="#F8E5C8"/><rect x="527" y="416" width="22" height="139" fill="#CDA878" opacity=".55"/><polygon points="466,419 466,415 553,407 553,412" fill="#B84A33"/><rect class="lw" x="479" y="436" width="8" height="11" rx="1.5" style="animation-delay:-3.5s"/><rect x="478" y="449" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="506" y="436" width="8" height="11" rx="1.5" style="animation-delay:-2.5s"/><rect x="504" y="449" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="532" y="436" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="531" y="449" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M482 485 V468 Q488 459 494 468 V485Z" fill="#2a1814"/><rect x="548" y="368" width="89" height="165" fill="#F8E5C8"/><rect x="612" y="368" width="25" height="165" fill="#CDA878" opacity=".55"/><polygon points="544,371 544,367 641,363 641,368" fill="#C8553D"/><rect class="lw" x="559" y="394" width="8" height="11" rx="1.5" style="animation-delay:-4.3s"/><rect x="558" y="407" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="588" y="394" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="588" y="407" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="618" y="394" width="8" height="11" rx="1.5" style="animation-delay:-1.8s"/><rect x="617" y="407" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M561 463 V446 Q567 437 573 446 V463Z" fill="#2a1814"/><rect x="634" y="355" width="108" height="154" fill="#F8E5C8"/><rect x="712" y="355" width="30" height="154" fill="#CDA878" opacity=".55"/><polygon points="630,358 630,354 746,349 746,354" fill="#D9663E"/><rect class="lw" x="644" y="379" width="8" height="11" rx="1.5" style="animation-delay:-8.2s"/><rect x="642" y="392" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="670" y="379" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="670" y="392" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="698" y="379" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="696" y="392" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="724" y="379" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="724" y="392" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M650 439 V422 Q656 413 662 422 V439Z" fill="#2a1814"/><rect x="738" y="343" width="101" height="149" fill="#EDC890"/><rect x="811" y="343" width="28" height="149" fill="#C79A62" opacity=".55"/><polygon points="734,346 734,342 843,332 843,337" fill="#B84A33"/><rect class="lw" x="747" y="365" width="8" height="11" rx="1.5" style="animation-delay:-7.8s"/><rect x="746" y="378" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="772" y="365" width="8" height="11" rx="1.5" style="animation-delay:-2.0s"/><rect x="771" y="378" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="797" y="365" width="8" height="11" rx="1.5" style="animation-delay:-7.2s"/><rect x="796" y="378" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="822" y="365" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="821" y="378" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="835" y="320" width="73" height="166" fill="#F8E5C8"/><rect x="888" y="320" width="20" height="166" fill="#CDA878" opacity=".55"/><polygon points="831,323 831,319 912,310 912,315" fill="#C8553D"/><rect class="lw" x="843" y="347" width="8" height="11" rx="1.5" style="animation-delay:-2.2s"/><rect x="842" y="360" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="868" y="347" width="8" height="11" rx="1.5" style="animation-delay:-7.9s"/><rect x="866" y="360" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="892" y="347" width="8" height="11" rx="1.5" style="animation-delay:-6.9s"/><rect x="891" y="360" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M846 416 V399 Q852 390 858 399 V416Z" fill="#2a1814"/><rect x="900" y="324" width="78" height="164" fill="#EDC890"/><rect x="956" y="324" width="22" height="164" fill="#C79A62" opacity=".55"/><polygon points="896,324 939,309.34521248195097 982,324" fill="#B84A33"/><rect x="909" y="351" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="908" y="364" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="935" y="351" width="8" height="11" rx="1.5" style="animation-delay:-1.8s"/><rect x="934" y="364" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="961" y="351" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="960" y="364" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M912 418 V401 Q918 392 924 401 V418Z" fill="#2a1814"/><rect x="976" y="352" width="75" height="146" fill="#EDC890"/><rect x="1030" y="352" width="21" height="146" fill="#C79A62" opacity=".55"/><polygon points="972,352 1014,336.62669770638377 1055,352" fill="#B84A33"/><rect class="lw" x="984" y="373" width="8" height="11" rx="1.5" style="animation-delay:-4.2s"/><rect x="984" y="386" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1010" y="373" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1008" y="386" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1034" y="373" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1034" y="386" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1047" y="375" width="71" height="136" fill="#F3D3A6"/><rect x="1098" y="375" width="20" height="136" fill="#C9A06A" opacity=".55"/><polygon points="1043,378 1043,374 1122,370 1122,375" fill="#C8553D"/><rect class="lw" x="1061" y="394" width="8" height="11" rx="1.5" style="animation-delay:-0.3s"/><rect x="1060" y="407" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1096" y="394" width="8" height="11" rx="1.5" style="animation-delay:-4.4s"/><rect x="1095" y="407" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1114" y="388" width="90" height="143" fill="#F3D3A6"/><rect x="1179" y="388" width="25" height="143" fill="#C9A06A" opacity=".55"/><polygon points="1110,388 1159,372.54818421738867 1208,388" fill="#C8553D"/><rect class="lw" x="1125" y="408" width="8" height="11" rx="1.5" style="animation-delay:-6.4s"/><rect x="1124" y="421" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1155" y="408" width="8" height="11" rx="1.5" style="animation-delay:-6.2s"/><rect x="1154" y="421" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1185" y="408" width="8" height="11" rx="1.5" style="animation-delay:-3.5s"/><rect x="1184" y="421" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M1128 461 V444 Q1134 435 1140 444 V461Z" fill="#2a1814"/><rect x="1203" y="406" width="111" height="152" fill="#FFF1DC"/><rect x="1283" y="406" width="31" height="152" fill="#D9B98A" opacity=".55"/><polygon points="1199,406 1258,391.5786381787025 1318,406" fill="#D9663E"/><rect x="1213" y="429" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1212" y="442" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1241" y="429" width="8" height="11" rx="1.5" style="animation-delay:-0.1s"/><rect x="1240" y="442" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1268" y="429" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1267" y="442" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1296" y="429" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1295" y="442" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M1220 488 V471 Q1226 462 1232 471 V488Z" fill="#2a1814"/><rect x="1312" y="418" width="88" height="164" fill="#F3D3A6"/><rect x="1375" y="418" width="25" height="164" fill="#C9A06A" opacity=".55"/><polygon points="1308,421 1308,417 1404,411 1404,416" fill="#B84A33"/><rect x="1323" y="445" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1322" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1352" y="445" width="8" height="11" rx="1.5" fill="#33201c" opacity=".75"/><rect x="1351" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1381" y="445" width="8" height="11" rx="1.5" style="animation-delay:-1.7s"/><rect x="1380" y="458" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><path d="M1325 512 V495 Q1331 486 1337 495 V512Z" fill="#2a1814"/><rect x="1399" y="458" width="91" height="143" fill="#EDC890"/><rect x="1465" y="458" width="25" height="143" fill="#C79A62" opacity=".55"/><polygon points="1395,461 1395,457 1494,448 1494,453" fill="#B84A33"/><rect class="lw" x="1410" y="478" width="8" height="11" rx="1.5" style="animation-delay:-7.4s"/><rect x="1409" y="491" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1440" y="478" width="8" height="11" rx="1.5" style="animation-delay:-1.3s"/><rect x="1440" y="491" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1471" y="478" width="8" height="11" rx="1.5" style="animation-delay:-6.1s"/><rect x="1470" y="491" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect x="1488" y="465" width="82" height="149" fill="#FFF1DC"/><rect x="1547" y="465" width="23" height="149" fill="#D9B98A" opacity=".55"/><polygon points="1484,465 1529,456.7156278216057 1574,465" fill="#D9663E"/><rect class="lw" x="1498" y="487" width="8" height="11" rx="1.5" style="animation-delay:-8.9s"/><rect x="1497" y="500" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1525" y="487" width="8" height="11" rx="1.5" style="animation-delay:-6.9s"/><rect x="1524" y="500" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/><rect class="lw" x="1552" y="487" width="8" height="11" rx="1.5" style="animation-delay:-7.4s"/><rect x="1551" y="500" width="10" height="2.2" fill="#8a3b2b" opacity=".7"/></g>
+<rect x="-40" y="260" width="1520" height="300" fill="url(#haze)"/>
+<rect x="-40" y="0" width="1520" height="560" fill="url(#warm)" mask="url(#mfade)"/>
+</svg></div>
+  <div class="hero-shade"></div>
   <div class="hero-grid">
-    <div class="hero-index">TFS — DIC 2026</div>
-    <div class="reveal">
-      <div class="hero-eyebrow">Tour de un día · 05 diciembre 2026</div>
-      <h1>TAXCO<br><em>de Alarcón</em></h1>
-      <p class="hero-sub">Guerrero · el pueblo mágico de la plata. Ida y vuelta el mismo día, saliendo desde Ecatepec.</p>
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Tour de un día · domingo 6 de diciembre 2026</div>
+      <h1>TAXCO</h1>
+      <div class="hero-tag">El pueblo de la plata</div>
+      <p class="hero-sub">Guerrero · Pueblo Mágico. Ida y vuelta el mismo día, saliendo desde Ecatepec.</p>
       <div class="hero-meta">
-        <div><span>Salida</span><span>7:00 AM · Kiosko Tulpetlac</span></div>
-        <div><span>Regreso</span><span>~6:30 PM</span></div>
-        <div><span>Precio</span><span>$990 MXN</span></div>
+        <div class="hm"><b>7:00 AM</b><span>Salida · Parroquia Asunción de María</span></div>
+        <div class="hm"><b>7:00 PM</b><span>Regreso · mismo punto</span></div>
+        <div class="hm"><b>$1,080</b><span>MXN · pago completo</span></div>
       </div>
       <div class="hero-btns">
-        <a href="#pagar" class="btn btn-solid">Pagar / apartar mi lugar</a>
-        <a href="https://share.google/Zkun9ydtyFtrZkBjp" class="btn btn-line">Punto de encuentro ↗</a>
+        <a href="#reservar" class="btn-fire">Reservar mi lugar</a>
+        <a href="https://maps.app.goo.gl/EaTRon8b7eJud9Eg7" class="btn-ghost" target="_blank" rel="noopener">Ver punto de encuentro</a>
       </div>
     </div>
   </div>
-</section>
+  <div class="street" aria-hidden="true">
+    <div class="vocho v2 rev"><div class="vocho-in"></div></div>
+    <div class="vocho v1"><div class="vocho-in"></div></div>
+  </div>
+</header>
 
-<!-- INFO STRIP -->
-<section style="padding:0 6%">
-  <div class="info-strip">
-    <div class="info-grid">
-      <div class="info-cell reveal"><div class="ic-label">Precio</div><div class="ic-val">$990</div><div class="ic-sub">MXN / persona</div></div>
-      <div class="info-cell reveal"><div class="ic-label">Duración</div><div class="ic-val">1 día</div><div class="ic-sub">Tour completo</div></div>
-      <div class="info-cell reveal"><div class="ic-label">Salida</div><div class="ic-val">Dic 5</div><div class="ic-sub">7:00am Tulpetlac</div></div>
-      <div class="info-cell reveal"><div class="ic-label">Cupos</div><div class="ic-val">Limitados</div><div class="ic-sub">Aparta ya</div></div>
-    </div>
+<!-- INFO -->
+<div class="strip">
+  <div class="strip-grid">
+    <div class="cell"><small>Precio</small><b>$1,080</b><span>MXN por persona</span></div>
+    <div class="cell"><small>Duración</small><b>1 día</b><span>Salida 7 am · regreso 7 pm</span></div>
+    <div class="cell"><small>Salida</small><b>Dic 6</b><span>7:00 am · Ecatepec</span></div>
+    <div class="cell"><small>Cupos</small><b>Limitados</b><span>Aparta ya</span></div>
   </div>
-</section>
+</div>
 
-<!-- ITINERARIO — desplegable -->
-<section class="reveal" id="itinerario">
-  <div class="sec-head">
-    <div class="sec-num">01</div>
-    <div>
-      <h2 class="sec-title">Itinerario</h2>
-      <p class="sec-sub">Toca cualquier parada para desplegar el detalle completo, hora por hora — sábado 5 de diciembre de 2026.</p>
+<!-- ITINERARIO -->
+<section class="itin sec-anim" id="itinerario">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 class="sec-title">Itinerario <i>hora por hora</i></h2>
+      <p class="sec-sub">Toca cualquier parada para ver el detalle completo — domingo 6 de diciembre de 2026.</p>
     </div>
-  </div>
-  <div class="sec-inner">
-    <div class="acc" id="itinList">
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">7:00 am</span>Punto de encuentro</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Kiosko de Tulpetlac · Ecatepec — todos abordan la combi.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">7:15 am</span>Salida oficial</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Ruta hacia Taxco de Alarcón, Guerrero, vía Autopista del Sol.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">~9:30 am</span>Parada técnica</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Baño · snacks · desayuno rápido (~20 min).</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">10:30 am</span>Llegada a Taxco</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Bajada del camión · orientación grupal en el Zócalo.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">11:00 am</span>Tour histórico</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Parroquia de Santa Prisca, Casa Borda y calles empedradas del centro · ~1.5 hrs.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">12:30 pm</span>Talleres y mercado de plata</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Calle San Agustín y Av. de los Plateros · tiempo libre para comprar.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">1:30 pm</span>Comida libre</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Restaurantes locales en el centro (no incluida).</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">2:30 pm</span>Teleférico (opcional)</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Vista panorámica de Taxco desde las alturas — opcional, costo no incluido.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">3:30 pm</span>Tiempo libre</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Últimas compras y fotos por el pueblo mágico.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">4:30 pm</span>Abordaje y salida</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Inicio del regreso hacia Ecatepec.</p></div></div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-head"><h3><span class="itin-time-badge">~6:30 pm</span>Llegada · fin del tour</h3><span class="acc-icon">+</span></div>
-        <div class="acc-body"><div class="acc-body-inner"><p>Kiosko de Tulpetlac, Ecatepec.</p></div></div>
-      </div>
+    <div class="tl" id="itinList">
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">7:00 am</span><h3>Punto de encuentro</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Parroquia Asunción de María, Fresno 134, Viveros Xalostoc, Ecatepec — todos abordan la combi.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">7:15 am</span><h3>Salida oficial</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Ruta hacia Taxco de Alarcón, Guerrero, vía Autopista del Sol.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">~9:30 am</span><h3>Parada técnica</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Baño · snacks · desayuno rápido (~20 min).</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">10:30 am</span><h3>Llegada a Taxco</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Bajada del camión · orientación grupal en el Zócalo.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">11:00 am</span><h3>Tour histórico</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Parroquia de Santa Prisca, Casa Borda y calles empedradas del centro · ~1.5 hrs.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">12:30 pm</span><h3>Talleres y mercado de plata</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Calle San Agustín y Av. de los Plateros · tiempo libre para comprar.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">1:30 pm</span><h3>Comida libre</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Restaurantes locales en el centro (no incluida).</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">2:30 pm</span><h3>Teleférico (opcional)</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Vista panorámica de Taxco desde las alturas — opcional, costo no incluido.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">3:30 pm</span><h3>Tiempo libre</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Últimas compras y fotos por el pueblo mágico.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">4:30 pm</span><h3>Abordaje y salida</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Inicio del regreso hacia Ecatepec.</div></div></div>
+      <div class="acc-item"><button class="acc-head" aria-expanded="false"><span class="t-badge">~7:00 pm</span><h3>Llegada · fin del tour</h3><span class="acc-icon">+</span></button><div class="acc-body"><div class="acc-in">Parroquia Asunción de María, Fresno 134, Viveros Xalostoc, Ecatepec.</div></div></div>
     </div>
     <div class="itin-actions">
-      <a href="https://share.google/Zkun9ydtyFtrZkBjp" class="btn btn-line">Ubicar punto de encuentro</a>
-      <a href="https://elbuenpipe.com/tfs/" class="btn btn-line">Conocer próximos viajes</a>
+      <a href="https://maps.app.goo.gl/EaTRon8b7eJud9Eg7" class="btn-ghost" target="_blank" rel="noopener">Ubicar punto de encuentro</a>
+      <a href="https://elbuenpipe.com/tfs/" class="btn-ghost">Conocer próximos viajes</a>
     </div>
   </div>
 </section>
 
-<!-- QUÉ INCLUYE -->
-<section class="reveal" id="incluye" style="background:var(--panel)">
-  <div class="sec-head">
-    <div class="sec-num">02</div>
-    <div>
-      <h2 class="sec-title">Qué incluye</h2>
-      <p class="sec-sub">Todo esto viene en el precio de $990 MXN por persona.</p>
+<!-- INCLUYE -->
+<div class="sep" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,90 L0,68 L0,64 L73,54 L73,68 L73,50 L73,46 L151,38 L151,50 L151,50 L151,46 L186,41 L186,50 L186,75 L261,75 L261,50 L261,26 L270,8 L279,26 L279,46 L291,38 L299,27 L308,19 L316,16 L324,19 L333,27 L341,38 L341,46 L353,46 L353,26 L362,8 L371,26 L371,50 L373,65 L373,61 L414,56 L414,65 L414,59 L443,48 L472,59 L472,53 L489,41 L506,53 L506,52 L528,43 L551,52 L551,57 L551,53 L593,48 L593,57 L593,76 L635,76 L635,70 L635,66 L669,61 L669,70 L669,67 L691,56 L713,67 L713,55 L713,51 L781,46 L781,55 L781,70 L859,70 L859,67 L888,53 L917,67 L917,72 L939,59 L961,72 L961,50 L961,46 L1014,42 L1014,50 L1014,50 L1014,26 L1023,8 L1032,26 L1032,46 L1044,38 L1052,27 L1061,19 L1069,16 L1077,19 L1086,27 L1094,38 L1094,46 L1106,46 L1106,26 L1115,8 L1124,26 L1124,50 L1126,55 L1126,51 L1198,47 L1198,55 L1198,65 L1251,65 L1251,54 L1283,39 L1315,54 L1315,54 L1347,42 L1379,54 L1379,53 L1396,39 L1414,53 L1414,59 L1414,55 L1449,49 L1449,59 L1440,70 L1440,90 L0,90Z" fill="#FFF4E2"/></svg></div>
+<section class="inc sec-anim" id="incluye">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 class="sec-title">Qué <i>incluye</i></h2>
+      <p class="sec-sub">Todo esto viene en el precio de $1,080 MXN por persona.</p>
     </div>
-  </div>
-  <div class="sec-inner">
-    <div class="inc-list">
-      <div class="inc-item"><span class="inc-num">01</span> Transporte seguro (ida y vuelta)</div>
-      <div class="inc-item"><span class="inc-num">02</span> Tour histórico por el centro de Taxco</div>
-      <div class="inc-item"><span class="inc-num">03</span> Visita a Santa Prisca y Casa Borda</div>
-      <div class="inc-item"><span class="inc-num">04</span> Recorrido por talleres y mercado de plata</div>
-      <div class="inc-item"><span class="inc-num">05</span> Guía y acompañamiento del grupo</div>
-      <div class="inc-item"><span class="inc-num">06</span> Tiempo libre para fotos y compras</div>
+    <div class="inc-list reveal">
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Transporte seguro (ida y vuelta)</div>
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Tour histórico por el centro de Taxco</div>
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Visita a Santa Prisca y Casa Borda</div>
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Recorrido por talleres y mercado de plata</div>
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Guía y acompañamiento del grupo</div>
+      <div class="inc-item"><span class="inc-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Tiempo libre para fotos y compras</div>
     </div>
     <p class="inc-note">*Comida y teleférico no incluidos — costo por cuenta del viajero.</p>
-    <div style="margin-top:1.8rem">
-      <a href="#pagar" class="btn btn-solid">Quiero mi lugar</a>
-    </div>
+    <a href="#reservar" class="btn-fire">Quiero mi lugar</a>
   </div>
 </section>
 
-<!-- PAGO -->
-<section class="pago-sec" id="pagar">
-  <div class="sec-head">
-    <div class="sec-num">03</div>
-    <div>
-      <h2 class="sec-title">Reserva tu lugar</h2>
-      <p class="sec-sub">Elige tu forma de pago. Todo el proceso toma menos de 3 minutos.</p>
+<!-- RESERVA -->
+<div class="sep" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,90 L0,57 L32,47 L63,57 L63,55 L86,40 L108,55 L108,74 L144,66 L180,74 L180,64 L220,49 L260,64 L260,63 L300,52 L340,63 L340,73 L358,64 L377,73 L377,54 L418,45 L460,54 L460,70 L460,66 L512,57 L512,70 L512,63 L596,63 L596,50 L596,26 L605,8 L614,26 L614,46 L626,38 L634,27 L643,19 L651,16 L659,19 L668,27 L676,38 L676,46 L688,46 L688,26 L697,8 L706,26 L706,50 L708,68 L791,68 L791,68 L820,60 L850,68 L850,54 L896,54 L896,75 L956,75 L956,61 L1000,50 L1044,61 L1044,53 L1105,53 L1105,57 L1126,46 L1146,57 L1146,70 L1190,61 L1234,70 L1234,50 L1234,26 L1243,8 L1252,26 L1252,46 L1264,38 L1272,27 L1281,19 L1289,16 L1297,19 L1306,27 L1314,38 L1314,46 L1326,46 L1326,26 L1335,8 L1344,26 L1344,50 L1346,59 L1388,59 L1388,74 L1388,70 L1454,62 L1454,74 L1440,70 L1440,90 L0,90Z" fill="#06182A"/></svg></div>
+<section class="rsv sec-anim" id="reservar">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 class="sec-title">Reserva <i>tu lugar</i></h2>
+      <p class="sec-sub">Elige cuántos lugares y cómo quieres pagar. Te llevamos directo a WhatsApp con tu mensaje listo.</p>
     </div>
-  </div>
-  <div class="sec-inner">
+
+    <div class="qty" role="group" aria-label="Número de lugares">
+      <span class="qty-l">¿Cuántos lugares?</span>
+      <div class="qty-c">
+        <button type="button" id="qMinus" aria-label="Quitar un lugar">−</button>
+        <output id="qVal" aria-live="polite">1</output>
+        <button type="button" id="qPlus" aria-label="Agregar un lugar">+</button>
+      </div>
+    </div>
+
     <div class="pay-toggle" id="payToggle">
-      <button class="active" data-pay="full">Pago completo</button>
-      <button data-pay="deposit">Apartado</button>
+      <button type="button" class="active" data-pay="full">PAGO COMPLETO $1,080.00</button>
+      <button type="button" data-pay="deposit">Apartado desde $370</button>
     </div>
 
     <div class="pago-grid">
-      <div class="pago-card active" id="cardFull">
-        <div class="pago-tag">Recomendado</div>
-        <div class="pago-lbl" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(243,242,238,.55);margin-bottom:.4rem">Pago completo con tarjeta</div>
-        <div class="pago-num">$990<sup>MXN</sup></div>
-        <div class="pago-desc">Pago único y seguro procesado por Stripe. Tu lugar queda confirmado al instante.</div>
-        <stripe-buy-button
-          buy-button-id="buy_btn_1U2GJfHuZ0tCu923zgbzTE9T"
-          publishable-key="pk_live_51Ol1REHuZ0tCu923BtdsQOOIFSaEwdXgken0h0DZtxZixFzHHEWlvmBoc9QBCQZ7eV5rQgJ1a21BQS1Ut9ILYzdT00dojKJIoQ">
-        </stripe-buy-button>
-        <a class="pago-fallback" href="https://book.stripe.com/8x2bJ1dEV2BIfT37figbm04" rel="noopener">¿No carga el botón? Paga aquí →</a>
+      <div class="pcard active" id="cardFull">
+        <span class="p-tag">Recomendado</span>
+        <div class="p-lbl">Pago completo</div>
+        <div class="p-num">$1,080<small>MXN por lugar</small></div>
+        <div class="p-total" id="totFull">Total: $1,080.00</div>
+        <p class="p-desc">Liquida el total de tu lugar. Escríbenos y te compartimos los datos de pago para confirmarlo.</p>
+        <a class="btn-wa" id="waFull" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#waIcon"/></svg>Pagar por WhatsApp</a>
       </div>
-
-      <div class="pago-card" id="cardDeposit">
-        <div class="pago-tag">Flexible</div>
-        <div class="pago-lbl" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(243,242,238,.55);margin-bottom:.4rem">Apartar con anticipo</div>
-        <div class="pago-num">$300<sup>MXN</sup></div>
-        <div class="pago-desc">Reserva tu lugar ahora y liquida el resto (por transferencia, tarjeta o efectivo) antes de la salida.</div>
-        <!-- ⚠️ Pendiente: este buy-button-id es el mismo del pago completo ($990) tal
-             como se recibió. Para que Stripe cobre $300 aquí se necesita el
-             buy-button-id del botón de Stripe configurado específicamente para
-             el anticipo de $300. Sustituir abajo en cuanto se tenga. -->
-        <stripe-buy-button
-          buy-button-id="buy_btn_1U2GJfHuZ0tCu923zgbzTE9T"
-          publishable-key="pk_live_51Ol1REHuZ0tCu923BtdsQOOIFSaEwdXgken0h0DZtxZixFzHHEWlvmBoc9QBCQZ7eV5rQgJ1a21BQS1Ut9ILYzdT00dojKJIoQ">
-        </stripe-buy-button>
+      <div class="pcard" id="cardDep">
+        <span class="p-tag">Flexible</span>
+        <div class="p-lbl">Apartado</div>
+        <div class="p-num">$370<small>MXN desde, por lugar</small></div>
+        <div class="p-total" id="totDep">Apartado desde: $370.00</div>
+        <p class="p-desc">Reserva tu lugar ahora y liquida el resto (por transferencia, tarjeta o efectivo) antes de la salida.</p>
+        <a class="btn-wa" id="waDep" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#waIcon"/></svg>Apartar por WhatsApp</a>
       </div>
     </div>
 
-    <div class="trust-row">
-      <span>Pago seguro con Stripe</span>
-      <span>Visa · Mastercard · Amex</span>
-      <span>Confirmación inmediata</span>
+    <div class="trust">
+      <span>Atención directa por WhatsApp</span>
+      <span>Salida y regreso desde Ecatepec</span>
+      <span>Cupos limitados</span>
     </div>
 
-    <!-- COUNTDOWN -->
-    <div class="mini-cd">
-      <div class="mini-cd-lbl">Faltan para el tour</div>
-      <div id="cdGrid" class="mini-cd-grid">
-        <div class="mini-cd-block"><span id="cdDays" class="mini-cd-num">--</span><div class="mini-cd-lbl2">Días</div></div>
-        <div class="mini-cd-block"><span id="cdHours" class="mini-cd-num">--</span><div class="mini-cd-lbl2">Hrs</div></div>
-        <div class="mini-cd-block"><span id="cdMins" class="mini-cd-num">--</span><div class="mini-cd-lbl2">Min</div></div>
-        <div class="mini-cd-block"><span id="cdSecs" class="mini-cd-num">--</span><div class="mini-cd-lbl2">Seg</div></div>
+    <!-- RELOJ CON SEGUNDERO -->
+    <div class="clock" id="clock">
+      <div class="clock-t"><b>Faltan para el tour</b><span>Domingo 6 de diciembre · 7:00 am</span></div>
+      <div class="clock-grid" id="cdGrid">
+        <div class="cd"><output id="cdD">--</output><small>días</small></div>
+        <div class="cd"><output id="cdH">--</output><small>hrs</small></div>
+        <div class="cd"><output id="cdM">--</output><small>min</small></div>
+        <div class="cd cd-sec">
+          <svg viewBox="0 0 84 84" aria-hidden="true">
+            <circle cx="42" cy="42" r="38" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+            <circle id="ringFg" cx="42" cy="42" r="38" fill="none" stroke="#FFD700" stroke-width="3" stroke-linecap="round" stroke-dasharray="238.76" stroke-dashoffset="238.76" transform="rotate(-90 42 42)"/>
+            <g id="hand"><line x1="42" y1="46" x2="42" y2="8" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="42" cy="8" r="3" fill="#FF6B35"/></g>
+            <circle cx="42" cy="42" r="2.5" fill="#FF6B35"/>
+          </svg>
+          <output id="cdS">--</output><small>seg</small>
+        </div>
       </div>
-      <div id="cdExpiredMsg" class="cd-expired" style="display:none">El tour ya comenzó — a disfrutar.</div>
-      <a id="calBtnPago" href="#" class="btn btn-cal btn-sm" style="margin-top:1.4rem" rel="noopener">Agregar recordatorio al calendario</a>
+      <div class="cd-done" id="cdDone">El tour ya comenzó — a disfrutar.</div>
     </div>
+    <a id="calBtn" href="#" class="cal" target="_blank" rel="noopener">🗓️ Agregar recordatorio al calendario</a>
   </div>
 </section>
 
-<!-- CANCELACIÓN -->
-<section class="cancel-sec reveal" id="cancelacion">
-  <div class="sec-head">
-    <div class="sec-num">04</div>
-    <div>
-      <h2 class="sec-title">Políticas y condiciones</h2>
+<!-- POLÍTICAS -->
+<div class="street slim" aria-hidden="true" style="border-top:0"><div class="vocho v1 rev" style="animation-duration:36s"><div class="vocho-in"></div></div></div>
+<section class="pol sec-anim" id="politicas">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 class="sec-title">Políticas y <i>condiciones</i></h2>
       <p class="sec-sub">Léelas con calma antes de reservar tu lugar.</p>
     </div>
-  </div>
-  <div class="sec-inner">
-    <div class="acc">
-      <div class="acc-item" id="accItem">
-        <div class="acc-head" id="accHead">
-          <h3>Deslinde de responsabilidad &amp; políticas de reembolso</h3>
-          <span class="acc-icon">+</span>
+    <div class="acc-item" id="polItem" style="max-width:860px">
+      <button class="acc-head" id="polHead" aria-expanded="false"><h3>Deslinde de responsabilidad &amp; políticas de reembolso</h3><span class="acc-icon">+</span></button>
+      <div class="acc-body"><div class="acc-in">
+        <div class="deslinde">
+          <h4>Deslinde de responsabilidad — Travel Friend Ship</h4>
+          <p>Al realizar cualquier pago (parcial o total) y participar en este tour, el viajero acepta y reconoce que <strong>Travel Friend Ship</strong> y el organizador <strong>Felipe Arturo (JD Producción / GrowthsLab)</strong> se deslindan expresamente de cualquier accidente, lesión, percance médico de fuerza mayor, pérdida de objetos personales, o cualquier situación derivada del <strong>comportamiento inadecuado de los participantes</strong> durante el desarrollo de la experiencia. El viajero declara participar voluntariamente, aceptando los riesgos inherentes a actividades de aventura y turismo al aire libre. El organizador no se responsabiliza por decisiones personales tomadas fuera del programa establecido. Se recomienda contar con seguro de viajero personal.</p>
         </div>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <div class="deslinde-box">
-              <h4>Deslinde de responsabilidad — Travel Friend Ship</h4>
-              <p>Al realizar cualquier pago (parcial o total) y participar en este tour, el viajero acepta y reconoce que <strong>Travel Friend Ship</strong> y el organizador <strong>Felipe Arturo (JD Producción / GrowthsLab)</strong> se deslindan expresamente de cualquier accidente, lesión, percance médico de fuerza mayor, pérdida de objetos personales, o cualquier situación derivada del <strong>comportamiento inadecuado de los participantes</strong> durante el desarrollo de la experiencia. El viajero declara participar voluntariamente, aceptando los riesgos inherentes a actividades de aventura y turismo al aire libre. El organizador no se responsabiliza por decisiones personales tomadas fuera del programa establecido. Se recomienda contar con seguro de viajero personal.</p>
-            </div>
-            <h4 style="color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;margin:1.6rem 0 1rem;letter-spacing:.5px;text-transform:uppercase">Política de cancelaciones y reembolsos</h4>
-            <ul class="cancel-list">
-              <li><b>Reembolso del 90%:</b> solicitar con más de 27 días antes de la fecha de salida.</li>
-              <li><b>Reembolso del 50%:</b> solicitar entre 19 y 27 días antes de la salida.</li>
-              <li><b>No reembolsable (0%):</b> faltando menos de 17 días para la salida.</li>
-              <li><b>Reembolso del 90%</b> en caso de fuerza mayor ajena a la organización que impida la salida.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <h4 class="sub">Política de cancelaciones y reembolsos</h4>
+        <ul class="cancel-list">
+          <li><span><b>Reembolso del 90%:</b> solicitar con más de 27 días antes de la fecha de salida.</span></li>
+          <li><span><b>Reembolso del 50%:</b> solicitar entre 19 y 27 días antes de la salida.</span></li>
+          <li><span><b>No reembolsable (0%):</b> faltando menos de 17 días para la salida.</span></li>
+          <li><span><b>Reembolso del 90%</b> en caso de fuerza mayor ajena a la organización que impida la salida.</span></li>
+        </ul>
+      </div></div>
     </div>
   </div>
 </section>
@@ -505,27 +540,12 @@ footer{background:var(--ink);color:rgba(243,242,238,.5);padding:64px 6% 30px}
 <footer>
   <div class="footer-grid">
     <div class="footer-brand footer-col">
-      <img class="f-logo-img" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
-      <p>Nació del deseo de crear algo más que tours — nació para construir comunidad. Creado por <a href="https://www.elbuenpipe.com" style="color:var(--paper);text-decoration:none;font-weight:700">GrowthsLab</a> y liderado por Felipe Arturo.</p>
+      <img class="f-logo" src="https://i.ibb.co/v4PGCmPh/logo-tfs2.png" alt="Travel Friend Ship">
+      <p>Nació del deseo de crear algo más que tours — nació para construir comunidad. Creado por <a href="https://www.elbuenpipe.com" style="color:var(--gold);text-decoration:none;font-weight:700">GrowthsLab</a> y liderado por Felipe Arturo.</p>
     </div>
-    <div class="footer-col"><h4>Negocios</h4><ul>
-      <li><a href="https://elbuenpipe.com/diagnostic-pro/">Diagnóstico Digital</a></li>
-      <li><a href="https://elbuenpipe.com/sales-system/">Sistema de Ventas</a></li>
-      <li><a href="https://elbuenpipe.com/escala-pro/">Escalamiento</a></li>
-      <li><a href="https://elbuenpipe.com/pro-visual/">Producción Visual</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Eventos</h4><ul>
-      <li><a href="https://elbuenpipe.com/pro-visual/">Producción Audiovisual</a></li>
-      <li><a href="https://elbuenpipe.com/talentgrowth/">Entretenimiento</a></li>
-      <li><a href="https://elbuenpipe.com/talentgrowth/">Shows y Animación</a></li>
-      <li><a href="https://elbuenpipe.com/talentgrowth/">Cotizar Evento</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Contacto</h4><ul>
-      <li><a href="https://wa.me/5215523867156?text=Hola%20Felipe,%20me%20gustar%C3%ADa%20agendar%20una%20llamada">Agendar llamada</a></li>
-      <li><a href="https://wa.me/525523867156">WhatsApp</a></li>
-      <li><a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Email</a></li>
-      <li><a href="https://www.instagram.com/elbuenpipe">Instagram</a></li>
-    </ul></div>
+    <div class="footer-col"><h4>Negocios</h4><ul><li><a href="https://elbuenpipe.com/diagnostic-pro/">Diagnóstico Digital</a></li><li><a href="https://elbuenpipe.com/sales-system/">Sistema de Ventas</a></li><li><a href="https://elbuenpipe.com/escala-pro/">Escalamiento</a></li><li><a href="https://elbuenpipe.com/pro-visual/">Producción Visual</a></li></ul></div>
+    <div class="footer-col"><h4>Eventos</h4><ul><li><a href="https://elbuenpipe.com/pro-visual/">Producción Audiovisual</a></li><li><a href="https://elbuenpipe.com/talentgrowth/">Entretenimiento</a></li><li><a href="https://elbuenpipe.com/talentgrowth/">Shows y Animación</a></li><li><a href="https://elbuenpipe.com/talentgrowth/">Cotizar Evento</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="https://wa.me/5215523867156?text=Hola%20Felipe,%20me%20gustar%C3%ADa%20agendar%20una%20llamada">Agendar llamada</a></li><li><a href="https://wa.me/525523867156">WhatsApp</a></li><li><a href="https://whatsapp.com/channel/0029VbC4sbAKLaHk7WaWDD37">📢 Canal de Promociones</a></li><li><a href="mailto:gmmfelipearturo+elbuenpipe@gmail.com">Email</a></li><li><a href="https://www.instagram.com/elbuenpipe">Instagram</a></li></ul></div>
   </div>
   <hr class="footer-div">
   <div class="footer-copy">
@@ -535,152 +555,162 @@ footer{background:var(--ink);color:rgba(243,242,238,.5);padding:64px 6% 30px}
   </div>
 </footer>
 
+<!-- WhatsApp flotante (escritorio) + barra móvil -->
+<a class="wa-fab" href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20tengo%20una%20pregunta%20sobre%20el%20Tour%20Taxco%206%20de%20Diciembre" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#waIcon"/></svg></a>
+<div class="mob-bar">
+  <a class="btn-fire" href="#reservar">Reservar mi lugar</a>
+  <a class="btn-wa" href="https://wa.me/525523867156?text=Hola%20Felipe%2C%20tengo%20una%20pregunta%20sobre%20el%20Tour%20Taxco%206%20de%20Diciembre" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#waIcon"/></svg></a>
+</div>
+
+<!-- símbolos reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="waIcon" viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.1.55 4.1 1.6 5.9L0 24l6.4-1.68a11.8 11.8 0 0 0 5.65 1.44h.005c6.55 0 11.85-5.3 11.85-11.85 0-3.17-1.23-6.15-3.4-8.4zM12.05 21.8h-.004a9.9 9.9 0 0 1-5.05-1.38l-.36-.22-3.8 1 1.02-3.7-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.47 4.46-9.93 9.94-9.93 2.65 0 5.14 1.03 7.02 2.91a9.87 9.87 0 0 1 2.9 7.03c0 5.48-4.46 9.94-9.93 9.94zm5.45-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></symbol></svg>
+
+<!-- Bocho (Volkswagen sedán) -->
+<template id="vochoTpl"><svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true">
+  <ellipse cx="112" cy="102" rx="98" ry="5" fill="#000" opacity=".3"/>
+  <path d="M12 80 C10 63 24 57 44 54 C58 34 86 22 116 22 C148 22 172 38 184 57 C202 59 212 67 212 80 L212 86 L12 86Z" fill="#FFF6E6"/>
+  <path d="M12 72 H212 V86 H12Z" fill="#EADBC3"/>
+  <path d="M16 67 C80 62 150 62 208 67" stroke="#FF6B35" stroke-width="3" fill="none"/>
+  <path d="M52 52 C66 36 88 29 116 29 C140 29 160 40 172 53" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/>
+  <path d="M62 53 C73 39 91 33 108 33 V53Z" fill="#8FC1E6"/>
+  <path d="M114 33 C136 33 154 43 167 53 H114Z" fill="#8FC1E6"/>
+  <path d="M70 48 L98 36" stroke="#fff" opacity=".5" stroke-width="2"/>
+  <path d="M96 62 h14" stroke="#b9a98f" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M24 86 A27 27 0 0 1 78 86Z" fill="#14202e"/>
+  <path d="M134 86 A27 27 0 0 1 188 86Z" fill="#14202e"/>
+  <g class="wh"><circle cx="51" cy="87" r="18" fill="#1b1b1f"/><circle cx="51" cy="87" r="9" fill="#d4dbe3"/><path d="M51 78V96M42 87H60M44.6 80.6L57.4 93.4M57.4 80.6L44.6 93.4" stroke="#8d97a3" stroke-width="1.6"/></g>
+  <g class="wh"><circle cx="161" cy="87" r="18" fill="#1b1b1f"/><circle cx="161" cy="87" r="9" fill="#d4dbe3"/><path d="M161 78V96M152 87H170M154.6 80.6L167.4 93.4M167.4 80.6L154.6 93.4" stroke="#8d97a3" stroke-width="1.6"/></g>
+  <circle cx="204" cy="66" r="6" fill="#FFD700"/><circle class="hl" cx="204" cy="66" r="12" fill="#FFD700"/>
+  <rect x="12" y="62" width="6" height="8" rx="2" fill="#FF4757"/>
+  <rect x="206" y="82" width="12" height="4" rx="2" fill="#cfd6de"/><rect x="6" y="82" width="12" height="4" rx="2" fill="#cfd6de"/>
+</svg></template>
+
 <script>
-// Progress bar
-window.addEventListener('scroll',function(){
-  var d=document.documentElement,s=window.scrollY,h=d.scrollHeight-window.innerHeight;
-  document.getElementById('pgbar').style.width=(s/h*100)+'%';
-},{passive:true});
-
-// Reveal
-var ro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e,i){
-    if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible')},i*55);ro.unobserve(e.target);}
-  });
-},{threshold:.04});
-document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el)});
-
-// WA Float
-function toggleWA(){document.getElementById('waPopup').classList.toggle('open')}
-var touched=false;
-var fab=document.getElementById('waFab'),xb=document.getElementById('waClose');
-if(fab){
-  fab.addEventListener('touchstart',function(){touched=true;toggleWA();},{passive:true});
-  fab.addEventListener('click',function(){if(!touched)toggleWA();touched=false;});
-}
-if(xb){
-  xb.addEventListener('touchstart',function(){touched=true;toggleWA();},{passive:true});
-  xb.addEventListener('click',function(){if(!touched)toggleWA();touched=false;});
-}
-setTimeout(function(){var p=document.getElementById('waPopup');if(p&&window.innerWidth>768)p.classList.add('open');},2800);
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click',function(e){
-    var t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
-  });
-});
-
-// Hero background — mouse-parallax on desktop (devices with hover);
-// on mobile the CSS driftMtn1/driftMtn2 keyframes keep it alive instead,
-// and this scroll listener adds a gentle vertical drift on every device.
 (function(){
-  var hero=document.querySelector('.hero');
-  var art=document.getElementById('heroLineArt');
-  var m1=document.getElementById('mtn1'),m2=document.getElementById('mtn2');
-  if(!hero||!m1||!art)return;
-  var hasHover=window.matchMedia('(hover:hover)').matches;
-  if(hasHover){
-    hero.addEventListener('mousemove',function(e){
-      var x=(e.clientX/window.innerWidth-.5);
-      m1.style.transform='translateX('+(x*22)+'px)';
-      m2.style.transform='translateX('+(x*-14)+'px)';
-    });
-  }
+  var PHONE='525523867156';
+  var MAPS='https://maps.app.goo.gl/EaTRon8b7eJud9Eg7';
+  var FULL=1080, DEP=370, MAXQ=15;
+  var $=function(id){return document.getElementById(id)};
+  function money(n){return n.toLocaleString('es-MX',{style:'currency',currency:'MXN'});}
+
+  /* bochos */
+  var tpl=$('vochoTpl');
+  document.querySelectorAll('.vocho-in').forEach(function(el){el.appendChild(tpl.content.cloneNode(true));});
+
+  /* progreso + nav */
+  var nav=$('main-nav');
   window.addEventListener('scroll',function(){
-    var r=hero.getBoundingClientRect();
-    var p=Math.min(1,Math.max(0,-r.top/(r.height||1)));
-    art.style.transform='translateY('+(p*40)+'px)';
+    var d=document.documentElement,s=window.scrollY,h=d.scrollHeight-window.innerHeight;
+    $('pgbar').style.width=(h>0?s/h*100:0)+'%';
+    if(nav)nav.classList.toggle('scrolled',s>60);
   },{passive:true});
-})();
 
-// Scrollspy nav
-(function(){
-  var sections=['itinerario','incluye','pagar'];
+  /* reveal */
+  var rev=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}})},{threshold:.06});
+    rev.forEach(function(el){ro.observe(el)});
+  }else{rev.forEach(function(el){el.classList.add('visible')});}
+
+  /* scroll suave */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');if(id.length<2)return;
+      var t=document.querySelector(id);
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+
+  /* scrollspy */
   var links=document.querySelectorAll('.nav-links a');
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting){
-        links.forEach(function(l){l.classList.toggle('active',l.dataset.target===en.target.id)});
-      }
-    });
-  },{threshold:.4,rootMargin:'-64px 0px -50% 0px'});
-  sections.forEach(function(id){var el=document.getElementById(id);if(el)obs.observe(el)});
-})();
-
-// Itinerario — acordeón (cada parada se abre/cierra de forma independiente,
-// igual que Políticas y condiciones)
-(function(){
-  var list=document.getElementById('itinList');
-  if(!list)return;
-  list.querySelectorAll('.acc-item').forEach(function(it){
-    it.querySelector('.acc-head').addEventListener('click',function(){
-      it.classList.toggle('open');
-    });
-  });
-})();
-
-// Payment toggle (segmented control)
-(function(){
-  var toggle=document.getElementById('payToggle');
-  if(!toggle)return;
-  var full=document.getElementById('cardFull'),dep=document.getElementById('cardDeposit');
-  toggle.querySelectorAll('button').forEach(function(b){
-    b.addEventListener('click',function(){
-      toggle.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');
-      if(b.dataset.pay==='full'){full.classList.add('active');dep.classList.remove('active');}
-      else{dep.classList.add('active');full.classList.remove('active');}
-    });
-  });
-})();
-
-// Cancelación accordion
-(function(){
-  var head=document.getElementById('accHead'),item=document.getElementById('accItem');
-  if(!head)return;
-  head.addEventListener('click',function(){item.classList.toggle('open')});
-})();
-
-// Countdown timer + Google Calendar link
-(function(){
-  var target = new Date('2026-12-05T07:00:00-06:00').getTime();
-
-  var calTitle = encodeURIComponent('Tour Taxco · Travel Friend Ship');
-  var calDetails = encodeURIComponent('Tour de 1 día · Taxco de Alarcón, Guerrero · Pueblo Mágico de la Plata\n\nTour histórico, Parroquia de Santa Prisca, Casa Borda, mercado de plata, teleférico opcional.\n\nContacto: wa.me/525523867156\nMás info: https://elbuenpipe.com/tfs/');
-  var calLocation = encodeURIComponent('Kiosko de Tulpetlac, Ecatepec, Estado de México');
-  var calStart = '20261205T070000';
-  var calEnd   = '20261205T183000';
-  var calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + calTitle
-    + '&details=' + calDetails
-    + '&location=' + calLocation
-    + '&dates=' + calStart + '/' + calEnd;
-
-  var el = document.getElementById('calBtnPago');
-  if (el) el.href = calUrl;
-
-  function pad(n){return n<10?'0'+n:n}
-  function tick(){
-    var now = Date.now();
-    var diff = target - now;
-    if(diff <= 0){
-      document.getElementById('cdGrid').style.display = 'none';
-      document.getElementById('cdExpiredMsg').style.display = 'block';
-      return;
-    }
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cdDays').textContent  = d;
-    document.getElementById('cdHours').textContent = pad(h);
-    document.getElementById('cdMins').textContent  = pad(m);
-    document.getElementById('cdSecs').textContent  = pad(s);
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(l){l.classList.toggle('active',l.dataset.target===en.target.id)})}})},{threshold:.3,rootMargin:'-70px 0px -45% 0px'});
+    ['itinerario','incluye','reservar','politicas'].forEach(function(id){var el=$(id);if(el)so.observe(el)});
   }
-  tick();
-  setInterval(tick, 1000);
+
+  /* acordeones */
+  function wireAcc(item){
+    var head=item.querySelector('.acc-head');
+    head.addEventListener('click',function(){
+      var open=item.classList.toggle('open');
+      head.setAttribute('aria-expanded',open?'true':'false');
+    });
+  }
+  document.querySelectorAll('#itinList .acc-item').forEach(wireAcc);
+  wireAcc($('polItem'));
+
+  /* cantidad + modalidad + enlaces a WhatsApp */
+  var qty=1;
+  function msg(mode){
+    var n=qty;
+    var modo=mode==='full'?'Pago completo ('+money(FULL*n)+')':'Apartado desde '+money(DEP*n);
+    var lines=[
+      'Hola me encantaría apartar *'+n+'* '+(n===1?'lugar':'lugares')+'.',
+      'Para *Taxco 6 de Diciembre*',
+      'Modalidad: *'+modo+'*',
+      'Confirmo mi asistencia a las 7 am en:',
+      MAPS
+    ];
+    return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(lines.join('\n'));
+  }
+  function render(){
+    $('qVal').textContent=qty;
+    $('totFull').textContent='Total ('+qty+(qty===1?' lugar':' lugares')+'): '+money(FULL*qty);
+    $('totDep').textContent='Apartado desde ('+qty+(qty===1?' lugar':' lugares')+'): '+money(DEP*qty);
+    $('waFull').href=msg('full');
+    $('waDep').href=msg('deposit');
+  }
+  $('qMinus').addEventListener('click',function(){if(qty>1){qty--;render();}});
+  $('qPlus').addEventListener('click',function(){if(qty<MAXQ){qty++;render();}});
+  render();
+
+  var toggle=$('payToggle'),cf=$('cardFull'),cd=$('cardDep');
+  function setPay(mode){
+    toggle.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.pay===mode)});
+    cf.classList.toggle('active',mode==='full');
+    cd.classList.toggle('active',mode==='deposit');
+  }
+  toggle.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setPay(b.dataset.pay)})});
+  cf.addEventListener('mouseenter',function(){});
+  cf.addEventListener('click',function(e){if(!e.target.closest('a'))setPay('full')});
+  cd.addEventListener('click',function(e){if(!e.target.closest('a'))setPay('deposit')});
+
+  /* notificación de premiación */
+  var promo=$('promo'),chip=$('promoChip'),KEY='tfs_taxco_premiacion';
+  $('promoCta').href='https://wa.me/'+PHONE+'?text='+encodeURIComponent('Hola, me gustaría conocer la dinámica y la premiación de lugares del Tour Taxco 6 de Diciembre.');
+  function seen(){try{return sessionStorage.getItem(KEY)}catch(e){return null}}
+  function mark(){try{sessionStorage.setItem(KEY,'1')}catch(e){}}
+  function openP(){promo.classList.add('show');promo.setAttribute('aria-hidden','false');chip.classList.remove('on');}
+  function closeP(){promo.classList.remove('show');promo.setAttribute('aria-hidden','true');chip.classList.add('on');mark();}
+  $('promoClose').addEventListener('click',closeP);
+  chip.addEventListener('click',openP);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&promo.classList.contains('show'))closeP();});
+  if(seen()){chip.classList.add('on');}else{setTimeout(openP,3500);}
+
+  /* reloj con segundero + calendario */
+  var target=new Date('2026-12-06T07:00:00-06:00').getTime();
+  var LOC='Parroquia Asunción de Maria, Fresno 134, Viveros Xalostoc, 55340 Ecatepec de Morelos, Méx.';
+  var calUrl='https://calendar.google.com/calendar/render?action=TEMPLATE'
+    +'&text='+encodeURIComponent('Tour Taxco · Travel Friend Ship')
+    +'&details='+encodeURIComponent('Tour de 1 día · Taxco de Alarcón, Guerrero · Pueblo Mágico de la Plata\n\nSalida 7:00 am y regreso 7:00 pm en el mismo punto.\nTour histórico, Parroquia de Santa Prisca, Casa Borda, mercado de plata, teleférico opcional.\n\nContacto: wa.me/'+PHONE+'\nMás info: https://elbuenpipe.com/tfs/')
+    +'&location='+encodeURIComponent(LOC)
+    +'&dates=20261206T070000/20261206T190000&ctz=America%2FMexico_City&reminder=10080';
+  $('calBtn').href=calUrl;
+
+  var C=2*Math.PI*38,ring=$('ringFg'),hand=$('hand'),sEl=$('cdS'),lastS=-1;
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var diff=target-Date.now();
+    if(diff<=0){$('cdGrid').style.display='none';$('cdDone').style.display='block';return false;}
+    var d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+    $('cdD').textContent=d;$('cdH').textContent=pad(h);$('cdM').textContent=pad(m);
+    sEl.textContent=pad(s);
+    ring.setAttribute('stroke-dashoffset',(C*(1-s/60)).toFixed(2));
+    hand.setAttribute('transform','rotate('+(s*6)+' 42 42)');
+    if(s!==lastS){lastS=s;sEl.classList.remove('pop');void sEl.offsetWidth;sEl.classList.add('pop');}
+    return true;
+  }
+  if(tick()){setInterval(tick,1000);}
 })();
 </script>
 </body>
